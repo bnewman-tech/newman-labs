@@ -1,0 +1,356 @@
+backend/tests/conftest.py
+  s_7a9f1b3d018539::t_e7b8b8074e8e2d 1-14
+prefect.yaml
+  s_7a9f1b3d018539::t_16bbc75d4d32ad 1-14,18-34
+  s_7a9f1b3d018539::t_34c8ca0f3d8368 16
+  s_7a9f1b3d018539::t_525787d95b0df7 37-54
+  s_7a9f1b3d018539::t_eb20408e8a5b38 15,17,35-36
+libs/orchestration/runtime.py
+  s_7a9f1b3d018539::t_7a3f0828761312 1-8,10,12-13,15-18
+  s_7a9f1b3d018539::t_7e1d810fc7ac16 9,11,14
+libs/database/models/__init__.py
+  s_7a9f1b3d018539::t_634c914da41e54 4,6
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1-3,5
+libs/database/urls.py
+  s_7a9f1b3d018539::t_f3ffa364d1c9ba 1-22
+analytics/models/demo/fact_newman_work_orders.sql
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1-13
+libs/core/tests/__init__.py
+  s_7a9f1b3d018539::t_0439106b1d6bfa 1
+libs/dbt/tests/test_scheduler_planner.py
+  s_7a9f1b3d018539::t_169c5f3571d69f 1-39,41-42
+  s_7a9f1b3d018539::t_90841cd1542a13 40
+libs/hfd_active_incidents/functions.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/hfd_active_incidents/scripts/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+analytics/models/demo/fact_newman_work_orders.yml
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1-15
+libs/dbt/tests/conftest.py
+  s_7a9f1b3d018539::t_355d0f909bf705 1-21
+libs/database/models/dbt_scheduler.py
+  s_7a9f1b3d018539::t_634c914da41e54 1-118
+libs/houston_311/functions.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+backend/routers/__init__.py
+  s_7a9f1b3d018539::t_1c6ad0186296c0 1
+alembic.ini
+  s_7a9f1b3d018539::t_e36842aa15888a 1-37
+libs/core/logger.py
+  s_7a9f1b3d018539::t_95244a78a4ca24 10-16
+  s_7a9f1b3d018539::t_b83043a70cc338 8-9
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1-7,17
+libs/pydantic_ai_core/evals/__init__.py
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1
+backend/tests/test_health.py
+  s_7a9f1b3d018539::t_0439106b1d6bfa 1-2,6,10-11,13-25
+  s_7a9f1b3d018539::t_ed6b3d90762474 3-5,7-9,26-64
+  s_7a9f1b3d018539::t_3b4f8be1ae9a48 12
+libs/orchestration/flows.py
+  s_7a9f1b3d018539::t_7e1d810fc7ac16 21
+  s_7a9f1b3d018539::t_84c5a9ec23a417 22
+  s_7a9f1b3d018539::t_ab303995653782 1-2,5-8,10-20,23-31
+  s_7a9f1b3d018539::t_16bbc75d4d32ad 3-4,32-35
+  s_7a9f1b3d018539::t_7a3f0828761312 9
+docs/architecture/project-structure.md
+  s_7a9f1b3d018539::t_6b55e61e5596a8 37-38
+  s_7a9f1b3d018539::t_afd58a3b85f9a6 43,48-58
+  s_7a9f1b3d018539::t_84c5a9ec23a417 39-40
+  s_7a9f1b3d018539::t_f3ee47e8a673a3 44-47
+  s_7a9f1b3d018539::t_eb20408e8a5b38 41-42
+  s_7a9f1b3d018539::t_9c84bf6f34e671 14
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1-9,11,13,15-30
+  s_7a9f1b3d018539::t_91a138aec092ae 10,35-36
+  s_7a9f1b3d018539::t_7e0f20bf9e94d8 12,31-34
+libs/dbt/scheduler/service.py
+  s_7a9f1b3d018539::t_c8bbc1d83f6759 39-42,185-186,192-193,200-201,203-204,211,229,236-239
+  s_7a9f1b3d018539::t_ce50809f0baf78 137-153,206-210,214-215,217,221-226
+  s_7a9f1b3d018539::t_eceb5af3b0d43d 35-38,84-93,108-109
+  s_7a9f1b3d018539::t_20dbce262cf3d7 1-20,22-34,43-83,94-107,110-136,154-184,188-189,194-199,202,205,212-213,216,218-220,230-235,240-249,251-263,265-270,281-282,287-298
+  s_7a9f1b3d018539::t_f3ffa364d1c9ba 21,187,190-191,227-228,271-280,284,286
+  s_7a9f1b3d018539::t_33de4c9a076c4f 250,264,283,285
+libs/dbt/scripts/run_dbt.py
+  s_7a9f1b3d018539::t_f3ee47e8a673a3 1-20,22,28-32
+  s_7a9f1b3d018539::t_b18b35b0567934 21,23-27
+PLAN_SPEC.md
+  s_7a9f1b3d018539::t_4f7632140f2201 1357-1744
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1279
+  s_7a9f1b3d018539::t_9af0a86d9fb1b5 1276-1278
+  s_7a9f1b3d018539::t_206012a7fc8f8e 1280-1282,1354-1356
+  s_7a9f1b3d018539::t_a2839fe7d972fc 1745-1747
+  s_7a9f1b3d018539::t_2a944b61645249 1-1275,1283-1353,1748-1862
+AGENTS.md
+  s_7a9f1b3d018539::t_14bc39c0a83dab 9-10,14,33
+  s_7a9f1b3d018539::t_6588e37b9365ce 15
+  s_7a9f1b3d018539::t_afd58a3b85f9a6 6-7,19
+  s_7a9f1b3d018539::t_e36842aa15888a 1-5,8,16-18,20-32
+  s_7a9f1b3d018539::t_5e528c1c7520ef 11
+  s_7a9f1b3d018539::t_81ef1fd0993a0a 12-13
+  s_7a9f1b3d018539::t_0cf303fdbc2827 34
+backend/tests/__init__.py
+  s_7a9f1b3d018539::t_0439106b1d6bfa 1
+libs/database/tests/test_database.py
+  s_7a9f1b3d018539::t_0439106b1d6bfa 1-40
+libs/nws_alerts/functions.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+.codex/environments/environment.toml
+  s_7a9f1b3d018539::t_4936d5faa3834e 37-38
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1-36,40-57
+  s_7a9f1b3d018539::t_b18b35b0567934 60
+  s_7a9f1b3d018539::t_5e528c1c7520ef 58-59,61-72
+  s_7a9f1b3d018539::t_afd58a3b85f9a6 39
+libs/orchestration/blocks.py
+  s_7a9f1b3d018539::t_a7fcd0c99250ca 1-20
+.gitignore
+  s_7a9f1b3d018539::t_9c84bf6f34e671 78
+  s_7a9f1b3d018539::t_7cb22000b091e0 77
+libs/dbt/tests/__init__.py
+  s_7a9f1b3d018539::t_169c5f3571d69f 1
+libs/pydantic_ai_core/agents/__init__.py
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1
+analytics/models/README.md
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1-11
+libs/core/httpx_helpers.py
+  s_7a9f1b3d018539::t_95244a78a4ca24 24
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1-23,25-82
+libs/orchestration/schemas.py
+  s_7a9f1b3d018539::t_ab303995653782 1-10
+libs/orchestration/tests/test_flows.py
+  s_7a9f1b3d018539::t_eb20408e8a5b38 3-7,9-10,12-13,31-52,54,60-62,64-68
+  s_7a9f1b3d018539::t_ab303995653782 1-2,8,11,14-30,53
+  s_7a9f1b3d018539::t_7e1d810fc7ac16 55-59,63
+libs/dbt/scheduler/schemas.py
+  s_7a9f1b3d018539::t_7a3f0828761312 1-10,12-152,156-187
+  s_7a9f1b3d018539::t_f8160fa2f090a0 11
+  s_7a9f1b3d018539::t_20dbce262cf3d7 153-155
+pyproject.toml
+  s_7a9f1b3d018539::t_4580d515c96f8d 56-59
+  s_7a9f1b3d018539::t_aad34cd0a95842 15
+  s_7a9f1b3d018539::t_e36842aa15888a 1-9,11,13,16-22,26-38,40-55
+  s_7a9f1b3d018539::t_afd58a3b85f9a6 39
+  s_7a9f1b3d018539::t_25967a7c1c6b73 12
+  s_7a9f1b3d018539::t_7a3f0828761312 10
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 14,23-25
+libs/dbt/scheduler/planner.py
+  s_7a9f1b3d018539::t_6acf8a7685e12d 1-78
+backend/main.py
+  s_7a9f1b3d018539::t_1c6ad0186296c0 8,20
+  s_7a9f1b3d018539::t_95244a78a4ca24 1-7,9-19
+libs/nws_alerts/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/dbt/scheduler/__init__.py
+  s_7a9f1b3d018539::t_7a3f0828761312 1
+libs/core/tests/test_settings.py
+  s_7a9f1b3d018539::t_7e1d810fc7ac16 3-4,20-32,34-50
+  s_7a9f1b3d018539::t_71a96d5f1694ce 19
+  s_7a9f1b3d018539::t_e233fc573c8a57 33
+  s_7a9f1b3d018539::t_f85cda4180245f 1-2,5-18
+libs/dbt/scheduler/flows.py
+  s_7a9f1b3d018539::t_33de4c9a076c4f 17-18
+  s_7a9f1b3d018539::t_7e1d810fc7ac16 24
+  s_7a9f1b3d018539::t_20dbce262cf3d7 1-16,19-23,25-32
+analytics/profiles.yml
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1-13
+libs/dbt/runner.py
+  s_7a9f1b3d018539::t_9c84bf6f34e671 17
+  s_7a9f1b3d018539::t_f3ffa364d1c9ba 80-95
+  s_7a9f1b3d018539::t_7a3f0828761312 1-16,18-79,96-116
+analytics/models/demo/stg_newman__work_orders.sql
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1-14
+libs/database/api_sessions.py
+  s_7a9f1b3d018539::t_95244a78a4ca24 1-23,25-60
+  s_7a9f1b3d018539::t_a7fcd0c99250ca 24
+libs/dbt/README.md
+  s_7a9f1b3d018539::t_f3ffa364d1c9ba 38-42
+  s_7a9f1b3d018539::t_33de4c9a076c4f 18-22
+  s_7a9f1b3d018539::t_9c84bf6f34e671 4-5
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1-2
+  s_7a9f1b3d018539::t_6588e37b9365ce 3,6-17,23-30,33-37
+  s_7a9f1b3d018539::t_4f7632140f2201 31-32
+README.md
+  s_7a9f1b3d018539::t_4f7632140f2201 24-25,32-33,74-75,104-105,111-113
+  s_7a9f1b3d018539::t_e36842aa15888a 1-9,12-17,19-20,22-23,26-31,34-38,41,43,48-52
+  s_7a9f1b3d018539::t_14bc39c0a83dab 10-11,18,21,39-40,44,46-47,53
+  s_7a9f1b3d018539::t_9c84bf6f34e671 42,60
+  s_7a9f1b3d018539::t_a3acff528ddf8e 57-59,61-64,67
+  s_7a9f1b3d018539::t_91a138aec092ae 45,54-55,68,80-81,84,110,115-116
+  s_7a9f1b3d018539::t_b18b35b0567934 65-66
+  s_7a9f1b3d018539::t_6588e37b9365ce 69-73,76-79
+  s_7a9f1b3d018539::t_84c5a9ec23a417 86-87,119-120
+  s_7a9f1b3d018539::t_afd58a3b85f9a6 56
+  s_7a9f1b3d018539::t_6b55e61e5596a8 85,101,108,114,117-118
+  s_7a9f1b3d018539::t_00ffc5fc474bc3 82-83,88,102-103,106-107,109
+  s_7a9f1b3d018539::t_f3ee47e8a673a3 89-100
+  s_7a9f1b3d018539::t_eb20408e8a5b38 121-122
+libs/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/database/ingestion.py
+  s_7a9f1b3d018539::t_f3ffa364d1c9ba 10,19
+  s_7a9f1b3d018539::t_95244a78a4ca24 1-6,8-9,11-13,17,20-24
+  s_7a9f1b3d018539::t_84c5a9ec23a417 7,14-16,18
+libs/dbt/__init__.py
+  s_7a9f1b3d018539::t_ed6b3d90762474 1
+libs/pydantic_ai_core/README.md
+  s_7a9f1b3d018539::t_b83043a70cc338 13-14
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1-12
+libs/core/pydantic_base.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1-6,8-9,13-14
+  s_7a9f1b3d018539::t_afd58a3b85f9a6 7,10-12,15-20
+.env.example
+  s_7a9f1b3d018539::t_e36842aa15888a 1
+  s_7a9f1b3d018539::t_aad34cd0a95842 3
+  s_7a9f1b3d018539::t_ff79a79327993f 2
+libs/nws_alerts/schemas.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+backend/routers/health.py
+  s_7a9f1b3d018539::t_1c6ad0186296c0 1-29
+libs/houston_311/scripts/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/orchestration/tests/__init__.py
+  s_7a9f1b3d018539::t_ab303995653782 1
+libs/core/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/dbt/tests/test_scheduler_repository.py
+  s_7a9f1b3d018539::t_d613f0397f5812 180
+  s_7a9f1b3d018539::t_169c5f3571d69f 1-2,5-6,8-12,15-74,79-104,106-130
+  s_7a9f1b3d018539::t_65168fdc13b211 7,14,131-179,348-351,356
+  s_7a9f1b3d018539::t_33de4c9a076c4f 3-4,352-355,357-367
+  s_7a9f1b3d018539::t_b382c563ec1443 13,105,181-347
+  s_7a9f1b3d018539::t_5a55e879574e2f 75-78
+libs/dbt/scripts/demo_scheduler.py
+  s_7a9f1b3d018539::t_6588e37b9365ce 1-3,5-27,40-44
+  s_7a9f1b3d018539::t_4c645f10b31087 4,28-39
+analytics/dbt_project.yml
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1-11
+libs/core/tests/test_pydantic_base.py
+  s_7a9f1b3d018539::t_afd58a3b85f9a6 1-31
+libs/orchestration/__init__.py
+  s_7a9f1b3d018539::t_ab303995653782 1
+libs/database/__init__.py
+  s_7a9f1b3d018539::t_95244a78a4ca24 1,3-4,6
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 2,5
+analytics/models/demo/stg_newman__work_orders.yml
+  s_7a9f1b3d018539::t_9c84bf6f34e671 1-10
+alembic/versions/0001_create_project_schemas.py
+  s_7a9f1b3d018539::t_1e48f5a74bbbf3 15
+  s_7a9f1b3d018539::t_e36842aa15888a 1-14,16-27
+libs/core/settings.py
+  s_7a9f1b3d018539::t_a7fcd0c99250ca 3,18-21,23
+  s_7a9f1b3d018539::t_2fb388379cb5ad 29
+  s_7a9f1b3d018539::t_480f81f0772985 30
+  s_7a9f1b3d018539::t_b83043a70cc338 31
+  s_7a9f1b3d018539::t_7e1d810fc7ac16 24
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1-2,4-17,22
+  s_7a9f1b3d018539::t_95244a78a4ca24 25-28
+libs/houston_311/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/nws_alerts/scripts/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/pydantic_ai_core/tools/__init__.py
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1
+alembic/script.py.mako
+  s_7a9f1b3d018539::t_e36842aa15888a 1-27
+.github/workflows/deploy-prefect.yml
+  s_7a9f1b3d018539::t_13a187ab62a059 9
+  s_7a9f1b3d018539::t_16bbc75d4d32ad 1-8,11-45,47-51
+  s_7a9f1b3d018539::t_9c84bf6f34e671 10
+  s_7a9f1b3d018539::t_34c8ca0f3d8368 46
+  s_7a9f1b3d018539::t_eb20408e8a5b38 52
+libs/dbt/tests/test_scheduler_end_to_end.py
+  s_7a9f1b3d018539::t_355d0f909bf705 16-18,20,57-59,61
+  s_7a9f1b3d018539::t_ef515a4b922167 8-12,54-56,60,62-76
+  s_7a9f1b3d018539::t_54b6ea00d9482e 1-7,13-15,19,21-27,35-53
+  s_7a9f1b3d018539::t_ce50809f0baf78 28-34
+libs/dbt/scripts/__init__.py
+  s_7a9f1b3d018539::t_6588e37b9365ce 1
+libs/database/models/base.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1-19
+libs/database/tests/conftest.py
+  s_7a9f1b3d018539::t_0439106b1d6bfa 1-14
+docs/architecture/model-aware-dbt-scheduler.md
+  s_7a9f1b3d018539::t_9c84bf6f34e671 48
+  s_7a9f1b3d018539::t_4f7632140f2201 53-54
+  s_7a9f1b3d018539::t_33de4c9a076c4f 20-23,31-33
+  s_7a9f1b3d018539::t_6588e37b9365ce 1-19,24-30,34-47,49-52,55-59
+libs/hfd_active_incidents/schemas.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/database/tests/__init__.py
+  s_7a9f1b3d018539::t_0439106b1d6bfa 1
+libs/dbt/tests/test_scheduler_service.py
+  s_7a9f1b3d018539::t_ce50809f0baf78 3,79-132
+  s_7a9f1b3d018539::t_18ebdf43009b1d 1-2,4-6,8-13,19-23,25-26,28-78
+  s_7a9f1b3d018539::t_355d0f909bf705 24,27
+  s_7a9f1b3d018539::t_abef8e9317ee68 7,14-18,133-227
+libs/houston_311/schemas.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+alembic/env.py
+  s_7a9f1b3d018539::t_74bb0b4ff61862 11
+  s_7a9f1b3d018539::t_1062de98574ca6 23-24,27-30,32-33,41
+  s_7a9f1b3d018539::t_25967a7c1c6b73 3
+  s_7a9f1b3d018539::t_29353e78aebbaf 25-26,31
+  s_7a9f1b3d018539::t_4936d5faa3834e 9
+  s_7a9f1b3d018539::t_e36842aa15888a 1-2,4-5,7-8,10,12-22,34-37,39-40,42-63,68-76
+  s_7a9f1b3d018539::t_a7fcd0c99250ca 38,64-67
+  s_7a9f1b3d018539::t_17980a4bcdb5a4 6
+libs/dbt/tests/test_runner.py
+  s_7a9f1b3d018539::t_ce50809f0baf78 1,3-6,9-10,30-53,55-60,62-89,91-96
+  s_7a9f1b3d018539::t_f119300550f97a 54,61,90
+  s_7a9f1b3d018539::t_7d0a2c7df7f09d 2,7-8,11-29
+alembic/versions/0002_add_dbt_scheduler_tables.py
+  s_7a9f1b3d018539::t_525787d95b0df7 1-7,9,12-142
+  s_7a9f1b3d018539::t_0c77489b80c81c 10-11
+  s_7a9f1b3d018539::t_3e320915e4a0ba 8
+libs/orchestration/README.md
+  s_7a9f1b3d018539::t_84c5a9ec23a417 9-11
+  s_7a9f1b3d018539::t_ab303995653782 1-7
+  s_7a9f1b3d018539::t_6b55e61e5596a8 8
+backend/__init__.py
+  s_7a9f1b3d018539::t_95244a78a4ca24 1
+libs/dbt/scheduler/repository.py
+  s_7a9f1b3d018539::t_33de4c9a076c4f 29,33-34,36
+  s_7a9f1b3d018539::t_6a7fe02e404fd7 68-70
+  s_7a9f1b3d018539::t_6b2d5dd0e7dc25 134-136,158-160
+  s_7a9f1b3d018539::t_3e320915e4a0ba 150-153,403-406
+  s_7a9f1b3d018539::t_6acf8a7685e12d 1-6,8-11,13-28,31-32,35,37-39,53-67,71-133,137,146-149,154-157,161-270,277-293,295-303,337,339-392,395-402,407-471,476-477,482-491,493-494
+  s_7a9f1b3d018539::t_f3ffa364d1c9ba 7,12,30,40-52,138-145,271-276,294,304-336,338,393-394,472-475,478-481,492
+libs/hfd_active_incidents/__init__.py
+  s_7a9f1b3d018539::t_8c2b68d6416a4f 1
+libs/pydantic_ai_core/__init__.py
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1
+frontend/README.md
+  s_7a9f1b3d018539::t_8c27a7600bf6e5 1-7
+libs/database/bulk.py
+  s_7a9f1b3d018539::t_95244a78a4ca24 1-24,26-39
+  s_7a9f1b3d018539::t_b83043a70cc338 25
+backend/dependencies.py
+  s_7a9f1b3d018539::t_1c6ad0186296c0 1-10
+libs/core/tests/test_httpx_helpers.py
+  s_7a9f1b3d018539::t_0439106b1d6bfa 1-48
+uv.lock
+  s_7a9f1b3d018539::t_5a14be72d62615 1-2518
+.agents/skills/simplify/SKILL.md
+  s_7a9f1b3d018539::t_5988116fdbc24b 1-90
+.agents/skills/simplify/agents/openai.yaml
+  s_7a9f1b3d018539::t_5fea2e4f6711e8 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "b7d3f463233400e9baab751bc771aee5402e07a0",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_7a9f1b3d018539": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f826d-cb3d-7fb0-ba13-8d31ebfc5ba7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
