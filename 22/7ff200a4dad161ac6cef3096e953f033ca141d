@@ -1,0 +1,181 @@
+labs/houston_signal/templates/houston_signal/platform.html
+  s_7a9f1b3d018539::t_92addffbdbfed9 1-45
+analytics/models/README.md
+  s_7a9f1b3d018539::t_44125581569143 3-5,8-9
+labs/houston_signal/integrations/houston_311/functions.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1-121,133-139
+  s_7a9f1b3d018539::t_a5d54a6633049d 122-132
+apps/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+apps/labs/main.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 2-4,6-7,10,14-15,18,20-24,26,33,41
+  s_7a9f1b3d018539::t_020318bed14a15 1,5,8-9,11-13,16-17,19,25,27-32,34-40,42
+libs/database/tests/conftest.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 7
+labs/houston_signal/services.py
+  s_7a9f1b3d018539::t_020318bed14a15 1-73
+libs/database/tests/test_houston_311_ingestion.py
+  s_7a9f1b3d018539::t_c5e5beb455a73a 11
+  s_7a9f1b3d018539::t_f6cd3d80522562 1-9,12-15,17-40,42-43,45-63,65-68,70-73,76-94
+  s_7a9f1b3d018539::t_1dfd446fd818d6 10,16,41,44,64,69,74-75
+apps/labs/static/favicon.svg
+  s_7a9f1b3d018539::t_50073bb9b1570e 1-5
+labs/houston_signal/templates/houston_signal/overview.html
+  s_7a9f1b3d018539::t_92addffbdbfed9 1-46
+apps/labs/routes/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+labs/houston_signal/tests/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+AGENTS.md
+  s_7a9f1b3d018539::t_c7ed27698ca85e 7
+  s_7a9f1b3d018539::t_5b559ebc0b722b 8-11,21,26,29-30,33-37
+alembic.ini
+  s_7a9f1b3d018539::t_8fd950b8c1a89a 2
+apps/labs/tests/test_health.py
+  s_7a9f1b3d018539::t_f6cd3d80522562 11
+  s_7a9f1b3d018539::t_c7ed27698ca85e 1-10,12-64
+apps/labs/static/css/site.css
+  s_7a9f1b3d018539::t_92addffbdbfed9 1-190,195-197
+  s_7a9f1b3d018539::t_bb2ff2a7f925fc 191-194
+libs/database/ingestion/__init__.py
+  s_7a9f1b3d018539::t_2d5d957e832676 1-5
+libs/dbt/README.md
+  s_7a9f1b3d018539::t_44125581569143 28-29,33,37-38
+libs/core/tests/test_pydantic_base.py
+  s_7a9f1b3d018539::t_2d5d957e832676 6,9
+libs/dbt/runner.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 14,20
+labs/houston_signal/routes.py
+  s_7a9f1b3d018539::t_020318bed14a15 1-49
+libs/orchestration/schemas.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 8,21,40,48
+apps/labs/routes/health.py
+  s_7a9f1b3d018539::t_020318bed14a15 1-34
+labs/houston_signal/README.md
+  s_7a9f1b3d018539::t_0961edeee5d196 1-21
+libs/database/__init__.py
+  s_7a9f1b3d018539::t_2d5d957e832676 1
+apps/labs/tests/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+libs/orchestration/tests/test_flows.py
+  s_7a9f1b3d018539::t_8b75cc22e298ef 20
+  s_7a9f1b3d018539::t_c7ed27698ca85e 61
+libs/dbt/scheduler/schemas.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 13,51,72,80,125,132,158,171,180
+prefect.yaml
+  s_7a9f1b3d018539::t_6b63d02e4a2018 11
+  s_7a9f1b3d018539::t_8fd950b8c1a89a 2,61
+libs/dbt/tests/test_scheduler_repository.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 8,42,50,74,97,153,182,227,276
+labs/houston_signal/schemas.py
+  s_7a9f1b3d018539::t_020318bed14a15 1-35
+.github/workflows/deploy-prefect.yml
+  s_7a9f1b3d018539::t_8fd950b8c1a89a 10
+libs/dbt/scheduler/service.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 10,69,85,95,112,133,145,257,265
+README.md
+  s_7a9f1b3d018539::t_e5f02e84d3c3b5 1,3-5,7-9,11,13-38,43,46,49-52,54-62,65,68,70-75,77-79,83,90-91,95-97,100,103-104,106,109-115,118-120
+libs/database/ingestion/houston_311.py
+  s_7a9f1b3d018539::t_a5d54a6633049d 108
+  s_7a9f1b3d018539::t_2d5d957e832676 1,3-5,8,10-11,13-44,47-55,58,60-107,109-167
+apps/labs/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+libs/orchestration/flows.py
+  s_7a9f1b3d018539::t_b66b3414a28b20 1,8,10,14,22
+labs/houston_signal/tests/test_routes.py
+  s_7a9f1b3d018539::t_8b75cc22e298ef 1-23,25-37,39-70
+  s_7a9f1b3d018539::t_a5d54a6633049d 24,38
+pyproject.toml
+  s_7a9f1b3d018539::t_8fd950b8c1a89a 2,4,14,37,58-60
+labs/houston_signal/integrations/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+libs/database/tests/test_database.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 5,11
+  s_7a9f1b3d018539::t_8edd09fb3daaf7 10
+libs/database/models/base.py
+  s_7a9f1b3d018539::t_5b559ebc0b722b 17
+.gitignore
+  s_7a9f1b3d018539::t_15637a1587891e 214
+docs/architecture/model-aware-dbt-scheduler.md
+  s_7a9f1b3d018539::t_44125581569143 46,48,52,55-56
+apps/labs/templates/index.html
+  s_7a9f1b3d018539::t_92addffbdbfed9 1-30
+libs/dbt/tests/test_scheduler_service.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 10,38,67,97,121,155,202,221
+libs/dbt/tests/conftest.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 7,13,18
+labs/houston_signal/integrations/houston_311/tests/test_ingest.py
+  s_7a9f1b3d018539::t_c5e5beb455a73a 10
+  s_7a9f1b3d018539::t_a5d54a6633049d 53
+  s_7a9f1b3d018539::t_14aba3c00ad571 6,19,43-45,50-51
+  s_7a9f1b3d018539::t_8b75cc22e298ef 1-5,7-9,11-18,20-42,46-49,52,54-60
+apps/labs/tests/test_home.py
+  s_7a9f1b3d018539::t_f6cd3d80522562 1-16
+labs/houston_signal/integrations/houston_311/scripts/ingest.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1,4,6-16,19-56,58-91,94-99,101-102,105-107,111-114,119
+libs/core/pydantic_base.py
+  s_7a9f1b3d018539::t_2d5d957e832676 6,17
+libs/dbt/tests/test_scheduler_end_to_end.py
+  s_7a9f1b3d018539::t_99efe0fd40276b 1,16,23,25-29,44-45,55
+  s_7a9f1b3d018539::t_c7ed27698ca85e 6,31,43,74
+libs/core/settings.py
+  s_7a9f1b3d018539::t_5b559ebc0b722b 23
+libs/database/schemas.py
+  s_7a9f1b3d018539::t_2d5d957e832676 1-23
+docs/architecture/project-structure.md
+  s_7a9f1b3d018539::t_0961edeee5d196 1,3-4,7-17,20-67
+labs/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+libs/database/alembic/env.py
+  s_7a9f1b3d018539::t_a5d54a6633049d 1-77
+apps/labs/templates/base.html
+  s_7a9f1b3d018539::t_92addffbdbfed9 1-7,9-33
+  s_7a9f1b3d018539::t_50073bb9b1570e 8
+labs/houston_signal/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+labs/houston_signal/integrations/houston_311/tests/fixtures.py
+  s_7a9f1b3d018539::t_c5e5beb455a73a 1-9,11-20
+labs/houston_signal/integrations/houston_311/scripts/__init__.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1
+libs/database/alembic/versions/0002_add_dbt_scheduler_tables.py
+  s_7a9f1b3d018539::t_a5d54a6633049d 1-141
+libs/database/connections.py
+  s_7a9f1b3d018539::t_2d5d957e832676 1-24
+labs/houston_signal/integrations/houston_311/schemas.py
+  s_7a9f1b3d018539::t_5ce8ab7811de9c 1-97
+apps/labs/tests/conftest.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 1-14
+libs/database/alembic/versions/0003_add_houston_311_ingestion.py
+  s_7a9f1b3d018539::t_a5d54a6633049d 1-136
+apps/labs/routes/home.py
+  s_7a9f1b3d018539::t_020318bed14a15 1-20
+labs/houston_signal/integrations/houston_311/tests/test_functions.py
+  s_7a9f1b3d018539::t_c7ed27698ca85e 2,4-8,14-15,20-22,24-29,31-75,77-88,90-100
+  s_7a9f1b3d018539::t_c5e5beb455a73a 16-18
+  s_7a9f1b3d018539::t_f6cd3d80522562 1,3,9-13,19,23,30,76,89,101-115
+labs/houston_signal/integrations/houston_311/README.md
+  s_7a9f1b3d018539::t_0961edeee5d196 1-22
+uv.lock
+  s_7a9f1b3d018539::t_d8f334cf78c846 1171-1225
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "227ff200a4dad161ac6cef3096e953f033ca141d",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_7a9f1b3d018539": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f826d-cb3d-7fb0-ba13-8d31ebfc5ba7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
