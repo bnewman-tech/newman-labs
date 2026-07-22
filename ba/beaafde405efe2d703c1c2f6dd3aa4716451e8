@@ -1,0 +1,43 @@
+labs/houston_signal/README.md
+  s_7a9f1b3d018539::t_84a2bba717f057 4-5
+README.md
+  s_7a9f1b3d018539::t_84a2bba717f057 85-88
+labs/houston_signal/PLAN_SPEC.md
+  s_7a9f1b3d018539::t_ba7d9a9357a802 86-90
+libs/dbt/scheduler/repository.py
+  s_7a9f1b3d018539::t_0a0698b827f7f3 421
+libs/dbt/tests/test_scheduler_end_to_end.py
+  s_7a9f1b3d018539::t_0a0698b827f7f3 57-70,76
+labs/houston_signal/schemas.py
+  s_7a9f1b3d018539::t_ba7d9a9357a802 52
+labs/houston_signal/services.py
+  s_7a9f1b3d018539::t_ba7d9a9357a802 276-280
+labs/houston_signal/tests/test_routes.py
+  s_7a9f1b3d018539::t_e0b54fdf5f82bd 181
+  s_7a9f1b3d018539::t_ba7d9a9357a802 52-55,182
+labs/houston_signal/templates/houston_signal/overview.html
+  s_7a9f1b3d018539::t_ba7d9a9357a802 20,105,110,122,177,179,181,186
+apps/labs/static/css/site.css
+  s_7a9f1b3d018539::t_ba7d9a9357a802 272
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "babeaafde405efe2d703c1c2f6dd3aa4716451e8",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_7a9f1b3d018539": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f826d-cb3d-7fb0-ba13-8d31ebfc5ba7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
