@@ -1,0 +1,70 @@
+labs/houston_signal/templates/houston_signal/overview.html
+  s_7a9f1b3d018539::t_51cc730ce69183 51,55,81,93,122,140,169-172
+  s_7a9f1b3d018539::t_42570448f6755e 28-29,60
+  s_7a9f1b3d018539::t_1064f3ca945a18 4-13,16,18-20,22,24-25,32-33,36,38-42,44-50,52-54,56-59,61-80,83-92,94-121,123-139,141-168,173-323
+  s_7a9f1b3d018539::t_939d6c1ec88b8b 82
+docs/architecture/project-structure.md
+  s_7a9f1b3d018539::t_19ad59725eb7db 32-36
+labs/houston_signal/tests/test_routes.py
+  s_7a9f1b3d018539::t_01da2faf5e90bf 150-152,163-165
+  s_7a9f1b3d018539::t_9f42dd5bba6ea3 14-16,19-22,27,30,39-42,46-67,72-80,83,85,87-116,125,133-137,142,147-149,153-162,166-178
+  s_7a9f1b3d018539::t_939d6c1ec88b8b 45
+  s_7a9f1b3d018539::t_98fcf56a8ded03 143-146
+README.md
+  s_7a9f1b3d018539::t_19ad59725eb7db 3-7,9-11,58-59,84-97,108-109
+labs/houston_signal/routes.py
+  s_7a9f1b3d018539::t_d450b82807b005 37
+  s_7a9f1b3d018539::t_640b1a3e1e49b7 1,5-6,10,12,28-29,33-36,38,42-44,46,48-58,61-65
+  s_7a9f1b3d018539::t_2611814fc52dc9 66
+analytics/models/houston_signal/staging/houston_311/stg_houston__311_request.sql
+  s_7a9f1b3d018539::t_854e7354c1388a 14-21
+labs/houston_signal/services.py
+  s_7a9f1b3d018539::t_854e7354c1388a 29-32,73-75,95-98,115-118,137-140,283-284
+  s_7a9f1b3d018539::t_42570448f6755e 113,135
+  s_7a9f1b3d018539::t_96f04270238774 7-9,12-15,18-19,25-26,34-36,40-43,47-49,53-62,66-69,72,79,81-94,99-112,114,119-134,136,141-176,180-186,193-194,202-208,221-239,246-282,286-288,293-359
+  s_7a9f1b3d018539::t_d654a47d847c1a 38-39,45-46,51,64-65
+  s_7a9f1b3d018539::t_56cf792dc9b4c0 37,44,50,52,63
+  s_7a9f1b3d018539::t_939d6c1ec88b8b 71,76-78,80,285,289-292
+labs/houston_signal/README.md
+  s_7a9f1b3d018539::t_19ad59725eb7db 5,10,13,20-22
+  s_7a9f1b3d018539::t_318b58ca188d3d 23
+apps/labs/templates/base.html
+  s_7a9f1b3d018539::t_6f500eeae1b42b 6-7,12,14,16-19,21-40,43,46-63,65
+analytics/tests/assert_houston_311_dates_normalized.sql
+  s_7a9f1b3d018539::t_61dceb4ff83191 1-4
+labs/houston_signal/schemas.py
+  s_7a9f1b3d018539::t_2689c5dae4c52e 4,11-25,27,30-33,37-42,45-46,56-76,80-120
+  s_7a9f1b3d018539::t_939d6c1ec88b8b 36
+analytics/models/houston_signal/staging/houston_311/stg_houston__311_request.yml
+  s_7a9f1b3d018539::t_61dceb4ff83191 14-17
+apps/labs/templates/index.html
+  s_7a9f1b3d018539::t_e5682a7555aac7 3-4,7-21,25,27-28,33
+apps/labs/static/css/site.css
+  s_7a9f1b3d018539::t_efa8f498e11df8 239
+  s_7a9f1b3d018539::t_eef3a323bf0568 2-15,23,25-29,33-34,36-74,77-91,95,98-106,109-111,113,115-116,118,121,123-124,127-178,181,183,185-186,188-189,191-201,203-213,216-218,220,222-238,240-348,352-399,401-422,425-431,435-437
+apps/labs/static/js/houston-signal.js
+  s_7a9f1b3d018539::t_0ec84170020fc6 1-8,10-24,31-39,41-48,50-163,167-257
+  s_7a9f1b3d018539::t_efa8f498e11df8 9,25-30,40,49
+  s_7a9f1b3d018539::t_42570448f6755e 164-166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "f4f9c8c7e34cfabb636c2d92d3360f8039e3c06b",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_7a9f1b3d018539": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f826d-cb3d-7fb0-ba13-8d31ebfc5ba7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
