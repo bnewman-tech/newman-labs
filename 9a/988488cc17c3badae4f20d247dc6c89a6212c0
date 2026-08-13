@@ -1,0 +1,72 @@
+.github/workflows/release-to-production.yml
+  s_4a308c063e3ef2::t_f714448909d052 20,43,50,117
+libs/core/tests/test_dependencies.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 59-60,63
+labs/houston_signal/integrations/houston_emergency_center/scripts/ingest.py
+  s_4a308c063e3ef2::t_f714448909d052 285
+  s_4a308c063e3ef2::t_a0a49c4b169ceb 284
+apps/labs/tests/test_security.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 49,65,96
+docs/operations/observability.md
+  s_4a308c063e3ef2::t_58ad8069bd7072 17
+apps/labs/templating.py
+  s_4a308c063e3ef2::t_f714448909d052 33
+docs/operations/releases.md
+  s_4a308c063e3ef2::t_f714448909d052 27
+apps/labs/tests/test_home.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 47
+labs/houston_signal/integrations/houston_311/scripts/ingest.py
+  s_4a308c063e3ef2::t_a0a49c4b169ceb 228
+  s_4a308c063e3ef2::t_f714448909d052 229
+labs/houston_signal/integrations/houston_311/tests/test_ingest.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 115
+apps/labs/security.py
+  s_4a308c063e3ef2::t_f714448909d052 32
+docs/operations/production-safety.md
+  s_4a308c063e3ef2::t_f714448909d052 18,43
+libs/prefect_utils/secrets/functions.py
+  s_4a308c063e3ef2::t_f714448909d052 39
+libs/database/scripts/migrate_managed.py
+  s_4a308c063e3ef2::t_f714448909d052 18-19
+AGENTS.md
+  s_4a308c063e3ef2::t_58ad8069bd7072 58-59
+libs/prefect_utils/tests/test_secrets.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 85
+prefect.yaml
+  s_4a308c063e3ef2::t_f714448909d052 29,34,38,50,55,59
+libs/prefect_utils/tests/test_deployments.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 27,51,107
+apps/labs/main.py
+  s_4a308c063e3ef2::t_f714448909d052 26
+labs/houston_signal/integrations/houston_emergency_center/tests/test_ingest.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 92
+README.md
+  s_4a308c063e3ef2::t_58ad8069bd7072 69-70
+libs/database/tests/test_migrate_managed.py
+  s_4a308c063e3ef2::t_2aa131c0c55ab3 21,45,86,126
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_58ad8069bd7072 121
+libs/core/dependencies.py
+  s_4a308c063e3ef2::t_f714448909d052 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "9a988488cc17c3badae4f20d247dc6c89a6212c0",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
