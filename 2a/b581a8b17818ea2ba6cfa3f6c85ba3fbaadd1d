@@ -1,0 +1,131 @@
+libs/database/alembic/script.py.mako
+  s_4a308c063e3ef2::t_6e9db1fd924ae1 14-15,29
+docs/operations/production-safety.md
+  s_4a308c063e3ef2::t_fccbe57c945361 16-17
+  s_4a308c063e3ef2::t_feca08831084e6 15,18
+  s_4a308c063e3ef2::t_85a77ff419f219 19-20
+  s_4a308c063e3ef2::t_3d31510533042d 1-6,11-14,21-26,35,37-45,47-62
+  s_4a308c063e3ef2::t_824602b3ccc984 7-10,27-34,36,46,63-64
+libs/database/tests/test_functions.py
+  s_4a308c063e3ef2::t_3321d2162a488d 1-7,10-13,15-34,36-37,39-55,89
+  s_4a308c063e3ef2::t_feca08831084e6 8-9,14,35,66,71-78,80-86,88
+  s_4a308c063e3ef2::t_fccbe57c945361 38,56-64,67-70,79,87
+  s_4a308c063e3ef2::t_8459ac7f10dc88 65
+libs/database/settings.py
+  s_4a308c063e3ef2::t_0116d99c167a45 7-9
+  s_4a308c063e3ef2::t_6e9db1fd924ae1 1-6
+labs/houston_signal/integrations/houston_311/tests/test_ingest.py
+  s_4a308c063e3ef2::t_56ae4c1c4f2903 95-107,109-114,116-117
+  s_4a308c063e3ef2::t_fccbe57c945361 108
+  s_4a308c063e3ef2::t_9b042bb11e0019 115
+apps/labs/security.py
+  s_4a308c063e3ef2::t_69c9d6cbd91491 1-27,29-36
+  s_4a308c063e3ef2::t_ea7094f931bf4e 28
+docs/operations/neon-branching.md
+  s_4a308c063e3ef2::t_bac445e0acb04f 23-26
+  s_4a308c063e3ef2::t_3d31510533042d 33,62-65
+  s_4a308c063e3ef2::t_824602b3ccc984 21,28-32,34,41-43
+  s_4a308c063e3ef2::t_199a620d7aaaf0 66
+libs/prefect_utils/tests/test_configuration.py
+  s_4a308c063e3ef2::t_faf9c10a5ed7a8 1-19,23-30
+  s_4a308c063e3ef2::t_ea7094f931bf4e 20-22
+README.md
+  s_4a308c063e3ef2::t_3d31510533042d 61
+libs/dbt/scripts/run_dbt.py
+  s_4a308c063e3ef2::t_0116d99c167a45 7,27
+  s_4a308c063e3ef2::t_0c4cfafaee77f7 21-26,28,31
+libs/database/sessions.py
+  s_4a308c063e3ef2::t_0116d99c167a45 17,20
+  s_4a308c063e3ef2::t_69c9d6cbd91491 5,14,55-58
+apps/labs/tests/test_security.py
+  s_4a308c063e3ef2::t_3321d2162a488d 1-4,6,8,10-47,51-55
+  s_4a308c063e3ef2::t_ea7094f931bf4e 48-50
+  s_4a308c063e3ef2::t_a7d542eb46a311 5,7,9,56-67,69-74
+  s_4a308c063e3ef2::t_fccbe57c945361 68
+prefect.yaml
+  s_4a308c063e3ef2::t_faf9c10a5ed7a8 13,48,69
+AGENTS.md
+  s_4a308c063e3ef2::t_3d31510533042d 15,18-23,142-145
+labs/houston_signal/integrations/houston_emergency_center/tests/test_ingest.py
+  s_4a308c063e3ef2::t_56ae4c1c4f2903 67-79,81-95
+  s_4a308c063e3ef2::t_fccbe57c945361 80
+pyproject.toml
+  s_4a308c063e3ef2::t_1f3b40cc186388 32
+apps/labs/errors.py
+  s_4a308c063e3ef2::t_69c9d6cbd91491 1-5,7,12,14-15,20-23
+  s_4a308c063e3ef2::t_9417f058435087 11
+  s_4a308c063e3ef2::t_08aeee9116d681 6,8-10,13,16-19
+.github/workflows/deploy-prefect.yml
+  s_4a308c063e3ef2::t_b3772bffebb8a7 48,55
+.github/workflows/quality.yml
+  s_4a308c063e3ef2::t_1f3b40cc186388 67-75
+libs/dbt/tests/test_run_dbt_script.py
+  s_4a308c063e3ef2::t_aae441f426d796 10,49-50,52
+  s_4a308c063e3ef2::t_fccbe57c945361 51
+.github/workflows/release-labs.yml
+  s_4a308c063e3ef2::t_faf9c10a5ed7a8 19,51-52
+libs/database/alembic/env.py
+  s_4a308c063e3ef2::t_6e9db1fd924ae1 13,51-62,66,74
+SECURITY.md
+  s_4a308c063e3ef2::t_3d31510533042d 1-13
+libs/database/tests/test_migrate_managed.py
+  s_4a308c063e3ef2::t_56ae4c1c4f2903 1-2,4-5,7-9,11-24
+  s_4a308c063e3ef2::t_fccbe57c945361 33,74,116
+  s_4a308c063e3ef2::t_c53502f13a1a85 36,77,119
+  s_4a308c063e3ef2::t_30c721ecb9c6f2 3,6,10,25-32,34-35,37-56,60-73,75-76,78-96,100-107
+  s_4a308c063e3ef2::t_85a77ff419f219 108-115,117-118,120-141
+  s_4a308c063e3ef2::t_9b042bb11e0019 57-59,97-99
+alembic.ini
+  s_4a308c063e3ef2::t_aae441f426d796 4
+libs/database/functions.py
+  s_4a308c063e3ef2::t_6e9db1fd924ae1 1-9,11-24,27,33,50
+  s_4a308c063e3ef2::t_fccbe57c945361 28-32,45
+  s_4a308c063e3ef2::t_8459ac7f10dc88 34-35,48-49
+  s_4a308c063e3ef2::t_0116d99c167a45 10,25-26,36-44,46-47
+libs/database/tests/test_sessions.py
+  s_4a308c063e3ef2::t_3321d2162a488d 3-4,9-11,33-51
+labs/houston_signal/integrations/houston_311/scripts/ingest.py
+  s_4a308c063e3ef2::t_0c4cfafaee77f7 231
+  s_4a308c063e3ef2::t_0116d99c167a45 23,232
+libs/database/alembic/versions/0001_initial_newman_labs_schema.py
+  s_4a308c063e3ef2::t_2e66c350f70b0b 333
+  s_4a308c063e3ef2::t_6e9db1fd924ae1 13-14,388
+libs/database/alembic/versions/0002_version_document_chunks.py
+  s_4a308c063e3ef2::t_2e66c350f70b0b 1-36,40-97
+  s_4a308c063e3ef2::t_36131a082dcecf 37-39
+apps/labs/main.py
+  s_4a308c063e3ef2::t_0116d99c167a45 17-18,24-26
+  s_4a308c063e3ef2::t_69c9d6cbd91491 8,10,12,15,32,34-35
+libs/database/scripts/migrate_managed.py
+  s_4a308c063e3ef2::t_c53502f13a1a85 46
+  s_4a308c063e3ef2::t_b3772bffebb8a7 7,10,17-20,26-30,51,53-57,59-60,65,70
+  s_4a308c063e3ef2::t_0116d99c167a45 11,22
+  s_4a308c063e3ef2::t_85a77ff419f219 62,64
+  s_4a308c063e3ef2::t_8717df924e4a17 31
+labs/houston_signal/integrations/houston_emergency_center/scripts/ingest.py
+  s_4a308c063e3ef2::t_0116d99c167a45 23,288
+  s_4a308c063e3ef2::t_0c4cfafaee77f7 287
+uv.lock
+  s_4a308c063e3ef2::t_b1d83fe24dfc9c 305-313,344-361,590-605,1667-1678,2007,2042,2504-2512,2611-2674,2898-2909,3096-3104,3800-3808,3976-4002
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "2ab581a8b17818ea2ba6cfa3f6c85ba3fbaadd1d",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
