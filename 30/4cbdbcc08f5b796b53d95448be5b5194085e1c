@@ -1,0 +1,43 @@
+README.md
+  s_4a308c063e3ef2::t_57fd8e4e643824 61
+docs/operations/local-development.md
+  s_4a308c063e3ef2::t_57fd8e4e643824 117
+docs/operations/neon-branching.md
+  s_4a308c063e3ef2::t_57fd8e4e643824 55
+apps/labs/tests/test_home.py
+  s_4a308c063e3ef2::t_be6f44d35064b2 130
+  s_4a308c063e3ef2::t_a014ba133efd6e 62,74,85,110,119,122-129
+docs/operations/releases.md
+  s_4a308c063e3ef2::t_57fd8e4e643824 1-29
+apps/labs/routes/lab_index.py
+  s_4a308c063e3ef2::t_a014ba133efd6e 5,11,15,29,33
+.github/workflows/pr-checker.yml
+  s_4a308c063e3ef2::t_8b501f76523019 69
+  s_4a308c063e3ef2::t_85bd8691c35510 16,21
+  s_4a308c063e3ef2::t_fc4428255fba8f 1,11
+.github/workflows/release-to-production.yml
+  s_4a308c063e3ef2::t_c6d039775a40fa 15,19
+  s_4a308c063e3ef2::t_c32ce10ff17c8d 1,8-9,17,23,41-63,68
+  s_4a308c063e3ef2::t_85bd8691c35510 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "304cbdbcc08f5b796b53d95448be5b5194085e1c",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
