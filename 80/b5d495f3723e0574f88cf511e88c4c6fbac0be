@@ -1,0 +1,74 @@
+libs/prefect_utils/tests/test_deployments.py
+  s_4a308c063e3ef2::t_70962009a8b67a 116,119-121,123-125,127-130,132,139,146-160,162-166
+  s_4a308c063e3ef2::t_d4469b3a74c3f4 122,126
+  s_4a308c063e3ef2::t_f918278d70770b 11-12,18,43,53,63-70,72,105-106,108,110-113,134
+  s_4a308c063e3ef2::t_0475073fb2313d 98-101,107
+  s_4a308c063e3ef2::t_3fa3d3ae4a5454 3
+  s_4a308c063e3ef2::t_4943e401bf0b2d 31-34,44,54-62
+  s_4a308c063e3ef2::t_92630d38f5bd49 1-2,4-10,13-17,19-30,35-42,45-47,49-52,73,75-79,81-97,102-104,109,114-115,117-118,131,133,135-138,140-145,161
+  s_4a308c063e3ef2::t_a681bbbdaa1f49 48,74,80
+  s_4a308c063e3ef2::t_0ee5f395df0515 71
+.github/workflows/deploy-prefect.yml
+  s_4a308c063e3ef2::t_92630d38f5bd49 65
+README.md
+  s_4a308c063e3ef2::t_458c55e7dff34d 22
+  s_4a308c063e3ef2::t_70962009a8b67a 65-68
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_458c55e7dff34d 109-110
+  s_4a308c063e3ef2::t_70962009a8b67a 111-114
+  s_4a308c063e3ef2::t_92630d38f5bd49 16
+prefect.yaml
+  s_4a308c063e3ef2::t_92630d38f5bd49 32,53,62
+libs/prefect_utils/deployments/scripts/__init__.py
+  s_4a308c063e3ef2::t_92630d38f5bd49 1
+libs/prefect_utils/deployments/scripts/deploy.py
+  s_4a308c063e3ef2::t_92630d38f5bd49 1-4,6-8,10-17,24-27
+  s_4a308c063e3ef2::t_f918278d70770b 5
+  s_4a308c063e3ef2::t_70962009a8b67a 9,18-23
+libs/prefect_utils/deployments/functions.py
+  s_4a308c063e3ef2::t_92630d38f5bd49 1-8,10-17,19-20,23-27,29-38,43-44,46-51,56-57
+  s_4a308c063e3ef2::t_f918278d70770b 9,18,21-22,28,39-42,45,52-55,58-83
+AGENTS.md
+  s_4a308c063e3ef2::t_92630d38f5bd49 182-187
+apps/labs/templates/labs/houston_signal.html
+  s_4a308c063e3ef2::t_92630d38f5bd49 21
+apps/labs/tests/test_houston_signal.py
+  s_4a308c063e3ef2::t_92630d38f5bd49 184
+libs/prefect_utils/deployments/schemas.py
+  s_4a308c063e3ef2::t_f918278d70770b 8-13
+  s_4a308c063e3ef2::t_c49cfbed770546 14-22
+  s_4a308c063e3ef2::t_92630d38f5bd49 1-7,23-28
+libs/prefect_utils/deployments/__init__.py
+  s_4a308c063e3ef2::t_92630d38f5bd49 1-4,6-9,11
+  s_4a308c063e3ef2::t_f918278d70770b 5,10
+labs/houston_signal/README.md
+  s_4a308c063e3ef2::t_92630d38f5bd49 4
+pyproject.toml
+  s_4a308c063e3ef2::t_92630d38f5bd49 25
+  s_4a308c063e3ef2::t_a7646d807b2f98 8
+.github/workflows/release-labs.yml
+  s_4a308c063e3ef2::t_70962009a8b67a 61
+uv.lock
+  s_4a308c063e3ef2::t_f2d7d6ba36b972 1945,1979
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "80b5d495f3723e0574f88cf511e88c4c6fbac0be",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
