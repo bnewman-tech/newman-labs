@@ -1,0 +1,33 @@
+libs/prefect_utils/tests/test_secrets.py
+  s_4a308c063e3ef2::t_f99e9dc315a626 82,89-93,102,107
+docs/operations/neon-branching.md
+  s_4a308c063e3ef2::t_f99e9dc315a626 117
+README.md
+  s_4a308c063e3ef2::t_f99e9dc315a626 71
+  s_4a308c063e3ef2::t_5a6d61e01b21b6 72-73
+libs/core/dependencies.py
+  s_4a308c063e3ef2::t_f99e9dc315a626 45
+libs/prefect_utils/secrets/functions.py
+  s_4a308c063e3ef2::t_f99e9dc315a626 19,42-47,51,56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c1e905f353a6fd442bd64c43560a4f0c0c4388a1",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
