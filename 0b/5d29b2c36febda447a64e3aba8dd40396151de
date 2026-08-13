@@ -1,0 +1,38 @@
+docs/operations/production-safety.md
+  s_4a308c063e3ef2::t_546097251709c4 49
+  s_4a308c063e3ef2::t_36e080e68b0ded 50-53
+pyproject.toml
+  s_4a308c063e3ef2::t_d7edc859b594cf 3
+docs/operations/releases.md
+  s_4a308c063e3ef2::t_546097251709c4 26-29
+.github/workflows/release-to-production.yml
+  s_4a308c063e3ef2::t_029bab7c5dac3a 87
+  s_4a308c063e3ef2::t_d7edc859b594cf 32-34,36-38
+  s_4a308c063e3ef2::t_ade361ac3d70a7 35
+  s_4a308c063e3ef2::t_546097251709c4 77,79-82,85-86,88-93
+docs/operations/local-development.md
+  s_4a308c063e3ef2::t_546097251709c4 22-24
+uv.lock
+  s_4a308c063e3ef2::t_5333c5e6f990dd 1983
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "0b5d29b2c36febda447a64e3aba8dd40396151de",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
