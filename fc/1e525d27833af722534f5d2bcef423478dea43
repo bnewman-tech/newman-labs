@@ -1,0 +1,56 @@
+AGENTS.md
+  s_4a308c063e3ef2::t_14ab652504a3ed 97
+apps/labs/tests/test_houston_signal.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 34
+prefect.yaml
+  s_4a308c063e3ef2::t_14ab652504a3ed 48,69
+.github/workflows/release-to-production.yml
+  s_4a308c063e3ef2::t_14ab652504a3ed 35
+.github/workflows/pr-checker.yml
+  s_4a308c063e3ef2::t_14ab652504a3ed 52
+libs/core/httpx_helpers.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 86
+apps/labs/tests/test_health.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 49
+libs/prefect_utils/tests/test_configuration.py
+  s_4a308c063e3ef2::t_d304a50c8205cf 26
+libs/database/tests/conftest.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 11
+libs/blob_storage/functions.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 21
+libs/database/connections.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 18
+README.md
+  s_4a308c063e3ef2::t_14ab652504a3ed 34
+pyproject.toml
+  s_4a308c063e3ef2::t_14ab652504a3ed 6,53
+libs/database/sessions.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 47
+conftest.py
+  s_4a308c063e3ef2::t_aa77c4bd11fdf7 13
+docs/operations/local-development.md
+  s_4a308c063e3ef2::t_14ab652504a3ed 5
+uv.lock
+  s_4a308c063e3ef2::t_d229cae79a8c2c 3,98-120,257-264,391-404,413-425,533-534,949-953,1143-1158,1185-1216,1269-1278,1395-1401,1557-1570,1734-1751,1811-1832,1927-1937,1946-1981,1997,2098-2108,2528-2542,2574-2581,2617-2628,2805,2827-2860,2885-2890,2907-2917,2959-2964,3033-3047,3317-3319,3328-3337,3346-3367,3428-3459,3560-3575,3584-3598,3632-3641,3712-3717,3729-3738,3814-3829,3900-3906,4003-4016,4060-4068,4102-4105,4118-4121,4162-4169,4240-4241,4391-4396,4408-4432,4441-4457,4461-4487,4494-4515,4539-4555
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "fc1e525d27833af722534f5d2bcef423478dea43",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
