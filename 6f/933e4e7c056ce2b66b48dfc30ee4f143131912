@@ -1,0 +1,40 @@
+libs/prefect_utils/tests/test_configuration.py
+  s_4a308c063e3ef2::t_bdc1de07433ba7 29
+pyproject.toml
+  s_4a308c063e3ef2::t_bdc1de07433ba7 3
+docs/operations/releases.md
+  s_4a308c063e3ef2::t_bdc1de07433ba7 35-36
+prefect.yaml
+  s_4a308c063e3ef2::t_bdc1de07433ba7 26
+uv.lock
+  s_6dcdbe2a84067c::t_5dc9a1dc328902 1983
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6f933e4e7c056ce2b66b48dfc30ee4f143131912",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    },
+    "s_6dcdbe2a84067c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff81d-d792-7fc3-886e-57d52ee5cbaa",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
