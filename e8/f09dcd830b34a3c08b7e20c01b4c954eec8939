@@ -1,0 +1,38 @@
+libs/core/tests/test_dependencies.py
+  s_4a308c063e3ef2::t_177edfe41d039c 35,38
+libs/pydantic_ai_core/functions.py
+  s_4a308c063e3ef2::t_177edfe41d039c 15,19-24,27-29,31,33-34
+labs/invoice_parser/scripts/run_poc.py
+  s_4a308c063e3ef2::t_177edfe41d039c 40
+libs/pydantic_ai_core/settings.py
+  s_4a308c063e3ef2::t_177edfe41d039c 3,8-9
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_177edfe41d039c 52
+libs/prefect_utils/secrets/functions.py
+  s_4a308c063e3ef2::t_177edfe41d039c 42
+libs/pydantic_ai_core/tests/test_functions.py
+  s_4a308c063e3ef2::t_00bb9905ea1583 3,11-13,16,19-23,26-27,49-57
+labs/invoice_parser/functions.py
+  s_4a308c063e3ef2::t_177edfe41d039c 35-36,43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "e8f09dcd830b34a3c08b7e20c01b4c954eec8939",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
