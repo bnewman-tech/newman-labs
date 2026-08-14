@@ -1,0 +1,90 @@
+libs/database/tests/test_database.py
+  s_4a308c063e3ef2::t_6e94cc699a143e 7,16
+libs/core/tests/test_dependencies.py
+  s_4a308c063e3ef2::t_a84b44b6c5cfd8 6
+  s_4a308c063e3ef2::t_8745c36a366c3e 15-20
+libs/database/tests/test_migrate_managed.py
+  s_4a308c063e3ef2::t_af544e7d2d0a29 17,19,24,48,83,117
+libs/dbt/tests/test_run_dbt_script.py
+  s_4a308c063e3ef2::t_cbafd25242b1eb 28,48,57,62
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_98df5d3171cd31 56-60,125-128
+libs/prefect_utils/tests/test_secrets.py
+  s_4a308c063e3ef2::t_a84b44b6c5cfd8 3
+labs/houston_signal/integrations/houston_311/tests/test_ingest.py
+  s_4a308c063e3ef2::t_63eb83dff7f55a 47-48,71-72,104
+AGENTS.md
+  s_4a308c063e3ef2::t_98df5d3171cd31 202-205
+libs/prefect_utils/secrets/functions.py
+  s_4a308c063e3ef2::t_961d19efb82f05 17-18,22-23
+  s_4a308c063e3ef2::t_5d36b40dc94367 19-21,24-26
+apps/labs/tests/test_security.py
+  s_4a308c063e3ef2::t_7f89e0fcfb7c4c 3,13,68-77,80-81,92,94-96,99-100,107,109-110,112,115,124,127-129
+  s_4a308c063e3ef2::t_a8af9accc4ba97 93,97,104,108
+  s_4a308c063e3ef2::t_c3b415b48242db 130
+labs/houston_signal/integrations/houston_emergency_center/tests/test_ingest.py
+  s_4a308c063e3ef2::t_163c138a3d4bba 49-50,76
+labs/houston_signal/integrations/houston_emergency_center/scripts/ingest.py
+  s_4a308c063e3ef2::t_01ab44609729f8 25-26,285-289
+README.md
+  s_4a308c063e3ef2::t_98df5d3171cd31 73-76,78
+docs/operations/neon-branching.md
+  s_4a308c063e3ef2::t_961d19efb82f05 118-123
+  s_4a308c063e3ef2::t_98df5d3171cd31 77-80,127-129
+libs/database/alembic/env.py
+  s_4a308c063e3ef2::t_01ab44609729f8 14,23,42,83
+libs/blob_storage/tests/test_functions.py
+  s_4a308c063e3ef2::t_961d19efb82f05 42,45-48
+  s_4a308c063e3ef2::t_4491c3ceddc38a 4,17,169-186
+  s_4a308c063e3ef2::t_5c6a40fe1af439 9,18,41,43-44,49-51,53-55,193-198
+  s_4a308c063e3ef2::t_fec45e6c5662d8 187-188
+libs/dbt/scripts/run_dbt.py
+  s_4a308c063e3ef2::t_01ab44609729f8 7,9,22,24
+apps/labs/observability.py
+  s_4a308c063e3ef2::t_691dac4b2e033a 5,10-11,15
+libs/database/connections.py
+  s_4a308c063e3ef2::t_6e94cc699a143e 10,20
+libs/blob_storage/functions.py
+  s_4a308c063e3ef2::t_961d19efb82f05 13,25-33,35-37
+  s_4a308c063e3ef2::t_705850507da3e5 3,14,34,38,43-45
+docs/operations/local-development.md
+  s_4a308c063e3ef2::t_961d19efb82f05 20-23,45-47
+libs/database/tests/test_sessions.py
+  s_4a308c063e3ef2::t_af544e7d2d0a29 18-20,23
+conftest.py
+  s_4a308c063e3ef2::t_6e94cc699a143e 9,24
+libs/database/scripts/migrate_managed.py
+  s_4a308c063e3ef2::t_01ab44609729f8 13,21,25
+libs/database/sessions.py
+  s_4a308c063e3ef2::t_691dac4b2e033a 14-17,29,35
+  s_4a308c063e3ef2::t_6e94cc699a143e 5
+libs/database/settings.py
+  s_4a308c063e3ef2::t_691dac4b2e033a 3-6,15-23
+  s_4a308c063e3ef2::t_72346972cf13a4 9
+apps/labs/main.py
+  s_4a308c063e3ef2::t_691dac4b2e033a 19-21,27,31-33
+  s_4a308c063e3ef2::t_8745c36a366c3e 29-30
+labs/houston_signal/integrations/houston_311/scripts/ingest.py
+  s_4a308c063e3ef2::t_01ab44609729f8 25-26,229-233
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "add55a383a8d8a5020c6c5889920add5b14ca1e1",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
