@@ -1,0 +1,57 @@
+.gitignore
+  s_4a308c063e3ef2::t_6120daa0da5088 38
+labs/invoice_parser/scripts/__init__.py
+  s_4a308c063e3ef2::t_6120daa0da5088 1
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_45a5122328b54e 10,50-54,105
+labs/invoice_parser/README.md
+  s_4a308c063e3ef2::t_6120daa0da5088 1-30
+labs/invoice_parser/tests/test_functions.py
+  s_4a308c063e3ef2::t_0daba73a43b8f7 134
+  s_4a308c063e3ef2::t_9250d89e95de94 83-102,104,106-113
+  s_4a308c063e3ef2::t_6120daa0da5088 1-70,72-82,103,105,114-126
+  s_4a308c063e3ef2::t_1cef705a5d8ec2 127-133,135-141
+  s_4a308c063e3ef2::t_dabb010ecc4a6e 71
+labs/invoice_parser/tests/__init__.py
+  s_4a308c063e3ef2::t_6120daa0da5088 1
+README.md
+  s_4a308c063e3ef2::t_45a5122328b54e 7,9-10,17
+labs/invoice_parser/schemas.py
+  s_4a308c063e3ef2::t_c7d2130c0de2be 61
+  s_4a308c063e3ef2::t_6120daa0da5088 1-6,8-33,40-60,62-71,75,77-131
+  s_4a308c063e3ef2::t_ba345a6d489d20 72-74,76
+  s_4a308c063e3ef2::t_1cef705a5d8ec2 7,34-39
+labs/invoice_parser/functions.py
+  s_4a308c063e3ef2::t_c7d2130c0de2be 3,49,65
+  s_4a308c063e3ef2::t_dabb010ecc4a6e 52
+  s_4a308c063e3ef2::t_1cef705a5d8ec2 87-91,95-99
+  s_4a308c063e3ef2::t_dd8ef8832d4176 93,101
+  s_4a308c063e3ef2::t_6120daa0da5088 1-2,4-48,50-51,53-64,66-86,92,94,100,102-107,153,159-165
+  s_4a308c063e3ef2::t_9250d89e95de94 108-110,154-158
+  s_4a308c063e3ef2::t_ba345a6d489d20 111-152
+labs/invoice_parser/__init__.py
+  s_4a308c063e3ef2::t_6120daa0da5088 1
+labs/invoice_parser/scripts/run_poc.py
+  s_4a308c063e3ef2::t_6120daa0da5088 1-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "42de8dadd7fcec7ba80019a1ab2d152e163c62c5",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
