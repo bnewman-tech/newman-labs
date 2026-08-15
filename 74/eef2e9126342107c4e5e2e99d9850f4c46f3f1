@@ -1,0 +1,46 @@
+libs/database/crud/documents.py
+  s_4a308c063e3ef2::t_4d01dd64504ac5 5,102
+AGENTS.md
+  s_4a308c063e3ef2::t_4d01dd64504ac5 185-188
+libs/database/alembic/versions/0002_remove_document_consent.py
+  s_4a308c063e3ef2::t_4d01dd64504ac5 1-61
+libs/document_intelligence/schemas.py
+  s_4a308c063e3ef2::t_4d01dd64504ac5 7
+libs/document_intelligence/conversion.py
+  s_4a308c063e3ef2::t_4d01dd64504ac5 90
+docs/operations/observability.md
+  s_4a308c063e3ef2::t_827b920e8efdb8 11-14
+apps/labs/routes/privacy.py
+  s_4a308c063e3ef2::t_4d01dd64504ac5 17
+apps/labs/tests/test_home.py
+  s_4a308c063e3ef2::t_f6a06ba5a0a5da 146
+  s_4a308c063e3ef2::t_6e99fb438b3663 150
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_4d01dd64504ac5 58,89-92
+  s_4a308c063e3ef2::t_bcfaaa30fd7484 93
+apps/labs/templates/pages/privacy.html
+  s_4a308c063e3ef2::t_4d01dd64504ac5 9,23
+  s_4a308c063e3ef2::t_f6a06ba5a0a5da 24
+  s_4a308c063e3ef2::t_827b920e8efdb8 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "74eef2e9126342107c4e5e2e99d9850f4c46f3f1",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
