@@ -1,0 +1,386 @@
+libs/document_intelligence/settings.py
+  s_4a308c063e3ef2::t_bf0fea5cdbfb4c 3
+conftest.py
+  s_4a308c063e3ef2::t_77c00e731ec7ef 9,24
+apps/labs/tests/test_health.py
+  s_4a308c063e3ef2::t_e79300d0ec6968 16,25
+labs/houston_signal/integrations/houston_311/tests/test_functions.py
+  s_4a308c063e3ef2::t_4154dd02159d11 63-93
+  s_4a308c063e3ef2::t_ea40f523d6eca6 62
+libs/database/models/document_chunk.py
+  s_4a308c063e3ef2::t_0ccac442571d40 5
+  s_4a308c063e3ef2::t_17ab539a0e2773 1,3-4,6,20,25-28,73
+  s_4a308c063e3ef2::t_e4acd5315083dc 67
+libs/document_intelligence/tests/test_cleanup_script.py
+  s_4a308c063e3ef2::t_9a9fd9112b4dfe 1-3,6,8-10,20,26-27,29-36,39-41,46,48-49,51-53
+  s_4a308c063e3ef2::t_7d6be32d2ffe38 13-19,22-23,25,44,47,50
+libs/prefect_utils/secrets/functions.py
+  s_4a308c063e3ef2::t_77c00e731ec7ef 12-15,19-22
+labs/houston_signal/integrations/houston_emergency_center/scripts/ingest.py
+  s_4a308c063e3ef2::t_824a2671b8150e 23
+  s_4a308c063e3ef2::t_9ccc58e49c0808 284-289
+  s_4a308c063e3ef2::t_f824b488e92d4c 291-294
+  s_99347370e2b02b::t_0b0bf9e0565666 290
+libs/blob_storage/functions.py
+  s_4a308c063e3ef2::t_17896624a32e38 22
+  s_4a308c063e3ef2::t_9b2ce20f6d7f6c 8,23-25,47-50,52,55,60
+  s_4a308c063e3ef2::t_c0eb46c30cbe5e 35,40
+  s_4a308c063e3ef2::t_dbeb2937dbde62 37-39,51,53-54
+  s_4a308c063e3ef2::t_7695c59e030558 21,126-133
+  s_4a308c063e3ef2::t_c43700c030a4fc 134-135
+labs/invoice_parser/scripts/run_poc.py
+  s_4a308c063e3ef2::t_5259e483dc1c02 17
+  s_4a308c063e3ef2::t_93167ea1790894 18
+  s_4a308c063e3ef2::t_49c90754e669f3 41
+analytics/profiles.yml
+  s_4a308c063e3ef2::t_eff48cf01f3364 2,4
+libs/database/connections.py
+  s_4a308c063e3ef2::t_77c00e731ec7ef 10,20
+labs/houston_signal/integrations/houston_emergency_center/tests/test_ingest.py
+  s_4a308c063e3ef2::t_9cca303c943255 91
+  s_4a308c063e3ef2::t_e79300d0ec6968 49-50,60
+  s_4a308c063e3ef2::t_73d916d14000cb 52
+libs/database/models/document_embedding.py
+  s_4a308c063e3ef2::t_17ab539a0e2773 1-4,6-61,63-66
+  s_4a308c063e3ef2::t_0ccac442571d40 5
+  s_4a308c063e3ef2::t_e4acd5315083dc 62
+libs/database/functions.py
+  s_4a308c063e3ef2::t_7de8a811976af9 28
+  s_4a308c063e3ef2::t_77c00e731ec7ef 8-9,25
+  s_4a308c063e3ef2::t_824a2671b8150e 17,19-20,23-24,26-27,29,31,36
+  s_4a308c063e3ef2::t_f824b488e92d4c 6,18,22,37
+  s_4a308c063e3ef2::t_33389e5d344235 41-44,47-48
+libs/core/http.py
+  s_4a308c063e3ef2::t_6b6e4285011e2c 1,8
+libs/pydantic_ai_core/tests/test_functions.py
+  s_4a308c063e3ef2::t_37fc508964eb2b 4,131,134-136,143
+  s_4a308c063e3ef2::t_020dab81d7145b 47-48,53,71
+  s_4a308c063e3ef2::t_daffaffae47c8c 88
+  s_4a308c063e3ef2::t_93167ea1790894 34,112-126,172
+  s_4a308c063e3ef2::t_350ce6850e6b6d 13,50-52,54-55,57,69-70,72
+  s_4a308c063e3ef2::t_e64e68b0961845 26,28-29,31-32,39,44-46,49,56,58-59,61-63,65,67-68,73,127-129,165-166,168-169
+  s_4a308c063e3ef2::t_cfc6cb921fb76d 74
+  s_4a308c063e3ef2::t_daba54bbc2d7ee 75-76,78-85,87,89-94,96-98,100,102-103,105-108
+  s_4a308c063e3ef2::t_40ac3620bfa285 3
+  s_4a308c063e3ef2::t_9291145fe5132d 86,104
+  s_4a308c063e3ef2::t_f6433a5f872126 109-110
+  s_4a308c063e3ef2::t_c217f466f3997f 178
+  s_4a308c063e3ef2::t_a54ac791105a25 36
+  s_4a308c063e3ef2::t_41b19397dadc17 21,43,77,159,173-177
+  s_4a308c063e3ef2::t_d9aad68475605e 11-12,66,101
+  s_4a308c063e3ef2::t_5097f4c89f98b8 30,60,95,167
+  s_4a308c063e3ef2::t_1cc4de8bf2ecd6 18,111
+  s_4a308c063e3ef2::t_7e4be88c44873a 146-158
+  s_4a308c063e3ef2::t_8e6023ce4a6501 38
+  s_4a308c063e3ef2::t_1d9e096f15e47b 64,99
+labs/invoice_parser/functions.py
+  s_4a308c063e3ef2::t_177651fec32bdf 16,28
+  s_4a308c063e3ef2::t_5259e483dc1c02 15
+  s_4a308c063e3ef2::t_0338a7331610b9 7
+  s_4a308c063e3ef2::t_49c90754e669f3 40
+  s_4a308c063e3ef2::t_c4b514ab15ef59 19
+docs/operations/neon-branching.md
+  s_4a308c063e3ef2::t_b2f93a9b7f8b2a 70
+  s_4a308c063e3ef2::t_5652b00630b77e 132
+  s_4a308c063e3ef2::t_981781a3195e27 103-104
+  s_4a308c063e3ef2::t_96c63776972f4e 11,75,91,116-118,122-123,131,133-137
+  s_4a308c063e3ef2::t_7695c59e030558 74,76-82
+  s_4a308c063e3ef2::t_ebd7ed0ea02523 12-13,22,34
+  s_4a308c063e3ef2::t_a102cb6c71aff5 23-26
+  s_4a308c063e3ef2::t_f2653901017b74 138
+libs/database/tests/test_sessions.py
+  s_4a308c063e3ef2::t_df87fae37076d4 29,32,41
+libs/database/settings.py
+  s_4a308c063e3ef2::t_77c00e731ec7ef 9-11,13-15,23-24,28
+  s_4a308c063e3ef2::t_17896624a32e38 12
+libs/pydantic_ai_core/schemas.py
+  s_4a308c063e3ef2::t_4a041d8fc7e49c 11
+  s_4a308c063e3ef2::t_177651fec32bdf 1,5,7,9-10,12-17,40-50
+  s_4a308c063e3ef2::t_93167ea1790894 18-33
+pyproject.toml
+  s_4a308c063e3ef2::t_de5782e72a00b3 23
+  s_4a308c063e3ef2::t_4b8772ff6e6726 34
+libs/database/tests/test_database.py
+  s_4a308c063e3ef2::t_9f430d04fcb00c 7,16
+  s_4a308c063e3ef2::t_49f300852886fb 12
+labs/invoice_parser/README.md
+  s_4a308c063e3ef2::t_49c7df6b32ee2a 24-27
+labs/invoice_parser/tests/test_functions.py
+  s_4a308c063e3ef2::t_cc027d11da4b7c 60-63
+  s_4a308c063e3ef2::t_c4b514ab15ef59 144-155
+  s_4a308c063e3ef2::t_0338a7331610b9 67,71-72
+libs/database/scripts/migrate_managed.py
+  s_4a308c063e3ef2::t_824a2671b8150e 11
+  s_4a308c063e3ef2::t_17896624a32e38 19
+  s_4a308c063e3ef2::t_f824b488e92d4c 22-26
+  s_4a308c063e3ef2::t_9848d0fa135a14 17-18,20-21,63-64,68-69
+libs/database/urls.py
+  s_4a308c063e3ef2::t_5e0ecae9052cbf 26
+apps/labs/main.py
+  s_4a308c063e3ef2::t_981781a3195e27 26
+  s_4a308c063e3ef2::t_77c00e731ec7ef 29-31
+  s_4a308c063e3ef2::t_824a2671b8150e 18
+  s_4a308c063e3ef2::t_a505902364f21e 6,21,27,37-43
+  s_4a308c063e3ef2::t_f824b488e92d4c 32-36
+  s_4a308c063e3ef2::t_f0a98021dfb619 44-47
+libs/document_intelligence/tests/test_functions.py
+  s_4a308c063e3ef2::t_45e745f6c46d11 15
+  s_4a308c063e3ef2::t_04eb7d291c0f52 16-19
+  s_4a308c063e3ef2::t_1b1b33f484a0b2 5,10,13-14,168-209
+  s_4a308c063e3ef2::t_eacf55052dabf9 1-4,6-9,11-12,20-167
+libs/core/tests/test_http.py
+  s_4a308c063e3ef2::t_6b6e4285011e2c 1-21
+libs/core/dependencies.py
+  s_4a308c063e3ef2::t_77c00e731ec7ef 11,26
+libs/document_intelligence/functions.py
+  s_4a308c063e3ef2::t_ceed394e3b6a96 32,34-39,41-44,46-54
+  s_4a308c063e3ef2::t_1615de258f5549 84,86-99,101-106,111-117
+  s_4a308c063e3ef2::t_3b997bc2a32b83 1-9,16-25,55-83,85,100,107-110
+  s_4a308c063e3ef2::t_da52a7a06448e7 10-15,26-31,33,40,45
+prefect.yaml
+  s_4a308c063e3ef2::t_e6bd5c9836935e 70-89
+docs/operations/production-safety.md
+  s_4a308c063e3ef2::t_5e0ecae9052cbf 18-21
+docs/operations/observability.md
+  s_4a308c063e3ef2::t_f4ef58ea203cda 25-29
+  s_4a308c063e3ef2::t_daea2c1c865b3d 16
+  s_4a308c063e3ef2::t_915dd359e1fa26 3-6
+  s_4a308c063e3ef2::t_81401757ed977a 7-8,17-19
+  s_4a308c063e3ef2::t_dcfdaca7204890 12-13,34-35
+libs/database/schemas/__init__.py
+  s_4a308c063e3ef2::t_da52a7a06448e7 6,14
+libs/database/alembic/versions/0001_initial_newman_labs_schema.py
+  s_4a308c063e3ef2::t_07174e25884bd6 317-320,335-342
+libs/pydantic_ai_core/scripts/__init__.py
+  s_4a308c063e3ef2::t_177651fec32bdf 1
+labs/houston_signal/integrations/houston_emergency_center/functions.py
+  s_4a308c063e3ef2::t_9d4d29b0f39be5 3-4,7,9-14,21-24,111-117,119-144,146-149,151-153
+  s_4a308c063e3ef2::t_316a69ad6afb56 145
+  s_4a308c063e3ef2::t_dca7fa9e303bc3 155
+libs/document_intelligence/embeddings.py
+  s_4a308c063e3ef2::t_bf0fea5cdbfb4c 8,12
+AGENTS.md
+  s_4a308c063e3ef2::t_72ff0d356b4f8d 58
+libs/dbt/scripts/run_dbt.py
+  s_4a308c063e3ef2::t_9ccc58e49c0808 6,8,23-29,31
+  s_4a308c063e3ef2::t_f824b488e92d4c 34-38
+  s_4a308c063e3ef2::t_824a2671b8150e 7
+libs/database/crud/documents.py
+  s_4a308c063e3ef2::t_bf0fea5cdbfb4c 26
+  s_4a308c063e3ef2::t_8991f1f900cbbc 6
+  s_4a308c063e3ef2::t_3b997bc2a32b83 137-187
+  s_4a308c063e3ef2::t_ceed394e3b6a96 218,220
+  s_4a308c063e3ef2::t_da52a7a06448e7 9,19,30,188-217,219
+  s_4a308c063e3ef2::t_17ab539a0e2773 12-15
+  s_4a308c063e3ef2::t_48828c794b9050 221-223,225
+docs/operations/local-development.md
+  s_4a308c063e3ef2::t_5d40086a82d109 7-8,11,16-17,20-22,55-59,93-95,106,131-133,137
+  s_4a308c063e3ef2::t_be78d7cf7e1e2d 9
+  s_4a308c063e3ef2::t_99537f8da5783a 45-51,53-54
+  s_4a308c063e3ef2::t_98271bdbe3de56 52
+apps/labs/routes/houston_signal.py
+  s_4a308c063e3ef2::t_4dbc705caf7d65 46
+libs/database/models/document_evidence.py
+  s_4a308c063e3ef2::t_17ab539a0e2773 1-4,6-57,59-66
+  s_4a308c063e3ef2::t_0ccac442571d40 5
+  s_4a308c063e3ef2::t_e4acd5315083dc 58
+libs/pydantic_ai_core/scripts/smoke_model_matrix.py
+  s_4a308c063e3ef2::t_177651fec32bdf 1,3-4,6-8,10-16,18,21-37,40-63,65-99
+  s_4a308c063e3ef2::t_a6dbd68f945cbe 38-39,64
+libs/pydantic_ai_core/tests/test_observability.py
+  s_4a308c063e3ef2::t_daba54bbc2d7ee 1,3-4,6-7,10-11,14-19,23-27,30-33,39-40,43-47,49-50,52
+  s_4a308c063e3ef2::t_7393b5772266a0 53-57
+  s_4a308c063e3ef2::t_37fc508964eb2b 29,37,58,64
+  s_4a308c063e3ef2::t_e79300d0ec6968 48
+  s_4a308c063e3ef2::t_5097f4c89f98b8 5,22,28,34-36,38,41-42,51,59-60,65
+  s_4a308c063e3ef2::t_a4ca080a00ff28 66-81,83-93
+libs/document_intelligence/scripts/cleanup.py
+  s_4a308c063e3ef2::t_e6bd5c9836935e 1-45
+.codex/environments/environment.toml
+  s_4a308c063e3ef2::t_30310cf2a22125 24,49
+apps/labs/tests/test_security.py
+  s_4a308c063e3ef2::t_949a8d197da3b6 69,71,73-74,82-83,97-102,129,132,137-142,150-151,154-156,163-169
+  s_4a308c063e3ef2::t_70f127348632e2 78,80,89,121,146
+  s_4a308c063e3ef2::t_206a3c7c701c33 67,136
+  s_4a308c063e3ef2::t_0d7360b92bf631 3
+  s_4a308c063e3ef2::t_a078d670f03b90 65-66,68,70,76-77,90,96,157
+  s_4a308c063e3ef2::t_24e32910b34aab 75,115-118
+  s_4a308c063e3ef2::t_dcfdaca7204890 63-64,84,88,104-105
+  s_4a308c063e3ef2::t_f0a98021dfb619 62,72,81,85-87,103
+  s_4a308c063e3ef2::t_73d916d14000cb 79,91-95,147,158-162
+  s_4a308c063e3ef2::t_9cca303c943255 124
+libs/database/alembic/env.py
+  s_4a308c063e3ef2::t_77c00e731ec7ef 14,23
+libs/pydantic_ai_core/functions.py
+  s_4a308c063e3ef2::t_93167ea1790894 7,31-32,35,47-50
+  s_4a308c063e3ef2::t_a505902364f21e 13,30
+  s_4a308c063e3ef2::t_5259e483dc1c02 25,27-28,33-34,36-39,44
+  s_4a308c063e3ef2::t_8e6023ce4a6501 40-43
+  s_4a308c063e3ef2::t_de5782e72a00b3 45-46
+  s_4a308c063e3ef2::t_2b69b34b61c475 78
+  s_4a308c063e3ef2::t_303dce8f67ae49 69
+  s_eb1ca94ef66408::t_12b1be1e573dcd 73-75,77
+  s_eb1ca94ef66408::t_08731276cab7d3 76
+  s_eb1ca94ef66408::t_132e91f03742ab 58
+  h_d74bc51d909986 22
+  s_4a308c063e3ef2::t_27d0f39f11a562 9,23-24
+  s_4a308c063e3ef2::t_a819373bcfc9bc 59
+  s_4a308c063e3ef2::t_3eed5b353f78dc 16
+  s_eb1ca94ef66408::t_635ae9f8a15d1d 26
+  s_4a308c063e3ef2::t_00bc7cb9355a7b 21
+  s_4a308c063e3ef2::t_63da201049711d 57
+  s_4a308c063e3ef2::t_cd61a89ae86830 60-61
+  s_4a308c063e3ef2::t_bf0fea5cdbfb4c 19
+  s_4a308c063e3ef2::t_8927c328346254 20
+  s_4a308c063e3ef2::t_875399318e964c 56
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_dcfdaca7204890 144-145
+  s_4a308c063e3ef2::t_4a041d8fc7e49c 107-108
+  s_4a308c063e3ef2::t_ddd22a0b0e8fd3 124-126
+  s_4a308c063e3ef2::t_99537f8da5783a 86-98
+  s_4a308c063e3ef2::t_daea2c1c865b3d 105-106
+  s_4a308c063e3ef2::t_915dd359e1fa26 102-104
+  s_4a308c063e3ef2::t_93a6ef8a175e83 146-150
+  s_4a308c063e3ef2::t_8927c328346254 162
+  s_4a308c063e3ef2::t_6ba09be6510b38 120-123
+  s_4a308c063e3ef2::t_707f39f84b0711 161,163,166-167
+labs/houston_signal/integrations/houston_311/functions.py
+  s_4a308c063e3ef2::t_9d4d29b0f39be5 5-6,9,11-16,22-23,28-29,52-58,60-76,78-90,92-98,100-103,105-106,108-109
+  s_4a308c063e3ef2::t_316a69ad6afb56 104
+  s_4a308c063e3ef2::t_dca7fa9e303bc3 110
+labs/houston_signal/integrations/houston_emergency_center/tests/test_functions.py
+  s_4a308c063e3ef2::t_4154dd02159d11 131-156
+libs/dbt/tests/test_run_dbt_script.py
+  s_4a308c063e3ef2::t_eff48cf01f3364 1
+  s_4a308c063e3ef2::t_9f430d04fcb00c 15,18,28,57
+  s_4a308c063e3ef2::t_17896624a32e38 63-65
+libs/pydantic_ai_core/tests/test_smoke_model_matrix.py
+  s_4a308c063e3ef2::t_c5ba1e60deb921 12-13
+  s_4a308c063e3ef2::t_177651fec32bdf 1-11,14-45
+libs/document_intelligence/tests/test_embeddings.py
+  s_4a308c063e3ef2::t_bf0fea5cdbfb4c 17
+  s_4a308c063e3ef2::t_809d137ac27acd 56
+labs/houston_signal/integrations/houston_311/tests/test_ingest.py
+  s_4a308c063e3ef2::t_e79300d0ec6968 47-48,52,70,85
+  s_4a308c063e3ef2::t_9cca303c943255 112
+  s_4a308c063e3ef2::t_73d916d14000cb 50,71
+libs/core/tests/test_dependencies.py
+  s_4a308c063e3ef2::t_e79300d0ec6968 12,20,51-52,54
+libs/pydantic_ai_core/observability.py
+  s_4a308c063e3ef2::t_303dce8f67ae49 8,34-44,49
+  s_4a308c063e3ef2::t_7bb9f2d4631cd5 1
+  s_4a308c063e3ef2::t_a505902364f21e 4,17-18,32,50
+  s_4a308c063e3ef2::t_de5782e72a00b3 2-3,5-7,9-16,19-31,33,45-48,51
+libs/database/models/document.py
+  s_4a308c063e3ef2::t_e4acd5315083dc 57,60,64
+  s_4a308c063e3ef2::t_0ccac442571d40 5
+  s_4a308c063e3ef2::t_17ab539a0e2773 1,3,6-7,9-19,21,23-25,28-29,31-44,47-56,58-59,61-62,65-67,69-71
+libs/database/models/__init__.py
+  s_4a308c063e3ef2::t_17ab539a0e2773 4-7
+labs/invoice_parser/schemas.py
+  s_4a308c063e3ef2::t_c4b514ab15ef59 13,24-32
+  s_4a308c063e3ef2::t_62465b739e8f92 3
+  s_99347370e2b02b::t_9176885f473fad 33
+libs/database/schemas/documents.py
+  s_4a308c063e3ef2::t_3b997bc2a32b83 18,23-25
+  s_4a308c063e3ef2::t_da52a7a06448e7 28-33
+  s_4a308c063e3ef2::t_de71bbee2e180b 26-27
+README.md
+  s_4a308c063e3ef2::t_258b2ee7da2967 42
+  s_4a308c063e3ef2::t_915dd359e1fa26 25
+  s_4a308c063e3ef2::t_b6496ec0bf6b2d 36
+  s_4a308c063e3ef2::t_72ff0d356b4f8d 37,43-44,46,74-76
+  s_4a308c063e3ef2::t_ddd22a0b0e8fd3 23
+libs/document_intelligence/scripts/__init__.py
+  s_4a308c063e3ef2::t_e6bd5c9836935e 1
+libs/database/tests/test_functions.py
+  s_4a308c063e3ef2::t_2ccabb3c6ac61b 12-13,20-21,23-25,29,31-33,37-38,41-43,47
+  s_4a308c063e3ef2::t_4e4b3b9d6c22aa 6,9,22,26-28,30,34-36,40,44-46,67,71-73,89-90,93-95,102,106-108,114,118-120,123-124,128-130
+  s_4a308c063e3ef2::t_63e5c4de054242 39
+  s_4a308c063e3ef2::t_62cb00b1ee789e 48-49
+libs/database/tests/test_migrate_managed.py
+  s_4a308c063e3ef2::t_b6cc4d2995eead 13,16-23,29-31
+  s_4a308c063e3ef2::t_63e5c4de054242 26
+libs/database/tests/test_documents.py
+  s_4a308c063e3ef2::t_00a3dbec2dcb25 191
+  s_4a308c063e3ef2::t_5652b00630b77e 81
+  s_4a308c063e3ef2::t_6554fcacb7b989 9,207
+  s_4a308c063e3ef2::t_17ab539a0e2773 21-22
+  s_4a308c063e3ef2::t_45e745f6c46d11 174,187
+  s_4a308c063e3ef2::t_1c3d4a4a6b8173 5,15,17,20,188-190,192-195,200-201
+  s_4a308c063e3ef2::t_685da56a3925d4 202-206,208-209
+  s_4a308c063e3ef2::t_6ba09be6510b38 133-134
+  s_4a308c063e3ef2::t_3e506261a4e068 196-199
+labs/houston_signal/integrations/houston_311/scripts/ingest.py
+  s_4a308c063e3ef2::t_824a2671b8150e 23
+  s_4a308c063e3ef2::t_f824b488e92d4c 235-238
+  s_4a308c063e3ef2::t_9ccc58e49c0808 228-233
+  s_99347370e2b02b::t_43d1809a98a61d 234
+libs/database/sessions.py
+  s_4a308c063e3ef2::t_df87fae37076d4 40-44
+  s_4a308c063e3ef2::t_77c00e731ec7ef 15,34
+libs/document_intelligence/conversion.py
+  s_4a308c063e3ef2::t_cc04487b2f0e6b 54
+  s_4a308c063e3ef2::t_bf0fea5cdbfb4c 31
+  s_4a308c063e3ef2::t_3b997bc2a32b83 65,90-109
+  s_4a308c063e3ef2::t_181f23fa6750b8 110-111
+libs/blob_storage/tests/test_functions.py
+  s_4a308c063e3ef2::t_936a82c243d5a2 43-44,46,49,196,224,227,229,232,235,245,282,285,288
+  s_4a308c063e3ef2::t_b6496ec0bf6b2d 60-61,67,74,101,120,136,159,209
+  s_4a308c063e3ef2::t_5652b00630b77e 79,105,127,140,148,164,183,188,314
+  s_4a308c063e3ef2::t_975b9ef386680a 179
+  s_4a308c063e3ef2::t_7695c59e030558 12,132-135,137-139,141-147,149-152
+  s_4a308c063e3ef2::t_9b2ce20f6d7f6c 197-208,225-226,228,230-231,233-234,236-244,246-247
+  s_4a308c063e3ef2::t_87016e71091cd4 250-281,283-284,286-287,289-302
+  s_4a308c063e3ef2::t_96bcd1ecd42bd8 153-154
+  s_4a308c063e3ef2::t_e289f08194121f 248-249
+.agents/skills/building-pydantic-ai-agents
+  s_4a308c063e3ef2::t_9be62f8fbefb3a 1
+.agents/skills/docling
+  s_4a308c063e3ef2::t_a2f2512662a2ec 1
+.agents/skills/fastapi
+  s_4a308c063e3ef2::t_af54e361ad7cf7 1
+.agents/skills/logfire-instrumentation
+  s_4a308c063e3ef2::t_3f2cbb4c04d2ef 1
+.agents/skills/typer
+  s_4a308c063e3ef2::t_445845ccc4b978 1
+uv.lock
+  s_4a308c063e3ef2::t_80c1e4bcb6aff7 1204-1242,1679-1692,2054,2067,2094,2105,2824-2844,2908-2910
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "bb0ce688b1c1a68d74b8ddd63e814a752460cac5",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    },
+    "s_99347370e2b02b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00138-1824-7e43-b99f-6bf0ecef1423",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    },
+    "s_eb1ca94ef66408": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "6ac0b41f-09da-45e9-ad9d-c5ae6f0e97c2",
+        "model": "grok-4.6"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
