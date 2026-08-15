@@ -1,0 +1,71 @@
+libs/database/crud/documents.py
+  s_4a308c063e3ef2::t_fc7b8cc36bfff3 186-217
+  s_4a308c063e3ef2::t_a4e1c07d216033 17,24,28-33,176-183,185,218-225,227-232,236,242-243,245-270,276,296-297,327-342,344,348-375,384,405,485,490-493,502-506,543-544
+  s_4a308c063e3ef2::t_1075bc4dfcc5e3 226,541
+  s_4a308c063e3ef2::t_2903c6c20ca93c 130,295,298-303,343,345-347
+  s_4a308c063e3ef2::t_cedefc2bbe58b3 271-275
+libs/document_intelligence/embeddings.py
+  s_4a308c063e3ef2::t_2a48da6924f7b7 9-12,14,20,25,34,42-48
+libs/pydantic_ai_core/schemas.py
+  s_4a308c063e3ef2::t_80749089e67a06 32-33,35-36
+libs/document_intelligence/tests/test_functions.py
+  s_4a308c063e3ef2::t_2ec940a4933298 37-38,102-103,310-312
+  s_4a308c063e3ef2::t_23eac64858c66f 154
+  s_4a308c063e3ef2::t_06fadd6de9d349 11,16-17,222-241,247-248,254-257,262-270,313
+libs/database/schemas/__init__.py
+  s_4a308c063e3ef2::t_a4e1c07d216033 4,14
+libs/document_intelligence/functions.py
+  s_4a308c063e3ef2::t_683286e0df71dc 31,66,74,79,81-93,101-102,111,125,128,138-143,219-224
+  s_4a308c063e3ef2::t_81012288a7d975 30
+  s_4a308c063e3ef2::t_2903c6c20ca93c 77,107
+  s_4a308c063e3ef2::t_dc2cad4857bc22 70-71
+libs/document_intelligence/tests/test_embeddings.py
+  s_4a308c063e3ef2::t_4210baf6603182 50
+  s_4a308c063e3ef2::t_29c9aa6988e6ef 17-18,47-49,51-52,62-90,107
+libs/pydantic_ai_core/tests/test_functions.py
+  s_4a308c063e3ef2::t_f55d5d02d87088 8
+  s_4a308c063e3ef2::t_4ddd243b82477a 18-19,129-132,135,142,147,151,164-187,189-193
+  s_4a308c063e3ef2::t_4210baf6603182 160,188,194
+  s_4a308c063e3ef2::t_7e97e107160aa8 195-196
+libs/database/schemas/documents.py
+  s_4a308c063e3ef2::t_a4e1c07d216033 12,30-35
+  s_4a308c063e3ef2::t_b42e07175b901a 36-37
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_81012288a7d975 75-79
+libs/database/tests/test_documents.py
+  s_4a308c063e3ef2::t_e259d75f5722be 35,119-120,127-128,180,187-191,197-198,202,254-259
+  s_4a308c063e3ef2::t_f0889812aae486 67-70,182-183
+  s_4a308c063e3ef2::t_23eac64858c66f 39
+  s_4a308c063e3ef2::t_3a84628079b1ce 201
+  s_4a308c063e3ef2::t_a867c7f53885cf 19,141-152
+libs/pydantic_ai_core/functions.py
+  s_4a308c063e3ef2::t_80749089e67a06 7-8,17,21-29,77,83-90,92-106
+libs/document_intelligence/conversion.py
+  s_4a308c063e3ef2::t_6c4e988c3fba5f 27-28,41-42
+  s_4a308c063e3ef2::t_84f1a52ede673e 39
+libs/document_intelligence/schemas.py
+  s_4a308c063e3ef2::t_2a48da6924f7b7 17
+libs/document_intelligence/settings.py
+  s_4a308c063e3ef2::t_6c4e988c3fba5f 4-5,8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "5670c9a07a19ab417264de4f99b2451add183de0",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
