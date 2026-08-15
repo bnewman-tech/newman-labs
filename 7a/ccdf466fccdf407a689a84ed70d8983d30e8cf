@@ -1,0 +1,56 @@
+libs/pydantic_ai_core/scripts/smoke_model_matrix.py
+  s_4a308c063e3ef2::t_4a891d4eada51f 72
+  s_4a308c063e3ef2::t_2a45202a33eeec 51,85-87
+  s_4a308c063e3ef2::t_7c25feceb3942c 1,4,7,14,19-20,22-37,44,49,52-53,57-58,60-62,64-71,76-82,84,88-90,92-111,115
+  s_4a308c063e3ef2::t_6c40f4520227ee 73-74
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_0d98d2dd5f494e 3-4,7-18,21-23,29-36,38,40-46,48-51,53,55,58-63,66-69,71-75,77-79,81,83-89,91-93
+README.md
+  s_4a308c063e3ef2::t_5edfacf1a038c6 49-50,64,66
+  s_4a308c063e3ef2::t_28f5342e5cc97b 68-70
+  s_99347370e2b02b::t_341dd6bd80661c 67
+libs/document_intelligence/tests/test_functions.py
+  s_4a308c063e3ef2::t_2280c07e2c2d7a 34,45,243
+  s_4a308c063e3ef2::t_0cdcaa806d0bd8 239
+docs/operations/observability.md
+  s_4a308c063e3ef2::t_0d98d2dd5f494e 1,3-5,7-9,11-14,16-17
+docs/operations/development.md
+  s_4a308c063e3ef2::t_0d98d2dd5f494e 1,3-5,9-10,14-15,19,22-23,26-27,30,32-33,36-37,40-41,44,47-49,52,55,64-67
+prefect.yaml
+  s_4a308c063e3ef2::t_2280c07e2c2d7a 72
+libs/pydantic_ai_core/schemas.py
+  s_4a308c063e3ef2::t_02ccac09c3506c 1
+docs/operations/deployment.md
+  s_4a308c063e3ef2::t_0d98d2dd5f494e 1,3,5,7-17,19-28,30-31,34-57
+libs/pydantic_ai_core/tests/test_smoke_model_matrix.py
+  s_4a308c063e3ef2::t_7c25feceb3942c 12,15,28-30,32-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "7accdf466fccdf407a689a84ed70d8983d30e8cf",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    },
+    "s_99347370e2b02b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00138-1824-7e43-b99f-6bf0ecef1423",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
