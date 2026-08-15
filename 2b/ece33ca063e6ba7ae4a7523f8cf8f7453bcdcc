@@ -1,0 +1,89 @@
+libs/document_intelligence/tests/test_security.py
+  s_4a308c063e3ef2::t_381e8862e1533b 139-141,154,163-166,179-192,194-209
+  s_4a308c063e3ef2::t_1575c0b3771078 39-45,47,75
+  s_4a308c063e3ef2::t_2c15bc3eea62b3 155
+  s_4a308c063e3ef2::t_d9c3676ed1e95f 3
+  s_4a308c063e3ef2::t_e4bab3b0e41752 96-98,100,102,104-105,119,121-124,144-148,150,171-176,178
+  s_4a308c063e3ef2::t_83171f8d77b2f8 21,210-228,231-232,235,237
+  s_4a308c063e3ef2::t_8566daec3b88ba 233-234
+  s_4a308c063e3ef2::t_e18da54a70b378 8,19,142,193
+  s_4a308c063e3ef2::t_e9d541897e0aae 12,15,20,46,49,73,78,92-94,106-110,112-115,117,127-131,134-136,138,143,149,156,160-162,177,229-230,236
+libs/document_intelligence/tests/fixtures/prompt-injection.pdf
+  s_4a308c063e3ef2::t_50ed801a3571e9 1-19
+libs/document_intelligence/rules/README.md
+  s_4a308c063e3ef2::t_d1ef96ddefd9ce 1-9
+  s_4a308c063e3ef2::t_b69ce97c8f8e9b 10-11
+libs/document_intelligence/tests/test_conversion.py
+  s_4a308c063e3ef2::t_e18da54a70b378 14,20
+libs/document_intelligence/tests/fixtures/encrypted-marker.pdf
+  s_4a308c063e3ef2::t_50ed801a3571e9 1-10
+libs/document_intelligence/rules/LICENSE
+  s_4a308c063e3ef2::t_b69ce97c8f8e9b 1-21
+libs/document_intelligence/schemas.py
+  s_4a308c063e3ef2::t_9e17c36fc3068d 29-36
+libs/document_intelligence/security.py
+  s_4a308c063e3ef2::t_e18da54a70b378 3-4,15,39,41-42,44-56,68-69,188-189
+  s_4a308c063e3ef2::t_99eb73c35ba4e7 84-86,93,98-99,101
+  s_4a308c063e3ef2::t_456ec661f75c28 109,115-128,130-132,140-142,145-147,149-158,161-162
+  s_4a308c063e3ef2::t_245203632186ab 26-27,134
+  s_4a308c063e3ef2::t_d7b5aac597c624 24-25,133,135-138
+  s_4a308c063e3ef2::t_d990f1ec992f94 11,23,28
+  s_4a308c063e3ef2::t_2058c95664fd85 172,176
+  s_4a308c063e3ef2::t_151314081a2f41 6,8-10,13,18,31-32,35-38,40,43,63-64,66-67,70-80,87,94-97,102-104,107-108,110,112-113,129,159,163-171,173-175,177-178,180-184,186-187,190-194,210,217-224,226,229-231
+  s_4a308c063e3ef2::t_d15a6030f99130 81
+  s_4a308c063e3ef2::t_bae0fd69f5b060 82
+  s_4a308c063e3ef2::t_2c15bc3eea62b3 143-144,148,160
+  s_4a308c063e3ef2::t_df3e2fe4f92510 65,83,111,185
+  s_4a308c063e3ef2::t_15abe5ddfc348c 114
+libs/document_intelligence/tests/fixtures/benign.pdf
+  s_4a308c063e3ef2::t_50ed801a3571e9 1-19
+libs/document_intelligence/tests/fixtures/active-content.pdf
+  s_4a308c063e3ef2::t_50ed801a3571e9 1-16
+libs/document_intelligence/conversion.py
+  s_4a308c063e3ef2::t_e18da54a70b378 15
+  s_4a308c063e3ef2::t_245203632186ab 21-23
+  s_4a308c063e3ef2::t_ecd5c303a0204c 20
+libs/document_intelligence/tests/test_functions.py
+  s_4a308c063e3ef2::t_245203632186ab 29
+libs/document_intelligence/scripts/pressure_security.py
+  s_4a308c063e3ef2::t_a3b40b8e7c9ac3 13,15-20,26,33
+  s_4a308c063e3ef2::t_fc69ad46d3aba8 1-12,21-25,27-32,34-45
+  s_4a308c063e3ef2::t_5c7c307f2c136e 14
+libs/document_intelligence/tests/fixtures/benign-second.pdf
+  s_4a308c063e3ef2::t_a1443cd9a7682b 1-19
+libs/docling/settings.py
+  s_4a308c063e3ef2::t_e18da54a70b378 1-5
+libs/docling/functions.py
+  s_4a308c063e3ef2::t_e18da54a70b378 20-24
+libs/docling/tests/test_functions.py
+  s_4a308c063e3ef2::t_e18da54a70b378 19-23
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_53b657a3703a78 60,82-85
+libs/document_intelligence/rules/document_malware.yar
+  s_4a308c063e3ef2::t_0ecec2d6101ae2 1-822
+libs/document_intelligence/tests/fixtures/README.md
+  s_4a308c063e3ef2::t_a1443cd9a7682b 8
+  s_4a308c063e3ef2::t_50ed801a3571e9 1-7,9-15
+  s_4a308c063e3ef2::t_7b28559880d664 16-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "2bece33ca063e6ba7ae4a7523f8cf8f7453bcdcc",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
