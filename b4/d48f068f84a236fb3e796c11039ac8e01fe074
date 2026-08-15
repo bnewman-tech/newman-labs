@@ -1,0 +1,59 @@
+libs/document_intelligence/conversion.py
+  s_4a308c063e3ef2::t_3b63d9a92b9164 23,90-91
+libs/document_intelligence/tests/test_security.py
+  s_4a308c063e3ef2::t_5ac1c073423fa9 1-83,85,88-145
+  s_4a308c063e3ef2::t_1467f79968b37e 84,86-87
+libs/database/alembic/versions/0001_initial_newman_labs_schema.py
+  s_4a308c063e3ef2::t_a692e98d13e687 214,244-250,252
+libs/document_intelligence/schemas.py
+  s_4a308c063e3ef2::t_a692e98d13e687 1,85
+  s_4a308c063e3ef2::t_3b63d9a92b9164 4,36-37,46-49
+  s_4a308c063e3ef2::t_799b8efd0db58f 50-51
+pyproject.toml
+  s_4a308c063e3ef2::t_7ae1973a264cac 13
+  s_4a308c063e3ef2::t_1574dc81d3b565 31
+  s_4a308c063e3ef2::t_d21de3b3a75217 3
+libs/document_intelligence/tests/test_conversion.py
+  s_4a308c063e3ef2::t_809826e12abf8a 29-30,35,42
+libs/document_intelligence/tests/test_functions.py
+  s_4a308c063e3ef2::t_122f14878d3c5d 17,120-138
+  s_4a308c063e3ef2::t_809826e12abf8a 27,37-38,50,83,157-158,172-173,185-189,235-239,278-282
+  s_4a308c063e3ef2::t_5e8f7660d77b32 139-140
+libs/database/schemas/documents.py
+  s_4a308c063e3ef2::t_a692e98d13e687 46,55
+libs/database/models/document.py
+  s_4a308c063e3ef2::t_a692e98d13e687 37-38
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_7ae1973a264cac 58-60,79-83
+  s_4a308c063e3ef2::t_d81ef25a3318b8 61,65
+  s_4a308c063e3ef2::t_5136e7647e1e8a 84
+libs/document_intelligence/security.py
+  s_4a308c063e3ef2::t_4d3d1cbad6430c 96
+  s_4a308c063e3ef2::t_3b63d9a92b9164 1-95,97-127
+libs/document_intelligence/functions.py
+  s_4a308c063e3ef2::t_a692e98d13e687 36
+  s_4a308c063e3ef2::t_3b63d9a92b9164 24,26-27,61,64-65,77,138
+uv.lock
+  s_4a308c063e3ef2::t_9814480814816d 797-815,2055,2063,2083,2105,2123,3865-3873,4487-4506
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b4d48f068f84a236fb3e796c11039ac8e01fe074",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
