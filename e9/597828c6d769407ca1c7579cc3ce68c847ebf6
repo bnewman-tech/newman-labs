@@ -1,0 +1,43 @@
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_54d07973f242cb 94,160-161
+  s_4a308c063e3ef2::t_8c62cf4fe74f9c 117-126,162-164,166-167
+libs/database/models/document_parse.py
+  s_4a308c063e3ef2::t_effc623d793704 1,29-30,32,43,62,64
+libs/database/models/__init__.py
+  s_4a308c063e3ef2::t_effc623d793704 7,16
+libs/database/models/document_chunk.py
+  s_4a308c063e3ef2::t_effc623d793704 27,31,38,42,44,49,51,67
+libs/database/alembic/versions/0001_initial_newman_labs_schema.py
+  s_4a308c063e3ef2::t_fcd235038cafa8 257,289,298,301,328,332,379,381
+libs/database/crud/documents.py
+  s_4a308c063e3ef2::t_effc623d793704 15,38,74,99,108,110,135,139,148,152,156,160,164,173,183,219,268-270,272-277,279-285
+  s_4a308c063e3ef2::t_ee9339edd3b57c 64,73,317
+  s_4a308c063e3ef2::t_8c62cf4fe74f9c 159,271,278,303
+libs/database/models/document.py
+  s_4a308c063e3ef2::t_effc623d793704 24,64
+libs/database/schemas/documents.py
+  s_4a308c063e3ef2::t_effc623d793704 18,21
+libs/database/tests/test_documents.py
+  s_4a308c063e3ef2::t_54d07973f242cb 22,135-137,139-140,204-205
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "e9597828c6d769407ca1c7579cc3ce68c847ebf6",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
