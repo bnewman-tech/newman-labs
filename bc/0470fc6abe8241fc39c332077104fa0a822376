@@ -1,0 +1,44 @@
+libs/database/crud/documents.py
+  s_4a308c063e3ef2::t_9b993eb328c049 86-89
+  s_4a308c063e3ef2::t_d0dcc26b95fba1 60-67,95,155,157,172,178-182
+  s_4a308c063e3ef2::t_1859e9324e14a3 91
+  s_4a308c063e3ef2::t_3fa3ebbc341fe3 69-85,90
+libs/document_intelligence/functions.py
+  s_4a308c063e3ef2::t_9b993eb328c049 84
+  s_4a308c063e3ef2::t_d0dcc26b95fba1 62,65,74,79-83,85,140
+libs/document_intelligence/schemas.py
+  s_4a308c063e3ef2::t_d0dcc26b95fba1 103
+libs/document_intelligence/tests/test_functions.py
+  s_4a308c063e3ef2::t_5680fb71402849 188-191
+  s_4a308c063e3ef2::t_faa86f3a9398be 151-155,180-185,192-235,279-282,326-329,371-374
+libs/database/schemas/documents.py
+  s_4a308c063e3ef2::t_d0dcc26b95fba1 22,51
+libs/document_intelligence/tests/test_conversion.py
+  s_4a308c063e3ef2::t_faa86f3a9398be 46-78,189-191,197-199
+libs/document_intelligence/conversion.py
+  s_4a308c063e3ef2::t_d0dcc26b95fba1 58,60,66-76
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_d0dcc26b95fba1 72-73
+  s_4a308c063e3ef2::t_3fa3ebbc341fe3 63-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "bc0470fc6abe8241fc39c332077104fa0a822376",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
