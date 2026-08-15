@@ -1,0 +1,46 @@
+docs/architecture/project-structure.md
+  s_4a308c063e3ef2::t_a5532f10d1bfee 68-69
+libs/database/tests/test_documents.py
+  s_4a308c063e3ef2::t_4c7733d79010d6 37-38,208
+  s_4a308c063e3ef2::t_5e0c762137b1cd 29,73-78,209-214
+libs/document_intelligence/schemas.py
+  s_4a308c063e3ef2::t_5e0c762137b1cd 4
+  s_4a308c063e3ef2::t_a5532f10d1bfee 32-33,51-58
+  s_4a308c063e3ef2::t_2b896ecef8ba6e 30
+libs/document_intelligence/security.py
+  s_4a308c063e3ef2::t_a5532f10d1bfee 10,32-33,99-103,111-115,134-135,179-180,191-197,249
+libs/document_intelligence/tests/test_conversion.py
+  s_4a308c063e3ef2::t_5e0c762137b1cd 19-20,24-30,39,60,105,112
+libs/database/alembic/versions/0003_store_document_security_scan.py
+  s_4a308c063e3ef2::t_394eb27ef92edb 43,80
+  s_4a308c063e3ef2::t_a5532f10d1bfee 1-42,44-79,81-95
+libs/document_intelligence/tests/test_functions.py
+  s_4a308c063e3ef2::t_5e0c762137b1cd 25,29,80-88
+libs/database/models/document.py
+  s_4a308c063e3ef2::t_a5532f10d1bfee 18,37-40,54
+libs/database/crud/documents.py
+  s_4a308c063e3ef2::t_a5532f10d1bfee 101
+libs/document_intelligence/tests/test_security.py
+  s_4a308c063e3ef2::t_5e0c762137b1cd 43-44,53-59,80-84,99-103,188-189,222-223
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "7944c31bf1d965dc14e357392b52fb60f7c5909e",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
