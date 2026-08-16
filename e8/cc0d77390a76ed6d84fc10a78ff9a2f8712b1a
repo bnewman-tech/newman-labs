@@ -1,0 +1,138 @@
+apps/labs/static/css/invoice-presentation.css
+  s_38136d6c2c3ff6::t_bb480b19be2692 187,228,232-234,247-248,250
+  s_38136d6c2c3ff6::t_bf1e6bd161e0a9 249
+libs/dbt/tests/test_functions.py
+  s_38136d6c2c3ff6::t_774db576e4b88e 4,38,62-63,69,86
+  s_38136d6c2c3ff6::t_ace5c28bc006dd 64-68,87
+README.md
+  s_38136d6c2c3ff6::t_93d6e5427d97e2 10,17
+libs/database/schemas/documents.py
+  s_38136d6c2c3ff6::t_b226b4e8b2bd5b 5,30-34
+  s_38136d6c2c3ff6::t_5bcf32523ef0a3 35-36
+libs/document_intelligence/tests/test_security.py
+  s_38136d6c2c3ff6::t_9766d4293b6a7d 179,192,203
+apps/labs/routes/invoice_parser.py
+  s_38136d6c2c3ff6::t_29e811cffb0ae4 1,4,6,12-13,15,28-29,54-55,60-61,76,89,92,97
+libs/database/alembic/versions/0008_remove_invoice_persistence.py
+  s_38136d6c2c3ff6::t_8b3f1a2c309da1 1,3-6,8-10,12,14-17,20-68,72-73,77,86,88-110,112-125
+apps/labs/static/demos/README.md
+  s_38136d6c2c3ff6::t_9a5fa46328d477 3-5,7-9
+labs/invoice_parser/tests/test_functions.py
+  s_38136d6c2c3ff6::t_5d0ef87a52e911 180,186
+  s_38136d6c2c3ff6::t_37cafbdd532691 1,8,10,13-14,17,19,29,33,39-40,59,70,82,92,134-144,147-153,158-160,162-168
+  s_38136d6c2c3ff6::t_754c646401cce8 3,7,23,169-174,176-179,181-185,191-193
+  s_38136d6c2c3ff6::t_93349d3423bcea 56-58,66-67,69,71,79-81,86-90,93,175,189-190,195-197
+  s_38136d6c2c3ff6::t_9766d4293b6a7d 187-188,194
+  s_38136d6c2c3ff6::t_a7585753fdda75 98-103,105-108,111-112,114,117-125,128,130-131
+  s_38136d6c2c3ff6::t_152342ef8b5fcb 4,9,161
+  s_38136d6c2c3ff6::t_1e0379f781269b 28,146,154-155,157
+apps/labs/static/demos/invoice-detailed.json
+  s_38136d6c2c3ff6::t_705d2ef5041951 1-56,58-59
+  s_38136d6c2c3ff6::t_a7585753fdda75 57
+libs/document_intelligence/functions.py
+  s_38136d6c2c3ff6::t_1e0379f781269b 3
+  s_38136d6c2c3ff6::t_b226b4e8b2bd5b 25,110-137,143-144,156,160,249,253-258
+  s_38136d6c2c3ff6::t_1ef6a49dc946a6 16
+apps/labs/templates/labs/invoice_parser.html
+  s_38136d6c2c3ff6::t_9a5fa46328d477 40,42,44-46,77,84,86
+  s_38136d6c2c3ff6::t_ecdec99a2817d3 12
+  s_38136d6c2c3ff6::t_9b4afe50cff0d6 4,13-26,31,34,51,60-61,67,71-72,74-75,79-83,85,87
+apps/labs/catalog.py
+  s_38136d6c2c3ff6::t_93d6e5427d97e2 41
+libs/database/tests/test_migrate_managed.py
+  s_38136d6c2c3ff6::t_8b3f1a2c309da1 36,38,88,111
+libs/core/tests/test_logger.py
+  s_38136d6c2c3ff6::t_9766d4293b6a7d 4,6,9-34
+libs/database/schemas/__init__.py
+  s_38136d6c2c3ff6::t_b226b4e8b2bd5b 9,20
+apps/labs/tests/test_home.py
+  s_38136d6c2c3ff6::t_5ce8f10d4ae892 152
+apps/labs/tests/test_invoice_parser.py
+  s_38136d6c2c3ff6::t_646900b8aa8dde 59-60,67-68,75-80
+  s_38136d6c2c3ff6::t_0ad08101678bf1 1,3,16,26-28,30-32,34-47,52-53,63,65-66,69-70,83-84,90,95,98-100,104-105,109-112,117,123,129,149,164,169,173,178,181,185-186,190-191,195
+  s_38136d6c2c3ff6::t_1e0379f781269b 14,137,140,143-144,153-154
+libs/database/crud/documents.py
+  s_38136d6c2c3ff6::t_b226b4e8b2bd5b 421-466
+apps/labs/static/js/invoice-parser.js
+  s_38136d6c2c3ff6::t_9a5fa46328d477 30,38-47,103,105,109-110,113
+  s_38136d6c2c3ff6::t_ff8c6cb6e40688 48-52
+  s_38136d6c2c3ff6::t_78e7ad0583fbc9 4,6,12-14,23-25,28-29,31-37,53-54,82-84,91-93,95-97,104,114
+labs/invoice_parser/README.md
+  s_38136d6c2c3ff6::t_9a5fa46328d477 18-20
+  s_38136d6c2c3ff6::t_e86ced87f31ecc 39-42
+  s_38136d6c2c3ff6::t_d90ccfc8e30f47 3-5,7-11,24-30,38
+libs/docling/functions.py
+  s_38136d6c2c3ff6::t_860c1fb048e103 14,36,47,60-64
+  s_38136d6c2c3ff6::t_111e0f6630fde0 37-41
+labs/invoice_parser/functions.py
+  s_38136d6c2c3ff6::t_860c1fb048e103 26
+  s_38136d6c2c3ff6::t_9e31c1451b0936 22
+  s_38136d6c2c3ff6::t_a1f41ddb12d562 107-111,113-118,121,124-129
+  s_38136d6c2c3ff6::t_b1df81508181a3 78
+  s_38136d6c2c3ff6::t_03526c4ad45938 7,36-37,40-41,105
+  s_38136d6c2c3ff6::t_5d4007c6681e13 4,15-16
+  s_38136d6c2c3ff6::t_b226b4e8b2bd5b 97
+  h_d74bc51d909986 29,81,89
+  s_38136d6c2c3ff6::t_5908c6c8863831 1,19,32-33,80,86-88,91,96,99-101,104
+  s_38136d6c2c3ff6::t_a7585753fdda75 11,51-62,64-65,68
+docs/architecture/project-structure.md
+  s_38136d6c2c3ff6::t_81d085476996bd 88
+  s_38136d6c2c3ff6::t_93d6e5427d97e2 9,87,89-92,125-127
+labs/invoice_parser/schemas.py
+  s_38136d6c2c3ff6::t_fef72414d2d01d 3,7,26,30,58-59,62
+  s_38136d6c2c3ff6::t_b226b4e8b2bd5b 9
+apps/labs/templates/pages/privacy.html
+  s_38136d6c2c3ff6::t_93d6e5427d97e2 17
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_38136d6c2c3ff6::t_66b544c9ef1d07 24
+  s_38136d6c2c3ff6::t_e86ced87f31ecc 182,185-187,189-195,198-200,281,284,293
+  s_38136d6c2c3ff6::t_0d834adf2cf3d9 6,35,39,41,44-48,64-68,71,73-74,77-86,93-94,96,98-102,105-106,108-110,112,118,120-124,127,130-132,134-139,141-145,148-166,169-179,183,197,201,204,206-221,224,226-227,229-238,241-242,244-246,248-251,254-258,261,263-264,266-275,278-280,282-283,285-289,291-292,294-295,298,301-303,305-321,324,326-327,329-338,341,344-346,348-351,354-358,361,363-364,366-376,379-390
+libs/pydantic_ai_core/scripts/basic_agent.py
+  s_38136d6c2c3ff6::t_bde2d6cafa2126 44,50
+  s_38136d6c2c3ff6::t_b01af3c69b9540 42,52-53
+libs/dbt/functions.py
+  s_38136d6c2c3ff6::t_bdd81894a07061 8,23,59-61
+  s_38136d6c2c3ff6::t_774db576e4b88e 10,56,62-74,76-77,79-86
+  s_38136d6c2c3ff6::t_ace5c28bc006dd 57-58
+libs/document_intelligence/tests/test_functions.py
+  s_38136d6c2c3ff6::t_81d085476996bd 160
+  s_38136d6c2c3ff6::t_a860709de77316 4,171-184,191,199-200,210-213
+apps/labs/static/css/invoice-parser.css
+  s_38136d6c2c3ff6::t_9a5fa46328d477 106-107
+  s_38136d6c2c3ff6::t_3c8dba26a33756 4,10,20,23-31,38-42,47,76-77,79,90,92,94-98,101-105,108-109,113,119,121-123,126-128,133
+libs/core/logger.py
+  s_38136d6c2c3ff6::t_860c1fb048e103 4,11-18
+  s_38136d6c2c3ff6::t_a4a416dc57e292 19-20
+libs/docling/tests/test_functions.py
+  s_38136d6c2c3ff6::t_9766d4293b6a7d 11,36-39
+labs/invoice_parser/tests/test_evaluate.py
+  s_38136d6c2c3ff6::t_f7e02efc35a92d 25-26,28,32,44,46,50,54-56
+apps/labs/static/demos/invoice-basic.json
+  s_38136d6c2c3ff6::t_705d2ef5041951 2-13,15-18,20-46,48
+  s_38136d6c2c3ff6::t_a7585753fdda75 47
+libs/document_intelligence/security.py
+  s_38136d6c2c3ff6::t_860c1fb048e103 17,121
+labs/invoice_parser/data/README.md
+  s_38136d6c2c3ff6::t_a7585753fdda75 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "e8cc0d77390a76ed6d84fc10a78ff9a2f8712b1a",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
