@@ -1,0 +1,30 @@
+libs/docling/tests/test_functions.py
+  s_38136d6c2c3ff6::t_f07e5e90978200 6,27-31
+  s_38136d6c2c3ff6::t_33dc3758260cb5 32-33
+pyproject.toml
+  s_38136d6c2c3ff6::t_f07e5e90978200 3,52-59
+  s_38136d6c2c3ff6::t_e6aa330e0231c7 60
+uv.lock
+  s_38136d6c2c3ff6::t_d366c3fe1d47cb 11-14,2059,2214,2220,2222-2229,3302
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "0c5aafa8c407d0493b1dd34cee4cc48602620338",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
