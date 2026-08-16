@@ -1,0 +1,31 @@
+apps/labs/static/js/invoice-parser.js
+  s_4a308c063e3ef2::t_ba1451aa109839 23-25
+  s_4a308c063e3ef2::t_194b5c7498ad05 142
+  s_4a308c063e3ef2::t_bb09bb0d42f304 123,188
+libs/docling/tests/test_functions.py
+  s_4a308c063e3ef2::t_a3a4c4065a7a9e 26-27
+  s_4a308c063e3ef2::t_194b5c7498ad05 37-40
+apps/labs/static/css/invoice-parser.css
+  s_4a308c063e3ef2::t_194b5c7498ad05 99,109,112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "f983badbdda923f40525788f1717b02b4d021dc3",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
