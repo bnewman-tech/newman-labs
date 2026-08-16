@@ -1,0 +1,26 @@
+pyproject.toml
+  s_38136d6c2c3ff6::t_958ebab79e5405 3,20,53-56
+uv.lock
+  s_38136d6c2c3ff6::t_0c6562e11ab366 12,2058,2073,2117,2214-2222,3312
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c07b6fb230c88afcfc440d7a2988b8bb4e7e99cd",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
