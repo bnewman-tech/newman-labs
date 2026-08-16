@@ -1,0 +1,52 @@
+apps/labs/static/js/invoice-parser.js
+  s_4a308c063e3ef2::t_e3e041a9448230 21,63
+  s_4a308c063e3ef2::t_097b135d05484e 229
+apps/labs/tests/test_invoice_parser.py
+  s_4a308c063e3ef2::t_e236c8ad4557b2 228-229,246,249,268-272
+  s_4a308c063e3ef2::t_097b135d05484e 244-245
+  s_4a308c063e3ef2::t_e3e041a9448230 5
+labs/invoice_parser/schemas.py
+  s_4a308c063e3ef2::t_e3e041a9448230 4
+labs/invoice_parser/tests/test_functions.py
+  s_4a308c063e3ef2::t_892aafd8cb828c 3
+apps/labs/routes/invoice_parser.py
+  s_4a308c063e3ef2::t_e236c8ad4557b2 18,109,112
+  s_4a308c063e3ef2::t_fff8196a5b3ee2 17,97-101,106
+  s_4a308c063e3ef2::t_1c2288f9a45d3c 114
+libs/database/tests/test_documents.py
+  s_4a308c063e3ef2::t_097b135d05484e 197,202
+  s_4a308c063e3ef2::t_4028ccc4609c9b 203-207
+libs/database/alembic/versions/0004_create_invoice_analysis.py
+  s_4a308c063e3ef2::t_fff8196a5b3ee2 90-91
+labs/invoice_parser/functions.py
+  s_4a308c063e3ef2::t_ac7bebccfa4656 120,162,205
+  s_4a308c063e3ef2::t_8261b83a91b9b6 198-200
+  s_4a308c063e3ef2::t_fff8196a5b3ee2 71,136
+  s_4a308c063e3ef2::t_892aafd8cb828c 127
+  s_4a308c063e3ef2::t_d380f42943494d 140-142
+  s_4a308c063e3ef2::t_82ea327d02e2bd 143,173,180
+libs/database/crud/invoice_analyses.py
+  s_4a308c063e3ef2::t_1c2288f9a45d3c 47
+  s_4a308c063e3ef2::t_fff8196a5b3ee2 55,59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a9fc6ea4c979ad42ca6f7dca20b08ece5a086166",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
