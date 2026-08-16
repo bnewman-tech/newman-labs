@@ -1,0 +1,92 @@
+labs/invoice_parser/tests/test_extract_script.py
+  s_38136d6c2c3ff6::t_8e66d0d312f7bb 5,14,74-79,81-94,96-124,126-127,129,131-133,135-138,140-142
+  s_38136d6c2c3ff6::t_ff085bccaaf949 95
+  s_38136d6c2c3ff6::t_7d1a63e42f4924 125,128,139
+  s_38136d6c2c3ff6::t_8a7965c4698807 130,134
+  s_38136d6c2c3ff6::t_f2a13194f93abb 80,143
+apps/labs/templates/labs/invoice_parser.html
+  s_38136d6c2c3ff6::t_07324f857039a6 60
+apps/labs/routes/invoice_parser.py
+  s_38136d6c2c3ff6::t_de5bc6e4d3fc66 4,7,11-13,15,54-58,64-65,80,93-108,111,113-116
+prefect.yaml
+  s_38136d6c2c3ff6::t_f7c155d2a90fbc 36-50
+  s_38136d6c2c3ff6::t_947d4596e177a3 51-65
+labs/invoice_parser/tests/test_functions.py
+  s_38136d6c2c3ff6::t_25950f715ac9b0 29,217
+  s_38136d6c2c3ff6::t_fa97b1db7ba7b0 7
+  s_38136d6c2c3ff6::t_8a7965c4698807 212
+  s_38136d6c2c3ff6::t_7d1a63e42f4924 214,261-262,265-266
+  s_38136d6c2c3ff6::t_c100bc89f04300 203-205
+  s_38136d6c2c3ff6::t_ff085bccaaf949 251
+  s_38136d6c2c3ff6::t_44c872d095c9f7 18,20,23-24,182-202,206-211,213,215-216,218-250,252-260,263-264,267
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_38136d6c2c3ff6::t_ab50f20fabe931 207,212,214,218,220,227,231-232,237
+docs/architecture/project-structure.md
+  s_38136d6c2c3ff6::t_27f9bc955b558c 59-62,89-100,106
+libs/document_intelligence/scripts/cleanup.py
+  s_38136d6c2c3ff6::t_1f62de5edd8370 4,16-23,45,58-61
+  s_38136d6c2c3ff6::t_20e51cfecd5c6f 8
+  s_38136d6c2c3ff6::t_c5fcb6312b6098 39-40,42-44,46-55,57
+labs/invoice_parser/functions.py
+  s_38136d6c2c3ff6::t_1f62de5edd8370 32,35,133,138,152,174,198,203
+  s_38136d6c2c3ff6::t_a03bc2cb04e013 7,10-11,21,24-30,34,44-46,53,129-132,134-137,139-140,145,147-151,153-160,162-165,167-173,175-197,199-202,204-206
+  s_38136d6c2c3ff6::t_c100bc89f04300 31,146
+  s_38136d6c2c3ff6::t_f7c155d2a90fbc 48-51,141-144,161,166
+  s_38136d6c2c3ff6::t_e2864c85256cdd 47
+  s_38136d6c2c3ff6::t_32bda2176a9ba6 52
+libs/document_intelligence/tests/test_cleanup_script.py
+  s_38136d6c2c3ff6::t_c9de10660127e1 8,19,51
+  s_38136d6c2c3ff6::t_29c9d080d7c88f 3,26,34,45-49
+libs/document_intelligence/tests/test_security.py
+  s_38136d6c2c3ff6::t_c9030dee70fd2a 348-380
+libs/document_intelligence/settings.py
+  s_38136d6c2c3ff6::t_1f62de5edd8370 3-4,12-13
+apps/labs/static/js/invoice-parser.js
+  s_38136d6c2c3ff6::t_0c4b5b47ca80b1 33,38,243-259,297
+libs/blob_storage/tests/test_functions.py
+  s_38136d6c2c3ff6::t_11a62b9230f863 4,15,239-287
+  s_38136d6c2c3ff6::t_bc5d419cd7a022 288-289
+labs/invoice_parser/schemas.py
+  s_38136d6c2c3ff6::t_a03bc2cb04e013 65-71
+apps/labs/tests/test_invoice_parser.py
+  s_38136d6c2c3ff6::t_ff085bccaaf949 213
+  s_38136d6c2c3ff6::t_52861fbac64566 13,16,24,105,108-115,123,125-127,138,152,155,158-159,163-165,168-172,175,178-183,186-209,220-221,230
+  s_38136d6c2c3ff6::t_9dde31f3d7547a 68-69
+labs/invoice_parser/README.md
+  s_38136d6c2c3ff6::t_aa73ff89359772 3-6,11-13,24-29,40-44
+libs/blob_storage/functions.py
+  s_38136d6c2c3ff6::t_1f62de5edd8370 7,179-212
+libs/document_intelligence/security.py
+  s_38136d6c2c3ff6::t_a03bc2cb04e013 65-75
+labs/invoice_parser/scripts/extract.py
+  s_38136d6c2c3ff6::t_43e6cf0c698925 6,9,13-20,30,43-54,56-57,62,69,76,97
+  s_38136d6c2c3ff6::t_1f62de5edd8370 67,82,92
+  s_38136d6c2c3ff6::t_a55f8589ab57fb 55,58-61,63-66,68,70-75,77-81,83-91,93-96,98
+  s_38136d6c2c3ff6::t_20e51cfecd5c6f 28
+  s_38136d6c2c3ff6::t_992cadacfb250d 99-100
+pyproject.toml
+  s_38136d6c2c3ff6::t_16db06b3408e6a 3
+uv.lock
+  s_38136d6c2c3ff6::t_cd8e4bc244d27f 2058
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "cbc7d8afe134f486b6a749d76afd0442d562beec",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
