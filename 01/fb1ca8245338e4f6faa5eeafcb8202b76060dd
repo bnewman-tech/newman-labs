@@ -1,0 +1,147 @@
+libs/database/alembic/versions/0001_initial_newman_labs_schema.py
+  s_38136d6c2c3ff6::t_02151a5cc0bc54 244,410-411
+  s_38136d6c2c3ff6::t_c9541cdeb6fd1d 386-409,412-415
+  s_38136d6c2c3ff6::t_918882630687f5 5,20-26,40,229,242-243,245
+  s_38136d6c2c3ff6::t_00eb0374cf8f28 416-418
+apps/labs/routes/lab_index.py
+  s_38136d6c2c3ff6::t_88928d904f9788 7,16
+  s_38136d6c2c3ff6::t_c73d0cb00a030a 17
+libs/blob_storage/tests/test_functions.py
+  s_38136d6c2c3ff6::t_6325f7de9c1632 11,17,65,67-71,75-92,94,96-125,128-131
+  s_38136d6c2c3ff6::t_4aac911635cf18 95,333-341
+  s_38136d6c2c3ff6::t_6fda141381f925 40,47-49,62-64,93
+apps/labs/static/js/invoice-parser.js
+  s_38136d6c2c3ff6::t_d5f5f986eb03d3 22,89-93
+  s_38136d6c2c3ff6::t_07cb2fa51fc97b 268,274
+  s_38136d6c2c3ff6::t_3ccc4de6223ef8 13-16,23,26-27,29-65,69,88,94-102,110-186,188,191-215,217-219,227,231-232,236-238,241-243,260,265-266,270,282,294-295,304-306,308-309,315,317-320,323,325-329,333,338
+  s_38136d6c2c3ff6::t_d49ec5a86a9fe4 25,85-86,267,334,336
+  s_38136d6c2c3ff6::t_ebfbcf15bbb5ee 18-21,24,87,103-109,233,239,296-297,316,321-322,324,330-332,335,337
+  s_38136d6c2c3ff6::t_7e99f3900ad2b8 74-84,220-225,240,277-279,298-303
+libs/blob_storage/functions.py
+  s_38136d6c2c3ff6::t_f0e18351f4fa2c 5,13,68-73,75-94,96-102
+  s_38136d6c2c3ff6::t_6356e8deee8ffa 95
+apps/labs/static/css/invoice-parser.css
+  s_38136d6c2c3ff6::t_99b39db628ebf0 10-11,39-46,96-97,99-115,120-133,140-141,144-227,229-230,232,240,244-245,259-269,273-277
+  s_38136d6c2c3ff6::t_9aae90985eb05c 116-119,134-139,142-143,233-239
+apps/labs/static/demos/invoice-basic.json
+  s_38136d6c2c3ff6::t_af50f59ba5f4be 4
+apps/labs/static/demos/README.md
+  s_38136d6c2c3ff6::t_c1f5fe2c7ac2f6 5-6
+  s_38136d6c2c3ff6::t_7358ba4023cc2a 7
+README.md
+  s_38136d6c2c3ff6::t_88928d904f9788 7,9
+  s_38136d6c2c3ff6::t_02151a5cc0bc54 17
+.github/workflows/release-to-production.yml
+  s_38136d6c2c3ff6::t_ae43995b425ee2 102
+  s_38136d6c2c3ff6::t_88928d904f9788 95-101,103-106
+apps/labs/tests/test_home.py
+  s_38136d6c2c3ff6::t_ae43995b425ee2 37
+  s_38136d6c2c3ff6::t_c73d0cb00a030a 84
+  s_38136d6c2c3ff6::t_88928d904f9788 60-61,69-76,102
+libs/document_intelligence/schemas.py
+  s_38136d6c2c3ff6::t_164381ce1be524 26,61-66
+labs/invoice_parser/scripts/__init__.py
+  s_38136d6c2c3ff6::t_a2386b75bdee2e 1
+labs/invoice_parser/functions.py
+  s_38136d6c2c3ff6::t_af50f59ba5f4be 101
+  s_38136d6c2c3ff6::t_b79b2637e2ef11 36-38
+  s_38136d6c2c3ff6::t_d49ec5a86a9fe4 93-96
+  s_38136d6c2c3ff6::t_2fe7b2d7757a4f 20,100
+apps/labs/static/css/site.css
+  s_38136d6c2c3ff6::t_2fe7b2d7757a4f 31,33-34,44
+  s_38136d6c2c3ff6::t_29d04df2b743b6 45
+libs/document_intelligence/security.py
+  s_38136d6c2c3ff6::t_b99a4f852a3a1f 123
+  s_38136d6c2c3ff6::t_9191e8f7c81745 8,10,124-129
+  s_38136d6c2c3ff6::t_164381ce1be524 185,243
+libs/core/logger.py
+  s_38136d6c2c3ff6::t_e6a7e5a0e04548 16,18-26
+  s_38136d6c2c3ff6::t_ce8c645663fceb 5,27-32
+labs/invoice_parser/scripts/extract.py
+  s_38136d6c2c3ff6::t_a2386b75bdee2e 2-25,33,36-42,46,54,56-60
+  s_38136d6c2c3ff6::t_f55e023c178792 34-35,43-45,47-53,55
+  s_38136d6c2c3ff6::t_c0d7a88c47e714 1,26-28,30-32,61
+  h_d74bc51d909986 29
+labs/invoice_parser/schemas.py
+  s_38136d6c2c3ff6::t_2fe7b2d7757a4f 62
+  s_38136d6c2c3ff6::t_af50f59ba5f4be 63
+libs/database/tests/test_migrate_managed.py
+  s_38136d6c2c3ff6::t_918882630687f5 34-35,85,108
+libs/database/models/document.py
+  s_38136d6c2c3ff6::t_164381ce1be524 38
+  s_38136d6c2c3ff6::t_02151a5cc0bc54 39
+libs/blob_storage/schemas.py
+  s_38136d6c2c3ff6::t_f0e18351f4fa2c 8-16
+labs/invoice_parser/README.md
+  s_38136d6c2c3ff6::t_02151a5cc0bc54 15-17
+  s_38136d6c2c3ff6::t_dadc1825502703 23-26
+  s_38136d6c2c3ff6::t_c0d7a88c47e714 28-29,32
+labs/invoice_parser/tests/test_functions.py
+  s_38136d6c2c3ff6::t_2fe7b2d7757a4f 159,162,168,173-176
+  s_38136d6c2c3ff6::t_d2862f29f25821 74-76
+  s_38136d6c2c3ff6::t_af50f59ba5f4be 169
+libs/core/tests/test_logger.py
+  s_38136d6c2c3ff6::t_e6a7e5a0e04548 17-24,29,49
+  s_38136d6c2c3ff6::t_6356e8deee8ffa 39-40
+  s_38136d6c2c3ff6::t_ce8c645663fceb 5,35-38,41-45,52
+libs/document_intelligence/tests/test_security.py
+  s_38136d6c2c3ff6::t_f82c49e964a3ae 278-285,287-289,291,295-296,315-316
+  s_38136d6c2c3ff6::t_164381ce1be524 37-38,40,42,49-51,61-63,129-133,135,137-138,144,286,290,292-294,297-314,317,319
+  s_38136d6c2c3ff6::t_53fab49cbbff73 223
+  s_38136d6c2c3ff6::t_885cba1c9c20ad 318
+  s_38136d6c2c3ff6::t_46b95d6b5e5695 320-321
+libs/document_intelligence/functions.py
+  s_38136d6c2c3ff6::t_f0e18351f4fa2c 11-12,177-204
+  s_38136d6c2c3ff6::t_6356e8deee8ffa 139
+apps/labs/catalog.py
+  s_38136d6c2c3ff6::t_88928d904f9788 11,43-45
+apps/labs/templates/labs/invoice_parser.html
+  s_38136d6c2c3ff6::t_21394237d11b92 78-88,90,97,110-113
+  s_38136d6c2c3ff6::t_d5f5f986eb03d3 92
+  s_38136d6c2c3ff6::t_80e92d4e8b6a7b 89
+  s_38136d6c2c3ff6::t_1f1deba9fb0ead 67-68,70-71,73-77,91,93-96,98-109,114-178
+apps/labs/static/demos/invoice-detailed.json
+  s_38136d6c2c3ff6::t_af50f59ba5f4be 4
+labs/invoice_parser/tests/test_extract_script.py
+  s_38136d6c2c3ff6::t_27a4c6a446dc61 14-15
+  s_38136d6c2c3ff6::t_2fe7b2d7757a4f 35
+  s_38136d6c2c3ff6::t_9fb8b2f1bc3745 70
+  s_38136d6c2c3ff6::t_a2386b75bdee2e 1,3,6-13,17-19,28-29,31,33,37,39-43,47-59,61-68
+  s_38136d6c2c3ff6::t_2980ac50731b81 36
+  s_38136d6c2c3ff6::t_f55e023c178792 5,16,20-24,26-27,30,32,34,38,46,60,69,71
+apps/labs/tests/test_invoice_parser.py
+  s_38136d6c2c3ff6::t_af50f59ba5f4be 31,119
+  s_38136d6c2c3ff6::t_edfbcb45ba1f7a 71-73
+  s_38136d6c2c3ff6::t_2fe7b2d7757a4f 30,118
+  s_38136d6c2c3ff6::t_ebfbcf15bbb5ee 69
+  s_38136d6c2c3ff6::t_d474f2bc033665 70,120
+  s_38136d6c2c3ff6::t_2980ac50731b81 86
+docs/architecture/project-structure.md
+  s_38136d6c2c3ff6::t_88928d904f9788 31,94-97
+  s_38136d6c2c3ff6::t_02151a5cc0bc54 9
+libs/document_intelligence/tests/test_functions.py
+  s_38136d6c2c3ff6::t_6325f7de9c1632 143,146,152,163-164,189,208,307,309,360,362,391,395,413-414,425,451,453
+docs/operations/deployment.md
+  s_38136d6c2c3ff6::t_02151a5cc0bc54 28-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "01fb1ca8245338e4f6faa5eeafcb8202b76060dd",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
