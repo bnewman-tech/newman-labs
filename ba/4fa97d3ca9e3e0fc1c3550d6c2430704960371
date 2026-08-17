@@ -1,0 +1,27 @@
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_194aa81067e07b::t_ce5a8aa11fa62d 541,570
+  s_194aa81067e07b::t_28c0f2a0681879 307-310,340-343,403-406,450-453
+  s_194aa81067e07b::t_eca958701b7841 51-54,84-87,109-112,128-131,151-154,176-179,196-199,235-238,269-272
+  s_194aa81067e07b::t_8b9703ddb988b7 481-484,504-507,522-525,540,542-543,568-569,571,603-606,616-619,638-641
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ba4fa97d3ca9e3e0fc1c3550d6c2430704960371",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_194aa81067e07b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01199-d522-7f61-a068-1ea2e2c9e272",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
