@@ -48,10 +48,10 @@
             </figure>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — Most of us first experienced generative AI through a chat box. We provide the context, judge the answer, and decide what happens next.</li>
+            <li>Most of us first experienced generative AI through a chat box. We provide the context, judge the answer, and decide what happens next.</li>
             <li>Today I want to move beyond that chat pattern and place the model inside an ordinary Python application, where it performs one bounded job.</li>
             <li>The invoice is our working example, but the larger question is how we use a model without giving up control of the application.</li>
-            <li>Transition — Before we get into the architecture, here is the perspective I bring to the problem.</li>
+            <li>Before we get into the architecture, here is the perspective I bring to the problem.</li>
           </ul></template>
         </section>
 
@@ -81,10 +81,10 @@
             </div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — I work across Python, data engineering, and applied AI, and I stay close to the code and the production systems behind it.</li>
+            <li>I work across Python, data engineering, and applied AI, and I stay close to the code and the production systems behind it.</li>
             <li>I am speaking as a practitioner. I am not a Pydantic maintainer or an AI researcher; I build business workflows that have to be understandable and supportable.</li>
             <li>Newman Labs is where I publish small working systems like this one so other engineers can inspect the actual implementation.</li>
-            <li>Transition — The design starts with one simple question: in an AI workflow, who owns the loop?</li>
+            <li>The design starts with one simple question: in an AI workflow, who owns the loop?</li>
           </ul></template>
         </section>
 
@@ -106,10 +106,10 @@
             </div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — A chat experience works because the human is quietly doing the orchestration.</li>
-            <li>Walk through the left side: we provide context, read the answer, judge it, and decide whether to prompt again or take action.</li>
-            <li>Walk through the right side: the application decides when the model runs, what evidence it receives, how the result is validated, and what state comes next.</li>
-            <li>Transition — Once the application owns that loop, we can be precise about which work belongs to the model and which work belongs to Python.</li>
+            <li>A chat experience works because the human is quietly doing the orchestration.</li>
+            <li>On the left, we provide context, read the answer, judge it, and decide whether to prompt again or take action.</li>
+            <li>On the right, the application decides when the model runs, what evidence it receives, how the result is validated, and what state comes next.</li>
+            <li>Once the application owns that loop, we can be precise about which work belongs to the model and which work belongs to Python.</li>
           </ul></template>
         </section>
 
@@ -125,10 +125,10 @@
           </div>
           <p class="slide-callout">Use the model for interpretation. Keep exact work in Python.</p>
           <template data-speaker-notes><ul>
-            <li>Opening — Traditional automation is excellent when the inputs are structured and the rules are known.</li>
+            <li>Traditional automation is excellent when the inputs are structured and the rules are known.</li>
             <li>The hard part is often the boundary on the left: a PDF, email, ticket, or note written for a person rather than a database.</li>
             <li>The model interprets that ambiguity and maps it into a typed object. Calculations, lookups, validation, and side effects stay in deterministic Python.</li>
-            <li>Transition — Pydantic AI gives us a practical Python boundary around that uncertain model interaction.</li>
+            <li>Pydantic AI gives us a practical Python boundary around that uncertain model interaction.</li>
           </ul></template>
         </section>
 
@@ -148,10 +148,10 @@
             </div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — Pydantic AI is not a model, and it does not replace OpenAI, Anthropic, or another provider.</li>
-            <li>It is the engineering layer that makes a model call behave more like a typed component inside a Python application.</li>
-            <li>For this invoice workflow, that means typed output, bounded retries, runtime dependencies, one constrained tool, tests, and traces.</li>
-            <li>Transition — This is an optional abstraction, so it is worth being clear about when a direct provider call is already enough.</li>
+            <li>Pydantic AI is not the model or the provider. It is one way to structure how an application calls a model, validates the output, uses tools, and records what happened.</li>
+            <li>It is not the only option. LangChain covers many of the same agent and workflow concerns, while Microsoft Foundry offers its own SDKs and managed agent services.</li>
+            <li>I chose Pydantic AI because I already liked Pydantic for type safety and had used Logfire. The stack fit how I wanted to build and observe this workflow.</li>
+            <li>This is still an optional abstraction. A direct provider call may be all you need.</li>
           </ul></template>
         </section>
 
@@ -173,10 +173,10 @@
             </div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — Calling a provider SDK directly is still a perfectly good design, especially for a small interaction.</li>
+            <li>Calling a provider SDK directly is still a perfectly good design, especially for a small interaction.</li>
             <li>Provider APIs increasingly support structured output themselves, so I would not add another abstraction without a reason.</li>
             <li>I reach for Pydantic AI when the interaction needs a durable Python contract around validation, retries, tools, dependencies, tests, or observability.</li>
-            <li>Transition — The primary object that holds that contract is an Agent, but I am using that word in a deliberately narrow way.</li>
+            <li>The primary object that holds that contract is an Agent, but I am using that word in a deliberately narrow way.</li>
           </ul></template>
         </section>
 
@@ -193,10 +193,10 @@
             <div class="agent-fact agent-tool"><span>Tool</span><strong>A Python function that can reach an API, database, or service</strong></div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — Here, an Agent is simply a configured model runner. It is not the whole application and it is not automatically autonomous.</li>
-            <li>Walk clockwise: the model generates, the instructions define the job, and the output type defines the Pydantic object that must come back.</li>
+            <li>Here, an Agent is simply a configured model runner. It is not the whole application and it is not automatically autonomous.</li>
+            <li>Around the Agent, the model generates, the instructions define the job, and the output type defines the Pydantic object that must come back.</li>
             <li>A tool is a Python function the model may request when it needs controlled access to a database, API, or other service.</li>
-            <li>Transition — We will build this contract from the outside in, starting with the result the application actually needs.</li>
+            <li>We will build this contract from the outside in, starting with the result the application actually needs.</li>
           </ul></template>
         </section>
 
@@ -232,10 +232,10 @@
             </figure>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — I start with the output schema because it forces me to define what the rest of the application is allowed to depend on.</li>
-            <li>Point to the fields: downstream code receives real types, explicit optional values, and constraints such as a three-letter currency and a positive total.</li>
+            <li>I start with the output schema because it forces me to define what the rest of the application is allowed to depend on.</li>
+            <li>The fields give downstream code real types, explicit optional values, and constraints such as a three-letter currency and a positive total.</li>
             <li>This gives us a stable structural contract, but it does not prove that the model read the invoice correctly. We will return to that distinction later.</li>
-            <li>Transition — Once the output contract is clear, creating the Agent is intentionally small.</li>
+            <li>Once the output contract is clear, creating the Agent is intentionally small.</li>
           </ul></template>
         </section>
 
@@ -266,10 +266,10 @@
             </figure>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — The Agent definition is configuration: choose the model, name the run, provide instructions, and declare the output type.</li>
+            <li>The Agent definition is configuration: choose the model, name the run, provide instructions, and declare the output type.</li>
             <li>The stable name makes traces easy to find in Logfire. The instructions tell the model to extract only what the document supports.</li>
             <li>This workflow is stateless, so ordinary instructions are enough. A system prompt matters when system context must survive across reused message history.</li>
-            <li>Transition — The output schema can reject a bad result, but a validator can also tell the model how to correct a recoverable mistake.</li>
+            <li>The output schema can reject a bad result, but a validator can also tell the model how to correct a recoverable mistake.</li>
           </ul></template>
         </section>
 
@@ -304,10 +304,10 @@
           </div>
           <p class="slide-callout" data-reveal>Retry interpretation problems. Don’t retry reality.</p>
           <template data-speaker-notes><ul>
-            <li>Opening — Validation does not have to be a final pass or fail. It can provide focused feedback and allow one bounded correction.</li>
-            <li>Walk through the code: Python recomputes the expected total, compares it with the extracted total, and raises ModelRetry with a specific explanation when they disagree.</li>
+            <li>Validation does not have to be a final pass or fail. It can provide focused feedback and allow one bounded correction.</li>
+            <li>In the code, Python recomputes the expected total, compares it with the extracted total, and raises ModelRetry with a specific explanation when they disagree.</li>
             <li>This works because the evidence is present and the mistake may be recoverable. A retry cannot invent a missing purchase order or settle an ambiguous business fact.</li>
-            <li>Transition — Some facts require external evidence, which is where tools and typed runtime dependencies enter the design.</li>
+            <li>Some facts require external evidence, which is where tools and typed runtime dependencies enter the design.</li>
           </ul></template>
         </section>
 
@@ -337,10 +337,10 @@
             </figure>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — The invoice contains a printed seller name, but the authoritative supplier ID lives in another system, so the Agent gets one lookup tool.</li>
+            <li>The invoice contains a printed seller name, but the authoritative supplier ID lives in another system, so the Agent gets one lookup tool.</li>
             <li>Typed dependencies carry only the state for this run: the lookup function, the query that was made, and the candidates that came back.</li>
             <li>The usage limit allows one successful tool call, and the output validator confirms that the lookup actually happened.</li>
-            <li>Transition — The model learns how to call the tool and shape the result because those schemas travel with the request.</li>
+            <li>The model learns how to call the tool and shape the result because those schemas travel with the request.</li>
           </ul></template>
         </section>
 
@@ -400,10 +400,10 @@
           </div>
           <p class="slide-callout" data-reveal>Docstrings describe tools. Pydantic fields contribute constraints and required structure; descriptions appear when declared.</p>
           <template data-speaker-notes><ul>
-            <li>Opening — These definitions are not hidden framework magic. The provider receives them as request metadata beside the conversation messages.</li>
+            <li>These definitions are not hidden framework magic. The provider receives them as request metadata beside the conversation messages.</li>
             <li>On the left, the tool docstring explains the supplier search and its argument. That description helps the model construct a valid tool call.</li>
             <li>On the right, the output model and Pydantic field metadata become JSON Schema with required fields, constraints, and declared descriptions.</li>
-            <li>Transition — Those schemas describe what may happen. The message history records what actually happened during a run.</li>
+            <li>Those schemas describe what may happen. The message history records what actually happened during a run.</li>
           </ul></template>
         </section>
 
@@ -447,10 +447,10 @@
             </figure>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — This is a shortened message trace from a real lab run, not JSON invented for the slide.</li>
-            <li>Follow the sequence: the user supplies document content, the model requests the supplier tool, Python returns candidates, and the model produces the final structured response.</li>
+            <li>This is a shortened message trace from a real lab run, not JSON invented for the slide.</li>
+            <li>The sequence starts with the document content. The model requests the supplier tool, Python returns candidates, and the model produces the final structured response.</li>
             <li>The trace gives us inspectable data for tests, logs, debugging, or a later run. Static tool and output definitions remain request metadata rather than repeated messages.</li>
-            <li>Transition — Now let us put these pieces together in the invoice workflow that we can actually run.</li>
+            <li>Now let us put these pieces together in the invoice workflow that we can actually run.</li>
           </ul></template>
         </section>
 
@@ -478,10 +478,10 @@
             </div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — This synthetic invoice gives us a familiar document with the same failure modes we would face in a real workflow.</li>
+            <li>This synthetic invoice gives us a familiar document with the same failure modes we would face in a real workflow.</li>
             <li>The seller is printed as Pacific Industrial Supply. The fake ERP returns exactly one candidate, so the deterministic result is supplier SUP-3007.</li>
             <li>The goal is not a complete accounts-payable platform. It is one understandable path through extraction, a tool call, validation, and review.</li>
-            <li>Transition — Here is how one browser upload moves through the managed application.</li>
+            <li>Here is how one browser upload moves through the managed application.</li>
           </ul></template>
         </section>
 
@@ -501,10 +501,10 @@
             <span><strong>Transient</strong> invoice extraction</span>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — Selecting or dropping a PDF starts one managed extraction job immediately; there is no second submit step.</li>
-            <li>Walk left to right: FastAPI validates and dispatches, Prefect manages the long-running scan and extraction, and the browser polls for a typed result.</li>
+            <li>Selecting or dropping a PDF starts one managed extraction job immediately; there is no second submit step.</li>
+            <li>From left to right, FastAPI validates and dispatches, Prefect manages the long-running scan and extraction, and the browser polls for a typed result.</li>
             <li>PostgreSQL and object storage retain the reusable document evidence. The invoice-specific extraction remains transient in this MVP.</li>
-            <li>Transition — With that ownership clear, we can demo the exact same path without depending entirely on live network timing.</li>
+            <li>With that ownership clear, we can demo the exact same path without depending entirely on live network timing.</li>
           </ul></template>
         </section>
 
@@ -519,10 +519,10 @@
             <a href="{{ url_for('invoice_parser') }}" class="demo-option" data-reveal><span>03</span><strong>Your PDF</strong><p>Live managed scan, conversion, tool call, and extraction</p><b>Run extraction →</b></a>
           </div>
           <template data-speaker-notes><ul>
-            <li>Demo plan — Start with Supplier match. Show the printed seller, the one ERP candidate, and the accepted SUP-3007 result.</li>
+            <li>Start with Supplier match. Show the printed seller, the one ERP candidate, and the accepted SUP-3007 result.</li>
             <li>Then open Needs review. Show the two candidates, the null supplier match, and why the application refuses to guess.</li>
             <li>Use the PDF, Data, OCR/text, and JSON tabs to connect the source evidence to the typed result. Upload a new PDF only if the room and network are ready.</li>
-            <li>Transition — The successful demo still proves only that the result fits our schema; it does not automatically prove every extracted fact is true.</li>
+            <li>The successful demo still proves only that the result fits our schema; it does not automatically prove every extracted fact is true.</li>
           </ul></template>
         </section>
 
@@ -537,10 +537,10 @@
             </div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — This is the most important reliability distinction in the talk: valid structure is not the same thing as true data.</li>
-            <li>Walk through the first pair: Pydantic can validate that total is represented as a positive Decimal, but not that the number came from the correct place on the invoice.</li>
-            <li>Walk through the second pair: the schema can accept supplier_match, while Python must verify that it equals the one authoritative ERP candidate.</li>
-            <li>Transition — Because model output can be structurally valid and still wrong, we need evidence before release and observability after release.</li>
+            <li>This is the most important reliability distinction in the talk: valid structure is not the same thing as true data.</li>
+            <li>In the first pair, Pydantic can validate that total is represented as a positive Decimal. It cannot tell us whether the number came from the correct place on the invoice.</li>
+            <li>In the second pair, the schema can accept supplier_match, while Python must verify that it equals the one authoritative ERP candidate.</li>
+            <li>Because model output can be structurally valid and still wrong, we need evidence before release and observability after release.</li>
           </ul></template>
         </section>
 
@@ -565,10 +565,10 @@
             </div>
           </div>
           <template data-speaker-notes><ul>
-            <li>Opening — Before release, test each layer according to what it is: deterministic code gets deterministic tests, and model quality gets labeled evaluations.</li>
+            <li>Before release, test each layer according to what it is: deterministic code gets deterministic tests, and model quality gets labeled evaluations.</li>
             <li>FunctionModel lets CI exercise exact Agent behavior without calling a live model. Evaluations measure real model performance against known invoices over time.</li>
             <li>After release, Prefect shows the managed job while Logfire connects the application, tool, and model traces. Prompts and document evidence are sensitive telemetry, so credentials and authorization headers must never be captured.</li>
-            <li>Transition — One rule deserves special attention because it shows exactly where model interpretation ends and deterministic business policy begins.</li>
+            <li>One rule deserves special attention because it shows exactly where model interpretation ends and deterministic business policy begins.</li>
           </ul></template>
         </section>
 
@@ -600,10 +600,10 @@
           </div>
           <p class="supplier-decision-rule" data-reveal>Python applies the rule. The model never chooses among ambiguous records.</p>
           <template data-speaker-notes><ul>
-            <li>Opening — The model has one job here: request a supplier search using the seller name printed on the invoice.</li>
+            <li>The model has one job here: request a supplier search using the seller name printed on the invoice.</li>
             <li>Python owns the decision rule. Exactly one ERP candidate is accepted; zero or multiple candidates produce no supplier ID and require review.</li>
-            <li>Emphasize — Ambiguity in authoritative business data is not a reasoning problem. Retrying the model cannot create a trustworthy supplier record.</li>
-            <li>Transition — That division of responsibility gives us a reusable architecture well beyond invoices.</li>
+            <li>Ambiguity in authoritative business data is not a reasoning problem. Retrying the model cannot create a trustworthy supplier record.</li>
+            <li>That division of responsibility gives us a reusable architecture well beyond invoices.</li>
           </ul></template>
         </section>
 
@@ -613,10 +613,10 @@
           </div>
           <p class="architecture-close">The model interprets. Python validates, integrates, and controls what happens next.</p>
           <template data-speaker-notes><ul>
-            <li>Opening — The invoice is only one example. The same pattern applies to tickets, contracts, claims, reports, and onboarding documents.</li>
-            <li>Walk left to right: preserve inspectable evidence, use the model for bounded interpretation, require a typed result, and return control to deterministic Python.</li>
+            <li>The invoice is only one example. The same pattern applies to tickets, contracts, claims, reports, and onboarding documents.</li>
+            <li>From left to right, we preserve inspectable evidence, use the model for bounded interpretation, require a typed result, and return control to deterministic Python.</li>
             <li>Python decides whether the workflow can continue, should retry, or needs a person. The model never owns authorization or side effects.</li>
-            <li>Transition — I will close with the question I want you to take back to your own systems.</li>
+            <li>I will close with the question I want you to take back to your own systems.</li>
           </ul></template>
         </section>
 
@@ -635,7 +635,7 @@
           </div>
           <p class="resource-close">Start with one model boundary you can explain, test, and defend.</p>
           <template data-speaker-notes><ul>
-            <li>Closing — The model interprets. Python validates, integrates, and controls what happens next.</li>
+            <li>The model interprets. Python validates, integrates, and controls what happens next.</li>
             <li>Ask the room: what unstructured interpretation step in your work could become a typed, observable model boundary?</li>
             <li>The live lab, permanent demos, slides, and source code are all public at the links on this slide.</li>
             <li>Leave this slide visible, thank the audience, and open the floor for questions.</li>
