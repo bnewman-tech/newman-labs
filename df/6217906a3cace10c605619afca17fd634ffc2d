@@ -1,0 +1,40 @@
+apps/labs/static/js/invoice-presentation.js
+  s_38136d6c2c3ff6::t_d94af1ca39cfaf 49
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_38136d6c2c3ff6::t_f8c69e1ecdc097 24,244-249,265,313,315-316,318-326,329-331,370-387,390-392,402-403,405-407,409-412
+  s_38136d6c2c3ff6::t_57c1520404c03e 369
+pyproject.toml
+  s_38136d6c2c3ff6::t_5f177165f9a616 3
+labs/invoice_parser/PRESENTATION.md
+  s_38136d6c2c3ff6::t_35c44be920b765 23-25,27-28,144,151-155,160,176,186,188-190,193-195,197,211,221,237,248,257
+apps/labs/static/css/invoice-presentation.css
+  s_38136d6c2c3ff6::t_94f75cbd91b5d5 171,223-228,238-248,266,269,271-272,274,280-281,283-286,288-293,318,379-380,393-395,419-420,423,426,435-438,440,452
+  s_38136d6c2c3ff6::t_2ddbd24ef4d06c 366-369
+  s_38136d6c2c3ff6::t_57c1520404c03e 267-268,270,273,275,277-279
+  s_38136d6c2c3ff6::t_8a3d191cb67c00 276,282,287,400-401,441
+apps/labs/tests/test_invoice_parser.py
+  s_38136d6c2c3ff6::t_40d086aac8507e 128-129,139
+uv.lock
+  s_38136d6c2c3ff6::t_b2b375dfbac150 2058
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "df6217906a3cace10c605619afca17fd634ffc2d",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
