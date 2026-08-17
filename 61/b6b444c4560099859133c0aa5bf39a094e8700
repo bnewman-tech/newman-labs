@@ -1,0 +1,47 @@
+apps/labs/static/js/invoice-parser.js
+  s_38136d6c2c3ff6::t_c1cd6e73a71b95 252,254,257-263
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_38136d6c2c3ff6::t_c1cd6e73a71b95 343
+labs/invoice_parser/functions.py
+  s_38136d6c2c3ff6::t_c1cd6e73a71b95 79,244-245
+libs/document_intelligence/tests/test_functions.py
+  s_38136d6c2c3ff6::t_04d971c2dd3be4 5,8,58-61
+  s_38136d6c2c3ff6::t_c3a023e7d7a979 62-63
+apps/labs/routes/invoice_parser.py
+  s_38136d6c2c3ff6::t_c1cd6e73a71b95 24,116
+pyproject.toml
+  s_38136d6c2c3ff6::t_46d97df7a13785 3
+labs/invoice_parser/PRESENTATION.md
+  s_38136d6c2c3ff6::t_c800296f498a6a 543-546
+  s_38136d6c2c3ff6::t_c1cd6e73a71b95 379-380
+labs/invoice_parser/tests/test_functions.py
+  s_38136d6c2c3ff6::t_c80bce79a329a1 127,354-357,384-409
+libs/document_intelligence/functions.py
+  s_38136d6c2c3ff6::t_87ce2374378415 8,147-151,168-175,186-216
+  s_38136d6c2c3ff6::t_7b090b165315ce 226-228,230-238,240,242-253
+apps/labs/tests/test_invoice_parser.py
+  s_38136d6c2c3ff6::t_c80bce79a329a1 210
+uv.lock
+  s_38136d6c2c3ff6::t_9ba5e709ef6388 2058
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "61b6b444c4560099859133c0aa5bf39a094e8700",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
