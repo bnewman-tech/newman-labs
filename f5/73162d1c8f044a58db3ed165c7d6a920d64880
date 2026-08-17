@@ -1,0 +1,34 @@
+labs/invoice_parser/functions.py
+  s_194aa81067e07b::t_63e76b3f6ef2d0 55,207-208,223
+pyproject.toml
+  s_194aa81067e07b::t_e3c1f53f9ba59c 3
+labs/invoice_parser/tests/test_functions.py
+  s_194aa81067e07b::t_63e76b3f6ef2d0 383,396-419
+  s_194aa81067e07b::t_7b083c0780a6c8 420-421
+libs/prefect_utils/tests/test_configuration.py
+  s_194aa81067e07b::t_8295d70d30656d 26-27
+  s_194aa81067e07b::t_63e76b3f6ef2d0 14-19,28-32,35
+uv.lock
+  s_194aa81067e07b::t_b30f36c7fc8216 2061
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "f573162d1c8f044a58db3ed165c7d6a920d64880",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_194aa81067e07b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01199-d522-7f61-a068-1ea2e2c9e272",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
