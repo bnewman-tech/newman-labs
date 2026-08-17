@@ -6,19 +6,10 @@ build: null
 push: null
 
 pull:
-  - prefect.deployments.steps.run_shell_script:
-      id: get-github-token
-      script: |
-        python -m pip install --disable-pip-version-check --no-cache-dir --quiet uv==0.12.5
-        uvx --from prefect-cloud==0.1.13 prefect-cloud github token bnewman-tech/newman-labs
-      stream_output: false
   - prefect.deployments.steps.git_clone:
       id: git-clone
       repository: https://github.com/bnewman-tech/newman-labs.git
       commit_sha: "{{ $GITHUB_SHA }}"
-      credentials:
-        username: x-access-token
-        access_token: "{{ get-github-token.stdout }}"
   - prefect.deployments.steps.run_shell_script:
       directory: "{{ git-clone.directory }}"
       script: |
@@ -33,25 +24,6 @@ definitions:
       image: prefecthq/prefect-client:3-python3.13
 
 deployments:
-  - name: invoice-extraction-dev
-    version: "{{ $GITHUB_SHA }}"
-    description: Process development invoice uploads on isolated managed compute.
-    tags:
-      - newman-labs
-      - invoice-parser
-      - document-intelligence
-      - dev
-    entrypoint: labs/invoice_parser/scripts/extract.py:run_managed_invoice_extraction
-    parameters:
-      environment: dev
-    enforce_parameter_schema: true
-    concurrency_limit:
-      limit: 1
-      collision_strategy: CANCEL_NEW
-      grace_period_seconds: 300
-    schedules: []
-    work_pool: *managed_work_pool
-
   - name: invoice-extraction-prod
     version: "{{ $GITHUB_SHA }}"
     description: Process public invoice uploads on isolated managed compute.
