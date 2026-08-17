@@ -1,0 +1,36 @@
+apps/labs/routes/invoice_parser.py
+  s_194aa81067e07b::t_9c56fe71c8e8f5 17,32,152-157
+pyproject.toml
+  s_194aa81067e07b::t_914cade945399c 3
+labs/invoice_parser/tests/test_functions.py
+  s_194aa81067e07b::t_f1ec5a59f40998 405
+  s_194aa81067e07b::t_9c56fe71c8e8f5 465-488
+labs/invoice_parser/functions.py
+  s_194aa81067e07b::t_9c56fe71c8e8f5 51-54,258-259
+apps/labs/tests/test_invoice_parser.py
+  s_194aa81067e07b::t_9c56fe71c8e8f5 14,346-364
+  s_194aa81067e07b::t_263502beec6d81 365-366
+uv.lock
+  s_194aa81067e07b::t_1b36d3e8226da6 2061
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "18aa73eda4c5bec2acfe91ca330302266bdd17ad",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_194aa81067e07b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01199-d522-7f61-a068-1ea2e2c9e272",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
