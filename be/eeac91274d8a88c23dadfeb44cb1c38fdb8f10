@@ -1,0 +1,28 @@
+pyproject.toml
+  s_194aa81067e07b::t_940ca673c6b52c 3,47
+.github/workflows/release-to-production.yml
+  s_194aa81067e07b::t_940ca673c6b52c 47
+uv.lock
+  s_194aa81067e07b::t_f4aeb5879f6fed 2061,2094-2096,2139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "beeeac91274d8a88c23dadfeb44cb1c38fdb8f10",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_194aa81067e07b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01199-d522-7f61-a068-1ea2e2c9e272",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
