@@ -1,0 +1,58 @@
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_38136d6c2c3ff6::t_21ab9254c51be8 419-420,437
+  s_38136d6c2c3ff6::t_fb719cf2220e6f 40
+  s_38136d6c2c3ff6::t_4e9086a29d56f3 38,45
+  s_38136d6c2c3ff6::t_46dcad5c3a5375 171
+  s_38136d6c2c3ff6::t_4d685156714700 356
+  s_38136d6c2c3ff6::t_48f88cbaec55cb 185,190,214,219,239,244,249,264,297,302,307,309-311,321,326-329
+  s_38136d6c2c3ff6::t_94c230f91e76ec 30,32,39,41-44,46-48,54,60-61,78,83,88,102,107-109,121,126,142,147,152,166
+  s_38136d6c2c3ff6::t_e8780e5fe505d4 278
+  s_38136d6c2c3ff6::t_98b8c4b9e65223 346,350,370,375,397,402-404,414,421,432-433,448,453-455,459,465,470-474,484,489,494,509,521,526
+  s_38136d6c2c3ff6::t_a6a29baf5ea2ad 268-277,279-286
+pyproject.toml
+  s_38136d6c2c3ff6::t_6ee6de2ec15000 3
+apps/labs/tests/test_invoice_parser.py
+  s_38136d6c2c3ff6::t_46dcad5c3a5375 134
+  s_38136d6c2c3ff6::t_fb719cf2220e6f 136
+labs/invoice_parser/PRESENTATION.md
+  s_38136d6c2c3ff6::t_2bdb3b233b65c3 352-355,358-367
+  s_38136d6c2c3ff6::t_fb719cf2220e6f 356
+  s_38136d6c2c3ff6::t_eda435ee014bbc 357
+  s_38136d6c2c3ff6::t_792fa628ae1a0c 196-198,245-248
+  s_38136d6c2c3ff6::t_21ab9254c51be8 195
+apps/labs/static/css/invoice-presentation.css
+  s_38136d6c2c3ff6::t_fb719cf2220e6f 157
+  s_38136d6c2c3ff6::t_4d685156714700 164
+  s_38136d6c2c3ff6::t_496615b98815c4 159-160,162-163,356,389
+  s_38136d6c2c3ff6::t_5e5626803723b8 86
+  s_38136d6c2c3ff6::t_46dcad5c3a5375 79,324-325
+  s_38136d6c2c3ff6::t_16487f0789598b 100-102,107-114,158,161,165,253,287,291-304,388,418-421
+apps/labs/static/js/invoice-presentation.js
+  s_38136d6c2c3ff6::t_e76f73b5acbedd 158-161
+  s_38136d6c2c3ff6::t_30bfbe02d211fc 12,31,39-41,46-51,67,144,149-157
+  s_38136d6c2c3ff6::t_707e38d8f74034 145-148
+  s_38136d6c2c3ff6::t_49251c44edc97f 162
+uv.lock
+  s_38136d6c2c3ff6::t_21811b3f5c483b 2058
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6cb6a8465a0d29e8167adcd08836a79109167a67",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
