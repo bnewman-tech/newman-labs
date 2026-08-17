@@ -1,0 +1,90 @@
+labs/invoice_parser/README.md
+  s_38136d6c2c3ff6::t_e7e61f97171c9c 6-7,52
+  s_38136d6c2c3ff6::t_4d6bb4354851e9 53-55
+labs/invoice_parser/integrations/fake_erp/tests/__init__.py
+  s_38136d6c2c3ff6::t_3efb3b03ad5856 1
+labs/invoice_parser/functions.py
+  s_38136d6c2c3ff6::t_35dd5a6e155f80 200
+  s_38136d6c2c3ff6::t_c806e0742e0a56 20,59,90,93
+  s_38136d6c2c3ff6::t_f3437522d04777 62-63,97,99-101,112-113,115
+labs/invoice_parser/integrations/fake_erp/functions.py
+  s_38136d6c2c3ff6::t_3efb3b03ad5856 1-9,14,16-17,21
+  s_38136d6c2c3ff6::t_40e8e55f554650 10-11,19
+  s_38136d6c2c3ff6::t_a36b3114445e97 12-13,20
+  s_38136d6c2c3ff6::t_c0decc6f91c88b 18
+  s_38136d6c2c3ff6::t_71106023a14f6d 15
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_38136d6c2c3ff6::t_e7e61f97171c9c 296,303-304,310
+docs/architecture/project-structure.md
+  s_38136d6c2c3ff6::t_20b7fe900753d8 95-97
+libs/document_intelligence/tests/test_security.py
+  s_38136d6c2c3ff6::t_69f102128a68fd 367,383-384,386,388,470,480
+  s_38136d6c2c3ff6::t_b4d80b92f32dbb 391-469
+  s_38136d6c2c3ff6::t_e550f714c2451f 373,375-377,379,382
+  s_38136d6c2c3ff6::t_7f00beb6819688 387
+  s_38136d6c2c3ff6::t_40e8e55f554650 222,272,319,380,477
+  s_38136d6c2c3ff6::t_ed86fcd05dad8c 389-390
+labs/invoice_parser/data/README.md
+  s_38136d6c2c3ff6::t_e7e61f97171c9c 6,9
+  s_38136d6c2c3ff6::t_71106023a14f6d 7-8
+apps/labs/static/demos/invoice-basic.json
+  s_38136d6c2c3ff6::t_71106023a14f6d 52
+labs/invoice_parser/integrations/fake_erp/__init__.py
+  s_38136d6c2c3ff6::t_3efb3b03ad5856 1
+labs/invoice_parser/PRESENTATION.md
+  s_38136d6c2c3ff6::t_e7e61f97171c9c 168-169,171-174,237
+libs/document_intelligence/security.py
+  s_38136d6c2c3ff6::t_40e8e55f554650 42,163
+  s_38136d6c2c3ff6::t_13556348ce2e19 73
+  s_38136d6c2c3ff6::t_f3437522d04777 36,44,76,78-84
+  s_38136d6c2c3ff6::t_00e01b83f6f0d3 77
+apps/labs/static/demos/invoice-supplier-match.json
+  s_38136d6c2c3ff6::t_71106023a14f6d 62
+labs/invoice_parser/integrations/fake_erp/tests/test_functions.py
+  s_38136d6c2c3ff6::t_3efb3b03ad5856 1-14,16-23
+  s_38136d6c2c3ff6::t_dab6241aa672ea 15
+labs/invoice_parser/integrations/__init__.py
+  s_38136d6c2c3ff6::t_3efb3b03ad5856 1
+labs/invoice_parser/schemas.py
+  s_38136d6c2c3ff6::t_8503973c3cec67 66
+pyproject.toml
+  s_38136d6c2c3ff6::t_22e81f1f889aca 3
+apps/labs/static/demos/invoice-detailed.json
+  s_38136d6c2c3ff6::t_71106023a14f6d 62
+labs/invoice_parser/tests/test_functions.py
+  s_38136d6c2c3ff6::t_fbd17303b9fc1b 7,74,79-82,93,101,147,166
+  s_38136d6c2c3ff6::t_35dd5a6e155f80 309,324
+  s_38136d6c2c3ff6::t_8b31b054769990 13-14,72-73,75-78,83-86,88-92,94-100,102-108,114-115,126-132,183,201,225-242
+  s_38136d6c2c3ff6::t_00e01b83f6f0d3 87
+  s_38136d6c2c3ff6::t_8bb6455962b09b 62
+labs/invoice_parser/scripts/extract.py
+  s_38136d6c2c3ff6::t_35dd5a6e155f80 53,82
+labs/invoice_parser/tests/test_extract_script.py
+  s_38136d6c2c3ff6::t_35dd5a6e155f80 116,125,136
+labs/invoice_parser/data/suppliers.json
+  s_38136d6c2c3ff6::t_71106023a14f6d 4,8,12,16
+  s_38136d6c2c3ff6::t_3efb3b03ad5856 1-3,5-7,9-11,13-15,17-18
+uv.lock
+  s_38136d6c2c3ff6::t_aeaaa7e1774d68 2058
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "0930c2d703e8d92b198bb786dfa9612263e78c78",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
