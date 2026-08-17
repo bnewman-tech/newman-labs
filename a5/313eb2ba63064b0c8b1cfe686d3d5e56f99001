@@ -1,0 +1,39 @@
+libs/prefect_utils/deployments/functions.py
+  s_194aa81067e07b::t_5be3c9e30f2fe0 123-124,126,147-152,161-163,174-175
+  s_194aa81067e07b::t_06ef7e42369d27 153
+pyproject.toml
+  s_194aa81067e07b::t_5430d42878c818 3
+apps/labs/tests/test_invoice_parser.py
+  s_194aa81067e07b::t_207200d996de7a 30
+  s_194aa81067e07b::t_451c25cf84b025 31,260,263
+apps/labs/routes/invoice_parser.py
+  s_194aa81067e07b::t_812bd93a787ef3 33
+  s_194aa81067e07b::t_f2099a18e62f68 37
+libs/prefect_utils/tests/test_deployments.py
+  s_194aa81067e07b::t_5be3c9e30f2fe0 160-161,176
+libs/database/alembic/versions/0003_remove_invoice_extraction_admission.py
+  s_194aa81067e07b::t_f2099a18e62f68 1,3-6,8-9,11,13-16,19-33,35-37,39,41-45
+uv.lock
+  s_194aa81067e07b::t_f8ae7f168d250f 2061
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a5313eb2ba63064b0c8b1cfe686d3d5e56f99001",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_194aa81067e07b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01199-d522-7f61-a068-1ea2e2c9e272",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  }
+}
