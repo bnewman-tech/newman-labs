@@ -1,0 +1,1 @@
+"""Synthetic ERP supplier integration."""

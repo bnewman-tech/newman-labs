@@ -1,0 +1,142 @@
+[project]
+name = "newman-labs"
+version = "0.2.19"
+description = "Public data products and engineering labs"
+readme = "README.md"
+requires-python = "==3.13.*"
+dependencies = [
+    "aiofiles>=24.1,<26",
+    "aiobotocore>=3.9,<4",
+    "alembic>=1.16",
+    "asyncpg>=0.30",
+    "doc-firewall>=0.5,<0.6",
+    "docling>=2.114,<3",
+    "fastapi[standard]>=0.116",
+    "greenlet>=3.2",
+    "httpx>=0.28",
+    "jinja2>=3.1",
+    "logfire[fastapi,httpx,sqlalchemy]>=4.0",
+    "opencv-python-headless>=5,<6",
+    "polars>=1.32",
+    "prefect>=3.8.3,<4",
+    "pydantic>=2.11",
+    "pgvector>=0.5,<1",
+    "pydantic-ai-slim[google,openai,sentence-transformers]>=2.27,<3",
+    "pydantic-settings>=2.10",
+    "pyyaml>=6.0,<7",
+    "rich>=14",
+    "sqlalchemy>=2.0",
+    "tenacity>=9.1",
+    "torch>=2.13,<3",
+    "torchvision>=0.28,<1",
+    "yara-python>=4.5,<5",
+]
+
+[dependency-groups]
+dev = [
+    "library-skills>=0.0.19",
+    "pip-audit>=2.10,<3",
+    "pytest>=8.4",
+    "pytest-asyncio>=1.1",
+    "reportlab>=4.4,<5",
+    "respx>=0.22",
+    "ruff>=0.12",
+    "ty>=0.0.70",
+    "types-aiobotocore-s3>=3.9,<4",
+]
+analytics-release = [
+    "dbt-postgres>=1.10,<2",
+]
+
+[tool.uv]
+# FastAPI Cloud installs uv defaults; development tooling stays explicit.
+default-groups = []
+package = false
+
+# RapidOCR declares the desktop OpenCV wheel, which requires libGL. The false
+# platform marker removes it while the project installs the server-safe wheel.
+# Keep this string form compatible with FastAPI Cloud's uv builder.
+override-dependencies = [
+    "opencv-python ; sys_platform == 'never'",
+    # dbt-core 1.12.2 still caps sqlparse below its security-fixed release.
+    # Newman Labs verifies dbt parsing and all analytics models against 0.6.0.
+    "sqlparse==0.6.0",
+]
+
+# Docling runs on CPU in managed environments.
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["apps/labs/tests", "labs", "libs"]
+asyncio_mode = "auto"
+markers = [
+    "integration: tests that require local infrastructure",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+preview = true
+extend-exclude = ["analytics/target", "analytics/logs"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "docstring-missing-exception", # Types and short docstrings are the API contract.
+    "docstring-missing-returns", # Return annotations already state the contract.
+    "docstring-missing-yields", # Yield annotations already state the contract.
+    "f-string-in-exception", # Local exception messages do not form a reusable API.
+    "missing-trailing-comma", # Conflicts with Ruff's formatter.
+    "missing-copyright-notice", # The repository-level license covers every source file.
+    "incorrect-blank-line-before-class", # Conflicts with D211.
+    "logging-f-string", # Newman Labs consistently uses direct f-string logging.
+    "multi-line-summary-second-line", # Conflicts with D212.
+    "property-docstring-starts-with-verb", # Short property docstrings read naturally as actions.
+    "raise-vanilla-args", # Inline messages keep local failures readable and searchable.
+    "raw-string-in-exception", # Local exception messages do not require exported constants.
+    "single-line-implicit-string-concatenation", # Conflicts with Ruff's formatter.
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**/*.py" = [
+    "unused-function-argument",  # Pytest fixtures and test doubles are injected by name.
+    "unused-method-argument",  # Test-double signatures intentionally match the production call.
+    "magic-value-comparison", # Literal expected values make tests easier to read.
+    "assert", # Pytest uses assert for behavior checks.
+    "private-member-access", # Tests may verify a narrow internal lifecycle boundary.
+]
+"apps/labs/main.py" = ["fallible-context-manager"] # Lifespan cleanup must run even when startup fails.
+"apps/labs/tests/test_health.py" = ["no-self-use", "unused-async"] # The async test double matches the application protocol.
+"labs/houston_signal/integrations/houston_emergency_center/functions.py" = ["blind-except"] # The integration boundary converts unexpected source failures.
+"labs/houston_signal/integrations/houston_311/functions.py" = [
+    "blind-except",
+    "complex-structure",
+    "raise-within-try",
+    "too-many-nested-blocks",
+    "too-many-statements-in-try-clause",
+] # The self-contained paginated integration keeps retry and failure handling readable top-to-bottom.
+"apps/labs/tests/test_houston_signal.py" = ["unused-async"] # The async override matches the service protocol.
+"apps/labs/tests/test_invoice_parser.py" = ["no-self-use", "unused-async"] # Test-only session doubles match FastAPI and SQLAlchemy async protocols.
+"libs/docling/functions.py" = ["too-many-statements-in-try-clause"] # Semaphore, worker-task, shielding, and timeout ownership stay visible in one async function.
+"libs/document_intelligence/conversion.py" = ["complex-structure", "too-many-statements-in-try-clause"] # The intake and thread lifecycle read more clearly in one function.
+"libs/database/alembic/versions/*.py" = ["implicit-namespace-package"]
+"**/scripts/*.py" = ["print"]
+"labs/houston_signal/services.py" = ["hardcoded-sql-expression"] # SQL fragments are fixed; values remain bound.
+"labs/houston_signal/integrations/houston_emergency_center/scripts/ingest.py" = ["too-many-arguments", "too-many-statements-in-try-clause"] # The source flow and lifecycle ingestion remain readable together.
+"labs/houston_signal/integrations/houston_311/scripts/ingest.py" = ["hardcoded-sql-expression", "too-many-arguments", "too-many-statements-in-try-clause"] # The source flow and set-based ingestion remain readable together.
+"libs/database/functions.py" = ["global-statement", "yield-in-context-manager-in-async-generator"] # The process-local engine cache owns session cleanup.
+"libs/dbt/tests/test_functions.py" = ["any-type", "no-self-use", "unused-async"] # The test double accepts dbt's external callback surface.
+
+[tool.ty.rules]
+all = "error"
+
+[tool.fastapi]
+entrypoint = "apps.labs.main:app"

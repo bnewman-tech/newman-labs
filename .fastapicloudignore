@@ -1,0 +1,13 @@
+.github/
+.fastapicloud/
+.env
+.env.*
+.agents/
+.codex/
+**/__pycache__/
+**/tests/
+analytics/
+docs/
+output/
+AGENTS.md
+prefect.yaml

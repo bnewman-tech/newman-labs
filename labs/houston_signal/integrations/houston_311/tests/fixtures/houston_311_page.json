@@ -1,0 +1,61 @@
+{
+  "features": [
+    {
+      "attributes": {
+        "ObjectID": 101,
+        "CaseNumber365": "2600000101",
+        "CaseNumber": "2600000101",
+        "IncidentAddress": "100 NEWMAN ST HOUSTON TX 77002",
+        "Latitude": 29.7604,
+        "Longitude": -95.3698,
+        "Status": "Open",
+        "CreatedDate": 1784505600000,
+        "DueDate": 1785110400000,
+        "ClosedDate": null,
+        "Title": "Water Leak",
+        "CaseType": "Water Leak",
+        "SLATime": "5 Working Days",
+        "ServiceArea": "NW",
+        "CouncilDistrict": "H",
+        "KeyMap": "493C",
+        "Department": "Houston Public Works",
+        "Division": "Water",
+        "StateCode": "0",
+        "StateCodeName": "Active",
+        "SWMQuadrant": "NW",
+        "RecyclingQuadrant": "NW",
+        "HeavyTrashQuadrant": "NW",
+        "ResolutionNotes": null
+      }
+    },
+    {
+      "attributes": {
+        "ObjectID": 102,
+        "CaseNumber365": "2600000102",
+        "CaseNumber": "2600000102",
+        "IncidentAddress": "200 NEWMAN ST HOUSTON TX 77003",
+        "Latitude": 29.7488,
+        "Longitude": -95.3498,
+        "Status": "Service Completed",
+        "CreatedDate": 1784592000000,
+        "DueDate": 1785196800000,
+        "ClosedDate": 1784678400000,
+        "Title": "Storm Debris",
+        "CaseType": "Storm Debris",
+        "SLATime": "3 Working Days",
+        "ServiceArea": "SE",
+        "CouncilDistrict": "I",
+        "KeyMap": "494A",
+        "Department": "Solid Waste Management",
+        "Division": "Operations",
+        "StateCode": "1",
+        "StateCodeName": "Resolved",
+        "SWMQuadrant": "SE",
+        "RecyclingQuadrant": "SE",
+        "HeavyTrashQuadrant": "SE",
+        "ResolutionNotes": "Collected"
+      }
+    }
+  ],
+  "exceededTransferLimit": false
+}

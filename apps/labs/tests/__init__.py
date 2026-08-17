@@ -1,0 +1,1 @@
+"""Shared labs application tests."""

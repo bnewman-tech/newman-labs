@@ -1,0 +1,54 @@
+{
+  "demo": true,
+  "pdf_url": "/static/demos/invoice-basic.pdf",
+  "document_markdown": "# Invoice US-1042\n\nIssue date: August 15, 2026  \nDue date: September 14, 2026  \nPurchase order: MR-4821  \nTerms: Net 30\n\n## From\nNorthstar Design Studio LLC  \n100 Example Avenue  \nSeattle, WA 98101\n\n## Bill to\nMeridian Research Group Inc.  \n500 Demo Plaza  \nAustin, TX 78701\n\n## Line items\n- Architecture workshop: 1 project at $3,500.00, amount $3,500.00\n- Implementation sprint: 2 sprints at $3,000.00, amount $6,000.00\n\nSubtotal: $9,500.00  \nSales tax: $0.00  \nTotal due: $9,500.00  \nCurrency: USD",
+  "invoice": {
+    "invoice_number": "US-1042",
+    "issue_date": "2026-08-15",
+    "due_date": "2026-09-14",
+    "purchase_order_number": "MR-4821",
+    "currency": "USD",
+    "seller": {
+      "name": "Northstar Design Studio LLC",
+      "address": "100 Example Avenue, Seattle, WA 98101",
+      "tax_id": null
+    },
+    "buyer": {
+      "name": "Meridian Research Group Inc.",
+      "address": "500 Demo Plaza, Austin, TX 78701",
+      "tax_id": null
+    },
+    "payment_terms": "Net 30",
+    "line_items": [
+      {
+        "description": "Architecture workshop",
+        "quantity": "1",
+        "unit": "project",
+        "unit_price": "3500.00",
+        "discount": null,
+        "tax_rate": null,
+        "tax_amount": null,
+        "line_total": "3500.00"
+      },
+      {
+        "description": "Implementation sprint",
+        "quantity": "2",
+        "unit": "sprint",
+        "unit_price": "3000.00",
+        "discount": null,
+        "tax_rate": null,
+        "tax_amount": null,
+        "line_total": "6000.00"
+      }
+    ],
+    "subtotal": "9500.00",
+    "discount_total": null,
+    "shipping_total": null,
+    "tax_total": "0.00",
+    "total": "9500.00"
+  },
+  "supplier_match": {
+    "supplier_id": "SUP-1001",
+    "name": "Northstar Design Studio LLC"
+  }
+}

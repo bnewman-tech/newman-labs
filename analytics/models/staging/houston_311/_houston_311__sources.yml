@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: houston_311
+    description: Public service-request data published by the City of Houston.
+    schema: raw
+    tables:
+      - name: request
+        identifier: houston_311_request
+        description: Current state of observed Houston 311 service requests.
+        config:
+          loaded_at_field: ingested_at
+          freshness:
+            warn_after: {count: 30, period: hour}
+            error_after: {count: 54, period: hour}
+        columns:
+          - name: case_number
+            description: Stable public identifier for one service request.
+            data_tests: [not_null, unique]
+          - name: created_at
+            description: Source timestamp when the service request was created.
+            data_tests: [not_null]
+          - name: meaningful_hash
+            description: Hash of mutable fields used to detect material changes.
+            data_tests: [not_null]

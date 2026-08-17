@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Privacy · Newman Labs{% endblock %}
+{% block description %}How Newman Labs handles site telemetry, public data, and document submissions.{% endblock %}
+{% block body_class %}site-legal{% endblock %}
+
+{% block content %}
+<article class="legal-page section-shell" aria-labelledby="privacy-heading">
+  <p class="eyebrow">Effective August 15, 2026</p>
+  <h1 id="privacy-heading">Privacy and data use</h1>
+  <p class="legal-lead">This notice describes the information Newman Labs processes when you visit the site or submit a document to a Lab.</p>
+
+  <h2>Site visits</h2>
+  <p>Newman Labs uses Cloudflare Web Analytics to measure aggregate page views, referrals, approximate geography, browser and device information, and page performance. It does not set analytics cookies or track visitors across websites. Newman Labs also uses server-side observability to measure request timing, routes, response status, and application errors. Hosting and observability providers may process IP addresses and standard request metadata to deliver and secure the service. Request headers are not captured by Newman Labs telemetry.</p>
+
+  <h2>Cookies and external services</h2>
+  <p>Newman Labs does not currently provide user accounts, run advertising trackers, sell personal information, or set browser analytics cookies. The site loads analytics from Cloudflare and typefaces from Google Fonts and links to external sites, which apply their own privacy practices when your browser connects to them.</p>
+
+  <h2>Houston Signal</h2>
+  <p>Houston Signal processes public City of Houston records. It reduces published 311 map precision and does not expose case numbers, street addresses, or exact source coordinates. Public-source limitations and attribution appear directly on the Lab.</p>
+
+  <h2>Document uploads</h2>
+  <p>The Invoice Parser accepts PDF uploads. Submitted documents are stored privately and processed by the services named on that Lab's upload screen. Document records and private objects are scheduled for deletion after 30 days. A separate consent checkbox is not required.</p>
+  <p>You keep ownership of content you upload. Only submit content you own or have permission to process. Newman Labs uses the submission and its derived content to host, parse, transform, embed, analyze, secure, evaluate, improve, and demonstrate the Lab.</p>
+
+  <h2>Full AI observability</h2>
+  <p>For document-processing Labs, document text, prompts, model responses, tool inputs and outputs, and binary AI content may be sent to Pydantic Logfire and the model or infrastructure providers named by that Lab. These systems create telemetry copies separate from the original stored document.</p>
+
+  <h2>What not to upload</h2>
+  <p>Do not submit confidential material, credentials, regulated health or financial data, export-controlled material, or third-party content that you are not authorized to process. Uploaded content is treated as untrusted data and cannot authorize actions or change system policy.</p>
+
+  <h2>Questions and requests</h2>
+  <p>For a question about this notice or a request concerning information you submitted, contact Brian Newman through <a href="https://briannewman.info" rel="noreferrer">briannewman.info</a>.</p>
+</article>
+{% endblock %}

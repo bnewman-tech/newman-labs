@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: houston_emergency_center
+    description: Public Fire and Police active-incident data published by the Houston Emergency Center.
+    schema: raw
+    tables:
+      - name: incident
+        identifier: houston_emergency_center_incident
+        description: Rolling 365-day lifecycle history observed from active snapshots.
+        config:
+          loaded_at_field: ingested_at
+          freshness:
+            warn_after: {count: 30, period: minute}
+            error_after: {count: 60, period: minute}
+        columns:
+          - name: incident_id
+            description: Identity scoped by agency, source ID, and opening time.
+            data_tests: [not_null, unique]
+          - name: source_incident_id
+            description: Source-issued identifier that may be reused over time.
+            data_tests: [not_null]
+          - name: agency
+            description: Source agency code for the responding Fire or Police department.
+            data_tests: [not_null]
+          - name: opened_at
+            description: Source timestamp when the incident opened.
+            data_tests: [not_null]
+          - name: meaningful_hash
+            description: Hash of mutable fields used to detect material changes.
+            data_tests: [not_null]

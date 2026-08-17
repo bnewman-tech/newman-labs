@@ -1,0 +1,64 @@
+{
+  "demo": true,
+  "pdf_url": "/static/demos/invoice-supplier-match.pdf",
+  "document_markdown": "# Invoice PIS-3175\n\nIssue date: August 16, 2026  \nDue date: September 15, 2026  \nPurchase order: SFO-4410  \nTerms: Net 30\n\n## From\nPacific Industrial Supply  \n8200 Fictional Way  \nPortland, OR 97205\n\n## Bill to\nSummit Field Operations LLC  \n1150 Market Center Boulevard  \nHouston, TX 77002\n\n## Line items\n- Safety harness kit: 8 at $245.00, amount $1,960.00\n- ANSI hard hat - vented: 12 at $42.50, amount $510.00\n- High-visibility field vest: 12 at $31.25, amount $375.00\n\nSubtotal: $2,845.00  \nSales tax: $237.71  \nTotal due: $3,082.71  \nCurrency: USD",
+  "invoice": {
+    "invoice_number": "PIS-3175",
+    "issue_date": "2026-08-16",
+    "due_date": "2026-09-15",
+    "purchase_order_number": "SFO-4410",
+    "currency": "USD",
+    "seller": {
+      "name": "Pacific Industrial Supply",
+      "address": "8200 Fictional Way, Portland, OR 97205",
+      "tax_id": null
+    },
+    "buyer": {
+      "name": "Summit Field Operations LLC",
+      "address": "1150 Market Center Boulevard, Houston, TX 77002",
+      "tax_id": null
+    },
+    "payment_terms": "Net 30",
+    "line_items": [
+      {
+        "description": "Safety harness kit",
+        "quantity": "8",
+        "unit": null,
+        "unit_price": "245.00",
+        "discount": null,
+        "tax_rate": null,
+        "tax_amount": null,
+        "line_total": "1960.00"
+      },
+      {
+        "description": "ANSI hard hat - vented",
+        "quantity": "12",
+        "unit": null,
+        "unit_price": "42.50",
+        "discount": null,
+        "tax_rate": null,
+        "tax_amount": null,
+        "line_total": "510.00"
+      },
+      {
+        "description": "High-visibility field vest",
+        "quantity": "12",
+        "unit": null,
+        "unit_price": "31.25",
+        "discount": null,
+        "tax_rate": null,
+        "tax_amount": null,
+        "line_total": "375.00"
+      }
+    ],
+    "subtotal": "2845.00",
+    "discount_total": null,
+    "shipping_total": null,
+    "tax_total": "237.71",
+    "total": "3082.71"
+  },
+  "supplier_match": {
+    "supplier_id": "SUP-3007",
+    "name": "Pacific Industrial Supply LLC"
+  }
+}

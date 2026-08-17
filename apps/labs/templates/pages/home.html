@@ -1,0 +1,47 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Newman Labs · Brian Newman{% endblock %}
+{% block description %}Practical software, data, and applied AI projects by Brian Newman.{% endblock %}
+{% block body_class %}site-labs{% endblock %}
+
+{% block head %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Newman Labs",
+    "url": {{ request.url.replace(query='') | string | tojson }}
+  }
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="labs-intro" aria-labelledby="labs-heading">
+  <div class="labs-intro-inner motion-enter">
+    <p class="eyebrow eyebrow-light">Independent engineering by Brian Newman</p>
+    <h1 id="labs-heading">Newman Labs</h1>
+    <p>Practical software, data, and applied AI projects built to be inspected.</p>
+  </div>
+</section>
+
+<section id="projects" class="lab-index section-shell" aria-labelledby="projects-heading">
+  <div class="project-index-heading">
+    <div>
+      <p class="eyebrow">Projects</p>
+      <h2 id="projects-heading">Lab index</h2>
+    </div>
+    <p>Each lab has a permanent URL, its own working interface, and enough technical detail to trace how it was built.</p>
+  </div>
+  <ol class="lab-list">
+    {% for lab in labs %}
+    <li>
+      <a class="lab-row" href="{{ url_for(lab.route_name) }}">
+        <span class="lab-title"><span class="lab-name">{{ lab.name }}</span><small>{{ lab.status.value | replace('_', ' ') | title }}</small></span>
+        <span class="lab-description">{{ lab.summary }}</span>
+        <span class="lab-arrow" aria-hidden="true">→</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endblock %}

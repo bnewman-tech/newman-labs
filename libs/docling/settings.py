@@ -1,0 +1,5 @@
+"""Fixed policy for local Docling PDF conversion."""
+
+PDF_CONVERSION_TIMEOUT_SECONDS = 120
+PDF_MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024
+PDF_MAX_PAGES = 50

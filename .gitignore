@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+
+# Tests and static analysis
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Local environment and editor state
+.DS_Store
+.cursor/
+.env
+.envrc
+.idea/
+.vscode/
+
+# dbt
+analytics/.user.yml
+analytics/dbt_packages/
+analytics/logs/
+analytics/target/
+
+# Local browser artifacts
+.playwright-cli/
+.playwright-mcp/
+/houston-signal-*.png
+
+# Local document artifacts
+libs/docling/artifacts/
+labs/invoice_parser/artifacts/

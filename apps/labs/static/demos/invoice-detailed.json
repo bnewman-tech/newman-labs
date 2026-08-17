@@ -1,0 +1,64 @@
+{
+  "demo": true,
+  "pdf_url": "/static/demos/invoice-detailed.pdf",
+  "document_markdown": "# Invoice HOS-2088\n\nIssue date: August 12, 2026  \nDue date: September 11, 2026  \nPurchase order: CCH-7742  \nTerms: Net 30\n\n## From\nHarbor Office Supply Co.  \n2400 Sample Street  \nDenver, CO 80202\n\n## Bill to\nCrescent Community Health LLC  \n75 Test Center Drive  \nPhoenix, AZ 85004\n\n## Line items\n- Ergonomic task chair: 6 each at $425.00, amount $2,550.00\n- Adjustable monitor arm: 10 each at $118.00, amount $1,180.00\n- Cable management kit: 10 each at $24.00, amount $240.00\n\nSubtotal: $3,970.00  \nDiscount: -$198.50  \nShipping: $145.00  \nAZ sales tax (8.25%): $311.15  \nTotal due: $4,227.65  \nCurrency: USD",
+  "invoice": {
+    "invoice_number": "HOS-2088",
+    "issue_date": "2026-08-12",
+    "due_date": "2026-09-11",
+    "purchase_order_number": "CCH-7742",
+    "currency": "USD",
+    "seller": {
+      "name": "Harbor Office Supply Co.",
+      "address": "2400 Sample Street, Denver, CO 80202",
+      "tax_id": null
+    },
+    "buyer": {
+      "name": "Crescent Community Health LLC",
+      "address": "75 Test Center Drive, Phoenix, AZ 85004",
+      "tax_id": null
+    },
+    "payment_terms": "Net 30",
+    "line_items": [
+      {
+        "description": "Ergonomic task chair",
+        "quantity": "6",
+        "unit": "each",
+        "unit_price": "425.00",
+        "discount": null,
+        "tax_rate": "8.25",
+        "tax_amount": null,
+        "line_total": "2550.00"
+      },
+      {
+        "description": "Adjustable monitor arm",
+        "quantity": "10",
+        "unit": "each",
+        "unit_price": "118.00",
+        "discount": null,
+        "tax_rate": "8.25",
+        "tax_amount": null,
+        "line_total": "1180.00"
+      },
+      {
+        "description": "Cable management kit",
+        "quantity": "10",
+        "unit": "each",
+        "unit_price": "24.00",
+        "discount": null,
+        "tax_rate": "8.25",
+        "tax_amount": null,
+        "line_total": "240.00"
+      }
+    ],
+    "subtotal": "3970.00",
+    "discount_total": "198.50",
+    "shipping_total": "145.00",
+    "tax_total": "311.15",
+    "total": "4227.65"
+  },
+  "supplier_match": {
+    "supplier_id": "SUP-2042",
+    "name": "Harbor Office Supply Company"
+  }
+}

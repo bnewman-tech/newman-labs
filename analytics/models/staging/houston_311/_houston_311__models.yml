@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: stg_houston_311__request
+    description: One normalized current-state row per Houston 311 case.
+    columns:
+      - name: case_number
+        description: Stable public identifier for the service request.
+        data_tests: [not_null, unique]
+      - name: case_number_365
+        description: Identifier supplied by the source's rolling 365-day view.
+      - name: workflow_status
+        description: Trimmed City of Houston workflow label, retained for lineage.
+      - name: created_at
+        description: Timestamp when the service request was created.
+        data_tests: [not_null]
+      - name: due_at
+        description: Due timestamp with Houston's January 1900 null sentinel removed.
+      - name: closed_at
+        description: Closed timestamp with Houston's January 1900 null sentinel removed.
+      - name: case_type
+        description: Trimmed source request classification.
+      - name: key_map
+        description: Uppercase City of Houston Key Map area.
+      - name: service_area
+        description: Trimmed source service area.
+      - name: council_district
+        description: Uppercase Houston City Council district.
+      - name: department
+        description: Department responsible for the request.
+      - name: division
+        description: Department division responsible for the request.
+      - name: latitude
+        description: Source latitude retained for privacy-reduced map aggregation.
+      - name: longitude
+        description: Source longitude retained for privacy-reduced map aggregation.
+      - name: first_seen_at
+        description: First Newman Labs observation of the case.
+        data_tests: [not_null]
+      - name: last_seen_at
+        description: Most recent Newman Labs observation of the case.
+        data_tests: [not_null]
+      - name: ingested_at
+        description: Timestamp of the source load that last touched the case.
+        data_tests: [not_null]

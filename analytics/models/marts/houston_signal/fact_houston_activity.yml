@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: fact_houston_activity
+    description: One observed Houston 311 request or Houston Emergency Center incident.
+    columns:
+      - name: activity_id
+        description: Source-qualified activity identity.
+        data_tests: [not_null, unique]
+      - name: source_name
+        description: Source system that published the activity.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [houston_311, houston_emergency_center]
+      - name: activity_kind
+        description: Public-service activity type at the shared grain.
+        data_tests: [not_null]
+      - name: activity_at
+        description: Source timestamp when the activity opened.
+        data_tests: [not_null]
+      - name: status
+        description: Newman Labs lifecycle status derived from authoritative source dates and activity state.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [Open, Closed, Active, Inactive]
+      - name: source_status
+        description: Original source workflow label when the source publishes one.
+      - name: activity_category
+        description: Newman Labs category used for cross-source exploration.
+        data_tests: [not_null]
+      - name: is_active
+        description: Whether the request or incident remains open in its source lifecycle.
+        data_tests: [not_null]
+      - name: first_seen_at
+        description: First Newman Labs observation of the source record.
+        data_tests: [not_null]
+      - name: last_seen_at
+        description: Most recent Newman Labs observation of the source record.
+        data_tests: [not_null]
+      - name: source_refreshed_at
+        description: Source-ingestion timestamp that last touched the record.
+        data_tests: [not_null]

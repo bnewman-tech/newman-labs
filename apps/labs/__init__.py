@@ -1,0 +1,1 @@
+"""Newman Labs FastAPI application."""

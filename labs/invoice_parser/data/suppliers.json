@@ -1,0 +1,18 @@
+[
+  {
+    "supplier_id": "SUP-1001",
+    "name": "Northstar Design Studio LLC"
+  },
+  {
+    "supplier_id": "SUP-2042",
+    "name": "Harbor Office Supply Company"
+  },
+  {
+    "supplier_id": "SUP-3007",
+    "name": "Pacific Industrial Supply LLC"
+  },
+  {
+    "supplier_id": "SUP-3011",
+    "name": "Pacific Industrial Services LLC"
+  }
+]

@@ -1,0 +1,309 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Invoice Parser · Newman Labs{% endblock %}
+{% block description %}A small document extraction lab built with DocFirewall, Docling, Pydantic AI, and Neon.{%
+endblock %}
+{% block body_class %}site-invoice-parser{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='/css/invoice-parser.css') }}?v={{ asset_version }}">
+{% endblock %}
+
+{% block content %}
+<div data-invoice-workspace>
+  <header class="invoice-header section-shell">
+    <div>
+      <p class="eyebrow">Document intelligence · Structured extraction</p>
+      <h1>Invoice Parser</h1>
+      <p>Save one approved document, extract a typed invoice with one Pydantic AI agent, and inspect the returned data.
+      </p>
+      <a class="invoice-presentation-link" href="{{ url_for('invoice_parser_presentation') }}">Open the presentation
+        <span aria-hidden="true">→</span></a>
+    </div>
+    <ol class="invoice-path" aria-label="Invoice processing path">
+      <li><span>01</span><strong>Scan</strong><small>DocFirewall</small></li>
+      <li><span>02</span><strong>Read</strong><small>Docling</small></li>
+      <li><span>03</span><strong>Save</strong><small>Neon</small></li>
+      <li><span>04</span><strong>Extract</strong><small>Pydantic AI</small></li>
+    </ol>
+  </header>
+
+  <section class="invoice-upload section-shell" aria-labelledby="invoice-upload-heading">
+    <div class="invoice-section-heading">
+      <div>
+        <p class="eyebrow">Try the workflow</p>
+        <h2 id="invoice-upload-heading">Choose an invoice</h2>
+      </div>
+      <p>One English PDF, up to {{ max_file_size_mb }} MB and {{ max_pages }} pages. Start with a synthetic demo or
+        upload your own test invoice.</p>
+    </div>
+
+    <div class="invoice-demos" aria-labelledby="invoice-demo-heading">
+      <p id="invoice-demo-heading">Permanent demos</p>
+      <div>
+        <button type="button" data-invoice-demo="{{ url_for('static', path='/demos/invoice-basic.json') }}">
+          <strong>US services</strong>
+          <span>USD · Net 30 · Two line items</span>
+        </button>
+        <button type="button" data-invoice-demo="{{ url_for('static', path='/demos/invoice-detailed.json') }}">
+          <strong>US goods</strong>
+          <span>USD · Sales tax · Discount and shipping</span>
+        </button>
+        <button type="button" data-invoice-demo="{{ url_for('static', path='/demos/invoice-supplier-match.json') }}">
+          <strong>Supplier match</strong>
+          <span>One directory match · Ready to continue</span>
+        </button>
+        <button type="button" data-invoice-demo="{{ url_for('static', path='/demos/invoice-supplier-review.json') }}">
+          <strong>Needs review</strong>
+          <span>Ambiguous seller · No supplier selected</span>
+        </button>
+      </div>
+    </div>
+
+    <form action="{{ url_for('extract_invoice') }}" method="post" enctype="multipart/form-data"
+      data-invoice-upload-form>
+      <label class="invoice-file-control" data-invoice-drop-zone>
+        <span class="invoice-file-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14">
+            </path>
+          </svg>
+        </span>
+        <span><strong data-invoice-file-label>Choose an invoice PDF</strong><small>or drop it here</small></span>
+        <input type="file" name="document" accept="application/pdf,.pdf" required data-invoice-file>
+      </label>
+      <div class="invoice-upload-action">
+        <p>Extraction starts automatically when you choose or drop a PDF and enter the processing access code. Documents are processed by Prefect Managed,
+          DocFirewall, Docling, Neon, Pydantic AI Gateway, its model provider, and Pydantic Logfire. The document record
+          and private parser artifacts are scheduled for deletion after 30 days. The transient extraction handoff is
+          deleted after delivery and no invoice-analysis record is retained. Do not upload regulated or highly sensitive
+          information. <a href="{{ url_for('privacy') }}">Privacy notice</a>.</p>
+      </div>
+    </form>
+
+  </section>
+
+  <section class="invoice-review" aria-labelledby="invoice-result-heading" hidden data-invoice-result>
+    <header class="invoice-review-heading section-shell">
+      <div>
+        <p class="eyebrow">Document inspection</p>
+        <h2 id="invoice-result-heading">Review extraction</h2>
+      </div>
+      <p data-invoice-result-description>Keep the source visible while you compare the typed response with Docling's
+        extracted text.</p>
+    </header>
+
+    <div class="invoice-review-shell">
+      <section class="invoice-document-pane" aria-labelledby="invoice-document-heading">
+        <div class="invoice-pdf-desktop-mount" data-invoice-pdf-desktop-mount>
+          <div class="invoice-pdf-workspace" data-invoice-pdf-workspace>
+            <header class="invoice-pane-header">
+              <div>
+                <small>Source PDF</small>
+                <strong id="invoice-document-heading" data-invoice-source-name>Invoice</strong>
+              </div>
+              <a href="" target="_blank" rel="noopener" data-invoice-source-pdf>Open PDF <span
+                  aria-hidden="true">↗</span></a>
+            </header>
+            <div class="invoice-pdf-viewer" data-invoice-pdf-viewer>
+              <p data-invoice-preview-placeholder>The selected PDF will appear here.</p>
+              <iframe title="Source invoice PDF" hidden data-invoice-pdf-frame></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="invoice-inspector" aria-label="Invoice extraction inspector">
+        <nav class="invoice-tabs" aria-label="Extraction views" role="tablist" hidden data-invoice-tabs>
+          <button class="invoice-pdf-tab" type="button" id="invoice-pdf-tab" role="tab"
+            aria-controls="invoice-pdf-panel" aria-selected="false" tabindex="-1" data-invoice-tab="pdf">PDF</button>
+          <button type="button" id="invoice-data-tab" role="tab" aria-controls="invoice-data-panel" aria-selected="true"
+            data-invoice-tab="data">Data</button>
+          <button type="button" id="invoice-ocr-tab" role="tab" aria-controls="invoice-ocr-panel" aria-selected="false"
+            tabindex="-1" data-invoice-tab="ocr">OCR / text</button>
+          <button type="button" id="invoice-json-tab" role="tab" aria-controls="invoice-json-panel"
+            aria-selected="false" tabindex="-1" data-invoice-tab="json">JSON</button>
+        </nav>
+
+        <div class="invoice-status" role="status" aria-live="polite" hidden data-invoice-status>
+          <span class="invoice-status-spinner" aria-hidden="true"></span>
+          <div>
+            <strong data-invoice-status-title>Preparing extraction</strong>
+            <p data-invoice-status-detail>The first local run can take about a minute while document models initialize.
+            </p>
+            <small data-invoice-status-elapsed>0:00 elapsed</small>
+          </div>
+        </div>
+
+        <div class="invoice-panel invoice-mobile-pdf-panel" id="invoice-pdf-panel" role="tabpanel"
+          aria-labelledby="invoice-pdf-tab" tabindex="0" hidden data-invoice-panel="pdf">
+          <div data-invoice-pdf-mobile-mount></div>
+        </div>
+
+        <div class="invoice-panel invoice-data-panel" id="invoice-data-panel" role="tabpanel"
+          aria-labelledby="invoice-data-tab" tabindex="0" data-invoice-panel="data">
+          <header class="invoice-identity">
+            <div class="invoice-identity-main">
+              <small>Extracted invoice</small>
+              <strong data-invoice-seller></strong>
+              <p class="invoice-identity-meta"><span data-invoice-document-id></span></p>
+            </div>
+            <dl class="invoice-identity-metrics">
+              <div>
+                <dt>Invoice</dt>
+                <dd data-invoice-number></dd>
+              </div>
+              <div class="invoice-identity-total">
+                <dt>Total</dt>
+                <dd data-invoice-total></dd>
+              </div>
+            </dl>
+          </header>
+
+          <details class="invoice-field-group" open data-invoice-field-group>
+            <summary>
+              <h3 id="invoice-general-heading">Invoice<small data-invoice-group-found></small></h3>
+            </summary>
+            <dl class="invoice-fields">
+              <div>
+                <dt>Issue date</dt>
+                <dd data-invoice-issued></dd>
+              </div>
+              <div>
+                <dt>Due date</dt>
+                <dd data-invoice-due></dd>
+              </div>
+              <div>
+                <dt>Purchase order</dt>
+                <dd data-invoice-po></dd>
+              </div>
+              <div>
+                <dt>Payment terms</dt>
+                <dd data-invoice-terms></dd>
+              </div>
+              <div>
+                <dt>Currency</dt>
+                <dd data-invoice-currency></dd>
+              </div>
+            </dl>
+          </details>
+
+          <details class="invoice-field-group" open data-invoice-field-group>
+            <summary>
+              <h3 id="invoice-seller-heading">Seller<small data-invoice-group-found></small></h3>
+            </summary>
+            <dl class="invoice-fields">
+              <div>
+                <dt>Name</dt>
+                <dd data-invoice-seller-name></dd>
+              </div>
+              <div>
+                <dt>Tax ID</dt>
+                <dd data-invoice-seller-tax-id></dd>
+              </div>
+              <div class="invoice-field-wide">
+                <dt>Address</dt>
+                <dd data-invoice-seller-address></dd>
+              </div>
+            </dl>
+          </details>
+
+          <details class="invoice-field-group" open data-invoice-field-group>
+            <summary>
+              <h3 id="invoice-supplier-heading">Supplier match<small data-invoice-group-found></small></h3>
+            </summary>
+            <dl class="invoice-fields">
+              <div>
+                <dt>Status</dt>
+                <dd data-invoice-supplier-status></dd>
+              </div>
+              <div>
+                <dt>Supplier ID</dt>
+                <dd data-invoice-supplier-id></dd>
+              </div>
+              <div class="invoice-field-wide">
+                <dt>Canonical name</dt>
+                <dd data-invoice-supplier-name></dd>
+              </div>
+            </dl>
+          </details>
+
+          <details class="invoice-field-group" open data-invoice-field-group>
+            <summary>
+              <h3 id="invoice-buyer-heading">Buyer<small data-invoice-group-found></small></h3>
+            </summary>
+            <dl class="invoice-fields">
+              <div>
+                <dt>Name</dt>
+                <dd data-invoice-buyer-name></dd>
+              </div>
+              <div>
+                <dt>Tax ID</dt>
+                <dd data-invoice-buyer-tax-id></dd>
+              </div>
+              <div class="invoice-field-wide">
+                <dt>Address</dt>
+                <dd data-invoice-buyer-address></dd>
+              </div>
+            </dl>
+          </details>
+
+          <details class="invoice-field-group" open data-invoice-field-group>
+            <summary>
+              <h3 id="invoice-lines-heading">Line items<small data-invoice-group-found></small></h3>
+            </summary>
+            <div class="invoice-line-items" data-invoice-line-items></div>
+          </details>
+
+          <details class="invoice-field-group" open data-invoice-field-group>
+            <summary>
+              <h3 id="invoice-totals-heading">Totals<small data-invoice-group-found></small></h3>
+            </summary>
+            <dl class="invoice-fields invoice-total-fields">
+              <div>
+                <dt>Subtotal</dt>
+                <dd data-invoice-subtotal></dd>
+              </div>
+              <div>
+                <dt>Discount</dt>
+                <dd data-invoice-discount></dd>
+              </div>
+              <div>
+                <dt>Shipping</dt>
+                <dd data-invoice-shipping></dd>
+              </div>
+              <div>
+                <dt>Tax</dt>
+                <dd data-invoice-tax></dd>
+              </div>
+              <div>
+                <dt>Total</dt>
+                <dd data-invoice-total-detail></dd>
+              </div>
+            </dl>
+          </details>
+        </div>
+
+        <div class="invoice-panel invoice-text-panel" id="invoice-ocr-panel" role="tabpanel"
+          aria-labelledby="invoice-ocr-tab" tabindex="0" hidden data-invoice-panel="ocr">
+          <header>
+            <p class="eyebrow">Docling output</p>
+            <h3>OCR / parsed text</h3>
+            <p>Layout-aware Markdown used as evidence for the typed extraction.</p>
+          </header>
+          <pre data-invoice-ocr></pre>
+        </div>
+
+        <div class="invoice-panel invoice-json-panel" id="invoice-json-panel" role="tabpanel"
+          aria-labelledby="invoice-json-tab" tabindex="0" hidden data-invoice-panel="json">
+          <pre data-invoice-json></pre>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='/js/invoice-parser.js') }}?v={{ asset_version }}" defer></script>
+{% endblock %}

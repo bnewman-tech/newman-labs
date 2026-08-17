@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: stg_houston_emergency_center__incident
+    description: One normalized row per Emergency Center incident observed during the rolling 365-day retention window.
+    columns:
+      - name: incident_id
+        description: Identity scoped by agency, source ID, and opening time.
+        data_tests: [not_null, unique]
+      - name: source_incident_id
+        description: Source-issued identifier that may be reused over time.
+        data_tests: [not_null]
+      - name: agency
+        description: Uppercase source agency code.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [F, P]
+      - name: opened_at
+        description: Source timestamp when the incident opened.
+        data_tests: [not_null]
+      - name: incident_type
+        description: Trimmed source incident classification.
+        data_tests: [not_null]
+      - name: is_active
+        description: Whether the incident appeared in the latest observed snapshot.
+        data_tests: [not_null]
+      - name: first_seen_at
+        description: First Newman Labs observation of the incident.
+        data_tests: [not_null]
+      - name: last_seen_at
+        description: Most recent Newman Labs observation of the incident.
+        data_tests: [not_null]
+      - name: ended_at
+        description: Time Newman Labs first observed the incident missing from the feed.
+      - name: ingested_at
+        description: Timestamp of the source load that last touched the incident.
+        data_tests: [not_null]

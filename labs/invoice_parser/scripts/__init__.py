@@ -1,0 +1,1 @@
+"""Manual invoice parser entrypoints."""

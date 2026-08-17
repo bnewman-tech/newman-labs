@@ -1,0 +1,92 @@
+name: PR Checker
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-checker-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify pull request
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.5-pg17-bookworm@sha256:d2ef61f42ef767baa5a1475393303cc235bcd92febd9d7014eddb48b41f3bad0
+        env:
+          POSTGRES_DB: newman_labs_test
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d newman_labs_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/newman_labs_test
+      PGDATABASE: newman_labs_test
+      PGHOST: localhost
+      PGPASSWORD: postgres
+      PGPORT: "5432"
+      PGSSLMODE: disable
+      PGUSER: postgres
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python and uv
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          version: "0.12.5"
+
+      - name: Install locked dependencies
+        run: uv sync --locked --all-groups
+
+      - name: Check Python formatting
+        run: uv run --no-sync ruff format --check .
+
+      - name: Lint all Python rules
+        run: uv run --no-sync ruff check .
+
+      - name: Type-check all rules
+        run: uv run --no-sync ty check --error all
+
+      - name: Audit locked production dependencies
+        run: |
+          uv export --quiet --locked --no-dev --no-emit-project \
+            --output-file /tmp/newman-labs-requirements.txt
+          uv run --no-sync pip-audit \
+            --requirement /tmp/newman-labs-requirements.txt \
+            --disable-pip \
+            --progress-spinner off
+
+      - name: Apply database migrations
+        run: uv run --no-sync alembic upgrade head
+
+      - name: Check database model parity
+        run: uv run --no-sync alembic check
+
+      - name: Build and test analytics
+        run: uv run --no-sync python -m libs.dbt.scripts.run_dbt build
+
+      - name: Run test suite
+        run: uv run --no-sync pytest
+
+      - name: Test migration reversibility
+        run: |
+          uv run --no-sync alembic downgrade base
+          uv run --no-sync alembic upgrade head
+          uv run --no-sync alembic check

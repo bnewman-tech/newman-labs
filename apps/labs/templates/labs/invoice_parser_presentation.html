@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Beyond the Chat: Building a typed invoice extraction workflow with Pydantic AI by Brian Newman.">
+    <meta name="author" content="Brian Newman">
+    <meta name="theme-color" content="#1a4164">
+    <title>Beyond the Chat · Pydantic AI</title>
+    <link rel="icon" href="{{ url_for('static', path='/favicon.ico') }}" sizes="any">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/invoice-presentation.css') }}?v={{ asset_version }}">
+  </head>
+  <body>
+    <main class="presentation" data-presentation>
+      <header class="presentation-header">
+        <a href="{{ url_for('invoice_parser') }}" class="presentation-brand" aria-label="Return to the Invoice Parser Lab">
+          <img src="{{ url_for('static', path='/images/brian-newman-wordmark-white-720.png') }}" alt="Brian Newman" width="720" height="59">
+          <span>Labs</span>
+        </a>
+        <nav class="presentation-sections" aria-label="Presentation sections" data-presentation-sections></nav>
+        <span class="presentation-count" aria-live="polite" data-presentation-count>01 / 21</span>
+      </header>
+
+      <div class="presentation-progress" aria-hidden="true"><span data-presentation-progress></span></div>
+
+      <div class="presentation-stage">
+        <section class="presentation-slide presentation-slide-dark presentation-slide-hero" data-slide data-section="about" data-kicker="About me" data-title="Beyond the chat">
+          <div class="slide-hero">
+            <div class="hero-copy" data-reveal>
+              <p class="slide-eyebrow">PyHou · August 18, 2026</p>
+              <h1>Beyond<br>the chat</h1>
+              <p class="slide-subtitle">Designing typed AI workflows with Pydantic AI</p>
+              <p class="slide-speaker">Brian Newman · Newman Labs</p>
+            </div>
+            <figure class="hero-media">
+              <img
+                src="{{ url_for('static', path='/images/invoice-presentation-hero.jpg') }}"
+                alt="An invoice, engineering notebook, and laptop arranged on a deep navy work surface"
+                width="1672"
+                height="941"
+              >
+              <figcaption class="hero-system" aria-label="Invoice PDF becomes a validated Python object through Pydantic AI" data-reveal>
+                <span>Invoice PDF</span><b aria-hidden="true">→</b><span>Pydantic AI</span><b aria-hidden="true">→</b><span>Typed object</span>
+              </figcaption>
+            </figure>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>Most people first experience AI through a chat box. The human provides context, judges the answer, and decides what happens next.</li>
+            <li>This talk moves the model into one bounded step inside an ordinary Python application.</li>
+            <li>The invoice is the example. The transferable lesson is how the application keeps control.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="about" data-kicker="About me" data-title="Who I am">
+          <div class="who-layout">
+            <figure class="who-photo" data-reveal>
+              <img
+                src="{{ url_for('static', path='/images/brian-newman-headshot.webp') }}"
+                alt="Brian Newman"
+                width="960"
+                height="1280"
+              >
+            </figure>
+            <div class="who-copy" data-reveal>
+              <p class="slide-eyebrow">Brian Newman</p>
+              <h2>Python, data engineering, and applied AI</h2>
+              <p class="slide-lead">I build software for real business workflows.</p>
+              <a class="who-portfolio" href="https://briannewman.info" target="_blank" rel="noreferrer">
+                <img
+                  src="{{ url_for('static', path='/images/brian-newman-portfolio-qr.png') }}"
+                  alt="QR code for Brian Newman's portfolio"
+                  width="370"
+                  height="370"
+                >
+                <span>Portfolio<strong>briannewman.info</strong></span>
+              </a>
+            </div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>I lead development and data engineering, but I stay close to the code and the systems we build.</li>
+            <li>I am here as a practitioner, not a Pydantic maintainer or AI researcher.</li>
+            <li>Newman Labs publishes small working systems that outside engineers can inspect.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="chat-workflow" data-kicker="Chat vs workflow" data-title="Chat is human-orchestrated">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">The central shift</p>
+            <h2>Who owns the loop?</h2>
+          </div>
+          <div class="compare-grid">
+            <div class="compare-panel" data-reveal>
+              <p class="panel-label">Chat interface</p>
+              <h3>The human drives the loop</h3>
+              <ol><li>Ask or paste context</li><li>Read the answer</li><li>Judge whether it is useful</li><li>Prompt again or take action</li></ol>
+            </div>
+            <div class="compare-panel compare-panel-emphasis" data-reveal>
+              <p class="panel-label">Workflow interface</p>
+              <h3>The application owns the sequence</h3>
+              <ol><li>A business event occurs</li><li>The model interprets ambiguity</li><li>Python validates the result</li><li>The workflow returns explicit state</li></ol>
+            </div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>In chat, the human is effectively the orchestrator even when the product has sophisticated workflows underneath.</li>
+            <li>In an application workflow, code decides when the model runs, what evidence it receives, and what happens next.</li>
+            <li>That ownership change is the foundation for the rest of the talk.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="chat-workflow" data-kicker="Chat vs workflow" data-title="Where workflows need AI">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">Use the right tool</p>
+            <h2>Automation is exact. Inputs are not.</h2>
+          </div>
+          <div class="capability-grid">
+            <div class="capability capability-exact" data-reveal><strong>Traditional automation</strong><p>Rules, calculations, required fields, database lookups, and repeatable actions.</p></div>
+            <div class="capability capability-messy" data-reveal><strong>Messy inputs</strong><p>PDFs, emails, tickets, contracts, photos, notes, and inconsistent language.</p></div>
+            <div class="capability capability-model" data-reveal><strong>Model interpretation</strong><p>Map ambiguity into a typed object that deterministic code can use.</p></div>
+          </div>
+          <p class="slide-callout">Use the model for interpretation. Keep exact work in Python.</p>
+          <template data-speaker-notes><ul>
+            <li>Traditional automation is strong when the data is structured and the rules are known.</li>
+            <li>The difficult boundary is often the inconsistent human document arriving at the front of the workflow.</li>
+            <li>An LLM makes that boundary more capable. It does not make the rest of the system optional.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide presentation-slide-dark" data-slide data-section="pydantic-ai" data-kicker="Pydantic AI" data-title="What Pydantic AI adds">
+          <div class="definition-layout">
+            <div data-reveal>
+              <p class="slide-eyebrow">Working definition</p>
+              <h2>A typed application boundary around a model call</h2>
+              <p class="slide-lead">Pydantic AI is the engineering layer around how Python calls, validates, retries, tests, observes, and composes model behavior.</p>
+            </div>
+            <div class="definition-list" data-reveal>
+              <span>01</span><strong>Typed output</strong>
+              <span>02</span><strong>Bounded retries</strong>
+              <span>03</span><strong>Runtime dependencies</strong>
+              <span>04</span><strong>Constrained tools</strong>
+              <span>05</span><strong>Tests and traces</strong>
+            </div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>Pydantic AI is not the model and it does not replace the provider.</li>
+            <li>It makes the uncertain model interaction behave more like a typed component in the rest of the Python application.</li>
+            <li>The invoice workflow uses typed output, one supplier lookup tool, validation, retries, testing, and tracing.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="pydantic-ai" data-kicker="Pydantic AI" data-title="Provider SDK versus Pydantic AI">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">Optional abstraction</p>
+            <h2>Direct model calls are still valid</h2>
+          </div>
+          <div class="compare-grid compare-grid-compact">
+            <div class="compare-panel" data-reveal>
+              <p class="panel-label">Direct</p>
+              <h3>Python → provider SDK → model</h3>
+              <p>Good when the interaction is small and the provider response is already the application boundary.</p>
+            </div>
+            <div class="compare-panel compare-panel-emphasis" data-reveal>
+              <p class="panel-label">With Pydantic AI</p>
+              <h3>Python → agent contract → provider → model</h3>
+              <p>Useful when the model call needs typed output, validation, retries, tests, tools, dependencies, or traces.</p>
+            </div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>A provider SDK is not the wrong answer. Provider APIs increasingly support structured output directly.</li>
+            <li>I reach for Pydantic AI when the interaction needs to become a durable component inside a larger application.</li>
+            <li>The value is the complete Python contract, not another network hop.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="pydantic-ai" data-kicker="Pydantic AI" data-title="One narrow agent">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">The primary interface</p>
+            <h2>An Agent configures one model interaction</h2>
+          </div>
+          <div class="agent-layout" data-reveal>
+            <div class="agent-fact agent-model"><span>Model</span><strong>The LLM that generates a response</strong></div>
+            <div class="agent-fact agent-instructions"><span>Instructions</span><strong>How the Agent should behave</strong></div>
+            <div class="agent-core"><span>Agent</span><small>Configured model runner</small></div>
+            <div class="agent-fact agent-output"><span>Output type</span><strong>A Pydantic schema for typed validation</strong><code>SupportDecision(category="billing")</code></div>
+            <div class="agent-fact agent-tool"><span>Tool</span><strong>A Python function that can reach an API, database, or service</strong></div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>Pydantic AI calls this object an Agent. In this talk, I use the term narrowly.</li>
+            <li>The model generates. Instructions define current behavior. The output type is the typed contract that must come back.</li>
+            <li>A tool is a Python function the model may request when it needs a controlled third-party resource.</li>
+            <li>The Agent does not make the application autonomous. Python still owns authorization, workflow state, and side effects.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="fundamentals" data-kicker="Fundamentals" data-title="Start with the output">
+          <div class="slide-split">
+            <div data-reveal>
+              <p class="slide-eyebrow">Structured output</p>
+              <h2>Define the object before writing the prompt</h2>
+              <p class="slide-lead">The application needs an invoice object, not prose that happens to look like JSON.</p>
+            </div>
+            <figure class="code-editor" data-reveal>
+              <figcaption class="code-editor-chrome">
+                <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-editor-tab"><b>PY</b>schemas.py</span>
+                <span class="code-editor-path">labs / invoice_parser / selected fields</span>
+              </figcaption>
+              <pre><code><span class="code-line" data-line="34"><span class="syntax-keyword">class</span> <span class="syntax-type">ParsedInvoice</span>(<span class="syntax-type">NewmanLabsModel</span>):</span>
+<span class="code-line" data-line="37">    <span class="syntax-property">invoice_number</span>: <span class="syntax-type">str</span> = <span class="syntax-function">Field</span>(<span class="syntax-property">min_length</span>=<span class="syntax-number">1</span>, <span class="syntax-property">max_length</span>=<span class="syntax-number">100</span>)</span>
+<span class="code-line" data-line="38">    <span class="syntax-property">issue_date</span>: <span class="syntax-type">date</span></span>
+<span class="code-line" data-line="40">    <span class="syntax-property">purchase_order_number</span>: <span class="syntax-type">str</span> | <span class="syntax-keyword">None</span> = <span class="syntax-function">Field</span>(<span class="syntax-property">default</span>=<span class="syntax-keyword">None</span>, <span class="syntax-property">max_length</span>=<span class="syntax-number">100</span>)</span>
+<span class="code-line" data-line="41">    <span class="syntax-property">currency</span>: <span class="syntax-type">str</span> = <span class="syntax-function">Field</span>(<span class="syntax-property">pattern</span>=<span class="syntax-string">r"^[A-Z]{3}$"</span>)</span>
+<span class="code-line" data-line="42">    <span class="syntax-property">seller</span>: <span class="syntax-type">InvoiceParty</span></span>
+<span class="code-line" data-line="46">    <span class="syntax-property">subtotal</span>: <span class="syntax-type">Decimal</span> | <span class="syntax-keyword">None</span> = <span class="syntax-keyword">None</span></span>
+<span class="code-line" data-line="49">    <span class="syntax-property">tax_total</span>: <span class="syntax-type">Decimal</span> | <span class="syntax-keyword">None</span> = <span class="syntax-keyword">None</span></span>
+<span class="code-line" data-line="50">    <span class="syntax-property">total</span>: <span class="syntax-type">Decimal</span> = <span class="syntax-function">Field</span>(</span>
+<span class="code-line" data-line="51">        <span class="syntax-property">gt</span>=<span class="syntax-number">0</span>,</span>
+<span class="code-line" data-line="52">        <span class="syntax-property">description</span>=<span class="syntax-string">"Final total printed on the invoice."</span>,</span>
+<span class="code-line" data-line="53">    )</span>
+<span class="code-line code-line-omitted" data-line="⋮"></span>
+<span class="code-line" data-line="69"><span class="syntax-keyword">class</span> <span class="syntax-type">InvoiceAgentOutput</span>(<span class="syntax-type">NewmanLabsModel</span>):</span>
+<span class="code-line" data-line="72">    <span class="syntax-property">invoice</span>: <span class="syntax-type">ParsedInvoice</span></span>
+<span class="code-line" data-line="73">    <span class="syntax-property">supplier_match</span>: <span class="syntax-type">SupplierMatch</span> | <span class="syntax-keyword">None</span> = <span class="syntax-keyword">None</span></span></code></pre>
+            </figure>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>The first design decision is the object the application needs.</li>
+            <li>The schema gives downstream code types, optional values, field constraints, and a stable contract.</li>
+            <li>Pydantic validates the shape. It does not prove the document was read correctly.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="fundamentals" data-kicker="Fundamentals" data-title="Create the agent">
+          <div class="slide-split">
+            <div data-reveal>
+              <p class="slide-eyebrow">Agent contract</p>
+              <h2>Configure behavior without hiding the application</h2>
+              <p class="slide-lead">Instructions describe the current job. Dependencies provide typed per-run context. The output type defines what must come back.</p>
+            </div>
+            <figure class="code-editor" data-reveal>
+              <figcaption class="code-editor-chrome">
+                <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-editor-tab"><b>PY</b>functions.py</span>
+                <span class="code-editor-path">labs / invoice_parser / simplified excerpt</span>
+              </figcaption>
+              <pre><code><span class="code-line" data-line="65"><span class="syntax-property">invoice_extractor</span>: <span class="syntax-type">Agent</span>[<span class="syntax-type">SupplierLookupState</span>, <span class="syntax-type">InvoiceAgentOutput</span>] = <span class="syntax-function">Agent</span>(</span>
+<span class="code-line" data-line="66">    <span class="syntax-property">name</span>=<span class="syntax-string">"invoice_parser"</span>,</span>
+<span class="code-line" data-line="67">    <span class="syntax-property">deps_type</span>=<span class="syntax-type">SupplierLookupState</span>,</span>
+<span class="code-line" data-line="68">    <span class="syntax-property">output_type</span>=<span class="syntax-type">InvoiceAgentOutput</span>,</span>
+<span class="code-line" data-line="69">    <span class="syntax-property">instructions</span>=(</span>
+<span class="code-line" data-line="70">        <span class="syntax-string">"Extract invoice fields from the document. "</span></span>
+<span class="code-line" data-line="71">        <span class="syntax-string">"Use only values explicitly shown. "</span></span>
+<span class="code-line" data-line="74">        <span class="syntax-string">"Call search_supplier_candidates exactly once..."</span></span>
+<span class="code-line" data-line="76">    ),</span>
+<span class="code-line" data-line="79">    <span class="syntax-property">retries</span>={<span class="syntax-string">"tools"</span>: <span class="syntax-number">3</span>, <span class="syntax-string">"output"</span>: <span class="syntax-number">3</span>},</span>
+<span class="code-line" data-line="81">)</span></code></pre>
+            </figure>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>The stable name labels traces in Logfire.</li>
+            <li>Instructions are the current agent behavior. They are the default choice for this stateless workflow.</li>
+            <li>A system prompt matters when earlier system context must be preserved through message history; this extraction run has no conversational history.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="fundamentals" data-kicker="Fundamentals" data-title="Validation can correct">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">Output validators + ModelRetry</p>
+            <h2>Validation can send focused feedback back to the model</h2>
+          </div>
+          <div class="validation-layout">
+            <div class="validation-loop" aria-label="Model retry loop" data-reveal>
+              <strong>Model attempt</strong><b>↓</b><strong>Typed output</strong><b>↓</b><strong class="validation-node">Output validator</strong>
+              <div><span>Valid → continue</span><span>Recoverable → retry</span></div>
+            </div>
+            <figure class="code-editor validation-code" data-reveal>
+              <figcaption class="code-editor-chrome">
+                <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-editor-tab"><b>PY</b>functions.py</span>
+                <span class="code-editor-path">output validator</span>
+              </figcaption>
+              <pre><code><span class="code-line" data-line="125"><span class="syntax-property">expected_total</span> = (</span>
+<span class="code-line" data-line="126">    <span class="syntax-property">invoice</span>.<span class="syntax-property">subtotal</span></span>
+<span class="code-line" data-line="127">    - (<span class="syntax-property">invoice</span>.<span class="syntax-property">discount_total</span> <span class="syntax-keyword">or</span> <span class="syntax-type">Decimal</span>(<span class="syntax-number">0</span>))</span>
+<span class="code-line" data-line="128">    + (<span class="syntax-property">invoice</span>.<span class="syntax-property">shipping_total</span> <span class="syntax-keyword">or</span> <span class="syntax-type">Decimal</span>(<span class="syntax-number">0</span>))</span>
+<span class="code-line" data-line="129">    + <span class="syntax-property">invoice</span>.<span class="syntax-property">tax_total</span></span>
+<span class="code-line" data-line="130">)</span>
+<span class="code-line" data-line="131"><span class="syntax-keyword">if</span> <span class="syntax-property">expected_total</span> != <span class="syntax-property">invoice</span>.<span class="syntax-property">total</span>:</span>
+<span class="code-line" data-line="132">    <span class="syntax-keyword">raise</span> <span class="syntax-function">ModelRetry</span>(</span>
+<span class="code-line" data-line="133">        <span class="syntax-string">"The extracted total does not reconcile with the subtotal, discount, shipping, and tax. "</span></span>
+<span class="code-line" data-line="134">        <span class="syntax-string">"Re-read those printed values and correct extraction errors without inventing values."</span></span>
+<span class="code-line" data-line="135">    )</span></code></pre>
+            </figure>
+          </div>
+          <p class="slide-callout" data-reveal>Retry interpretation problems. Don’t retry reality.</p>
+          <template data-speaker-notes><ul>
+            <li>An output validator can correct a recoverable model mistake instead of merely rejecting the result.</li>
+            <li>This retry is appropriate when the printed totals are visible but the model read one incorrectly.</li>
+            <li>A retry cannot resolve a missing purchase order or a business fact that is absent from the document.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide presentation-slide-dark" data-slide data-section="fundamentals" data-kicker="Fundamentals" data-title="Tools use typed dependencies">
+          <div class="slide-split">
+            <div data-reveal>
+              <p class="slide-eyebrow">One controlled capability</p>
+              <h2>The model may ask. Python executes.</h2>
+              <p class="slide-lead">The tool calls a read-only fake ERP backed by committed JSON. It cannot write the database or approve an invoice.</p>
+            </div>
+            <figure class="code-editor code-editor-compact" data-reveal>
+              <figcaption class="code-editor-chrome">
+                <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-editor-tab"><b>PY</b>functions.py</span>
+                <span class="code-editor-path">labs / invoice_parser</span>
+              </figcaption>
+              <pre><code><span class="code-line" data-line="84"><span class="syntax-decorator">@invoice_extractor.tool</span>(<span class="syntax-property">require_parameter_descriptions</span>=<span class="syntax-keyword">True</span>)</span>
+<span class="code-line" data-line="85"><span class="syntax-keyword">def</span> <span class="syntax-function">search_supplier_candidates</span>(</span>
+<span class="code-line" data-line="86">    <span class="syntax-property">ctx</span>: <span class="syntax-type">RunContext</span>[<span class="syntax-type">SupplierLookupState</span>],</span>
+<span class="code-line" data-line="87">    <span class="syntax-property">printed_name</span>: <span class="syntax-type">str</span>,</span>
+<span class="code-line" data-line="88">) -&gt; <span class="syntax-type">list</span>[<span class="syntax-type">SupplierMatch</span>]:</span>
+<span class="code-line code-line-omitted" data-line="⋮"></span>
+<span class="code-line" data-line="96">    <span class="syntax-property">candidates</span> = <span class="syntax-function">search_suppliers</span>(<span class="syntax-property">printed_name</span>=<span class="syntax-property">printed_name</span>)</span>
+<span class="code-line" data-line="97">    <span class="syntax-property">ctx</span>.<span class="syntax-property">deps</span>.<span class="syntax-property">supplier_query</span> = <span class="syntax-property">printed_name</span></span>
+<span class="code-line" data-line="98">    <span class="syntax-property">ctx</span>.<span class="syntax-property">deps</span>.<span class="syntax-property">supplier_candidates</span> = <span class="syntax-function">tuple</span>(<span class="syntax-property">candidates</span>)</span>
+<span class="code-line" data-line="99">    <span class="syntax-keyword">return</span> <span class="syntax-property">candidates</span></span></code></pre>
+            </figure>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>A tool is a Python function the model can request while producing its result.</li>
+            <li>The fake ERP owns the supplier JSON and matching behavior. Typed dependencies hold only the query and candidates for this run.</li>
+            <li>A native usage limit prevents a second successful tool call; the output validator requires that the lookup occurred.</li>
+            <li>One candidate becomes a match. Zero or multiple candidates become null and a review state. The model never chooses among ambiguous records.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="fundamentals" data-kicker="Fundamentals" data-title="Schemas travel with the request">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">What the model receives</p>
+            <h2>The request carries definitions beside the messages</h2>
+          </div>
+          <div class="request-schema-layout">
+            <figure class="code-editor code-editor-compact" data-reveal>
+              <figcaption class="code-editor-chrome">
+                <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-editor-tab"><b>JSON</b>function tool</span>
+                <span class="code-editor-path">truncated real schema</span>
+              </figcaption>
+              <pre><code><span class="code-line" data-line="1">{</span>
+<span class="code-line" data-line="2">  <span class="syntax-property">"name"</span>: <span class="syntax-string">"search_supplier_candidates"</span>,</span>
+<span class="code-line" data-line="3">  <span class="syntax-property">"description"</span>: <span class="syntax-string">"Search the fake ERP for a printed invoice seller name."</span>,</span>
+<span class="code-line" data-line="4">  <span class="syntax-property">"parameters"</span>: {</span>
+<span class="code-line" data-line="5">    <span class="syntax-property">"properties"</span>: {</span>
+<span class="code-line" data-line="6">      <span class="syntax-property">"printed_name"</span>: {</span>
+<span class="code-line" data-line="7">        <span class="syntax-property">"description"</span>: <span class="syntax-string">"Seller name exactly as it appears on the invoice."</span>,</span>
+<span class="code-line" data-line="8">        <span class="syntax-property">"type"</span>: <span class="syntax-string">"string"</span></span>
+<span class="code-line" data-line="9">      }</span>
+<span class="code-line" data-line="10">    }</span>
+<span class="code-line" data-line="11">  }</span>
+<span class="code-line" data-line="12">}</span></code></pre>
+            </figure>
+            <figure class="code-editor code-editor-compact" data-reveal>
+              <figcaption class="code-editor-chrome">
+                <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-editor-tab"><b>JSON</b>output tool</span>
+                <span class="code-editor-path">truncated real schema</span>
+              </figcaption>
+              <pre><code><span class="code-line" data-line="1">{</span>
+<span class="code-line" data-line="2">  <span class="syntax-property">"name"</span>: <span class="syntax-string">"final_result"</span>,</span>
+<span class="code-line" data-line="3">  <span class="syntax-property">"description"</span>: <span class="syntax-string">"Invoice fields plus the optional fake ERP supplier match."</span>,</span>
+<span class="code-line" data-line="4">  <span class="syntax-property">"parameters"</span>: {</span>
+<span class="code-line" data-line="5">    <span class="syntax-property">"$defs"</span>: {<span class="syntax-property">"ParsedInvoice"</span>: {</span>
+<span class="code-line" data-line="6">      <span class="syntax-property">"properties"</span>: {</span>
+<span class="code-line" data-line="7">        <span class="syntax-property">"invoice_number"</span>: {<span class="syntax-property">"minLength"</span>: <span class="syntax-number">1</span>, <span class="syntax-property">"maxLength"</span>: <span class="syntax-number">100</span>},</span>
+<span class="code-line" data-line="8">        <span class="syntax-property">"currency"</span>: {<span class="syntax-property">"pattern"</span>: <span class="syntax-string">"^[A-Z]{3}$"</span>},</span>
+<span class="code-line" data-line="9">        <span class="syntax-property">"total"</span>: {</span>
+<span class="code-line" data-line="10">          <span class="syntax-property">"description"</span>: <span class="syntax-string">"Final total printed on the invoice."</span>,</span>
+<span class="code-line" data-line="11">          <span class="syntax-property">"anyOf"</span>: [</span>
+<span class="code-line" data-line="12">            {<span class="syntax-property">"exclusiveMinimum"</span>: <span class="syntax-number">0.0</span>, <span class="syntax-property">"type"</span>: <span class="syntax-string">"number"</span>},</span>
+<span class="code-line" data-line="13">            {<span class="syntax-property">"pattern"</span>: <span class="syntax-string">"…"</span>, <span class="syntax-property">"type"</span>: <span class="syntax-string">"string"</span>}</span>
+<span class="code-line" data-line="14">          ]</span>
+<span class="code-line" data-line="15">        }</span>
+<span class="code-line" data-line="16">      },</span>
+<span class="code-line" data-line="17">      <span class="syntax-property">"required"</span>: [<span class="syntax-string">"invoice_number"</span>, <span class="syntax-string">"issue_date"</span>,</span>
+<span class="code-line" data-line="18">        <span class="syntax-string">"currency"</span>, <span class="syntax-string">"seller"</span>, <span class="syntax-string">"total"</span>]</span>
+<span class="code-line" data-line="19">    }}</span>
+<span class="code-line" data-line="20">  }</span>
+<span class="code-line" data-line="21">}</span></code></pre>
+            </figure>
+          </div>
+          <p class="slide-callout" data-reveal>Docstrings describe tools. Pydantic fields contribute constraints and required structure; descriptions appear when declared.</p>
+          <template data-speaker-notes><ul>
+            <li>The provider receives these definitions as model request parameters, beside the conversation messages.</li>
+            <li>The tool docstring supplies the tool description. Its Args section describes printed_name.</li>
+            <li>The output model docstring and Pydantic field metadata become JSON Schema. These are real excerpts generated by this Agent.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide presentation-slide-dark" data-slide data-section="fundamentals" data-kicker="Fundamentals" data-title="The run leaves a message trace">
+          <div class="message-trace-layout">
+            <div data-reveal>
+              <p class="slide-eyebrow">What the run records</p>
+              <h2>The whole exchange becomes inspectable data</h2>
+              <figure class="code-editor code-editor-inline">
+                <figcaption class="code-editor-chrome">
+                  <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="code-editor-tab"><b>PY</b>functions.py</span>
+                  <span class="code-editor-path">result handoff</span>
+                </figcaption>
+                <pre><code><span class="code-line" data-line="178"><span class="syntax-property">all_agent_messages</span>=<span class="syntax-property">result</span>.<span class="syntax-function">all_messages</span>(),</span></code></pre>
+              </figure>
+              <p class="message-trace-note">Tool and output definitions are request metadata. Message history records what happened.</p>
+            </div>
+            <figure class="code-editor code-editor-compact message-trace-code" data-reveal>
+              <figcaption class="code-editor-chrome">
+                <span class="code-editor-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="code-editor-tab"><b>JSON</b>all_agent_messages</span>
+                <span class="code-editor-path">real run · truncated</span>
+              </figcaption>
+              <pre><code><span class="code-line" data-line="1">[</span>
+<span class="code-line" data-line="2">  {<span class="syntax-property">"kind"</span>: <span class="syntax-string">"request"</span>, <span class="syntax-property">"parts"</span>: [</span>
+<span class="code-line" data-line="3">    {<span class="syntax-property">"part_kind"</span>: <span class="syntax-string">"user-prompt"</span>, <span class="syntax-property">"content"</span>: <span class="syntax-string">"Here is the invoice content: …"</span>}</span>
+<span class="code-line" data-line="4">  ]},</span>
+<span class="code-line" data-line="5">  {<span class="syntax-property">"kind"</span>: <span class="syntax-string">"response"</span>, <span class="syntax-property">"model_name"</span>: <span class="syntax-string">"minimax-m3:cloud"</span>, <span class="syntax-property">"parts"</span>: [</span>
+<span class="code-line" data-line="6">    {<span class="syntax-property">"part_kind"</span>: <span class="syntax-string">"thinking"</span>, <span class="syntax-property">"content"</span>: <span class="syntax-string">"… extract invoice fields …"</span>},</span>
+<span class="code-line" data-line="7">    {<span class="syntax-property">"part_kind"</span>: <span class="syntax-string">"tool-call"</span>, <span class="syntax-property">"tool_name"</span>: <span class="syntax-string">"search_supplier_candidates"</span>,</span>
+<span class="code-line" data-line="8">     <span class="syntax-property">"args"</span>: <span class="syntax-string">"{\"printed_name\":\"Northstar Industrial Supply LLC\"}"</span>}</span>
+<span class="code-line" data-line="9">  ]},</span>
+<span class="code-line" data-line="10">  {<span class="syntax-property">"kind"</span>: <span class="syntax-string">"request"</span>, <span class="syntax-property">"parts"</span>: [</span>
+<span class="code-line" data-line="11">    {<span class="syntax-property">"part_kind"</span>: <span class="syntax-string">"tool-return"</span>, <span class="syntax-property">"content"</span>: [], <span class="syntax-property">"outcome"</span>: <span class="syntax-string">"success"</span>}</span>
+<span class="code-line" data-line="12">  ]},</span>
+<span class="code-line" data-line="13">  {<span class="syntax-property">"kind"</span>: <span class="syntax-string">"response"</span>, <span class="syntax-property">"parts"</span>: [</span>
+<span class="code-line" data-line="14">    {<span class="syntax-property">"part_kind"</span>: <span class="syntax-string">"text"</span>, <span class="syntax-property">"content"</span>: <span class="syntax-string">"{\"invoice\": {…}, \"supplier_match\": null}"</span>}</span>
+<span class="code-line" data-line="15">  ]}</span>
+<span class="code-line" data-line="16">]</span></code></pre>
+            </figure>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>This is a truncated real run from the lab, not invented presentation JSON.</li>
+            <li>The sequence records the user prompt, model thinking, tool request, Python result, and final structured response.</li>
+            <li>Message history can be inspected, tested, logged, or supplied to a later run. It does not repeat static tool definitions.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="invoice-example" data-kicker="Invoice example" data-title="Invoice workflow case study">
+          <div class="case-layout">
+            <a
+              class="case-document"
+              href="{{ url_for('static', path='/demos/invoice-supplier-match.pdf') }}"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the synthetic supplier-match invoice PDF"
+              data-reveal
+            >
+              <img src="{{ url_for('static', path='/demos/invoice-supplier-match-preview.png') }}" alt="Synthetic Pacific Industrial Supply invoice">
+            </a>
+            <div data-reveal>
+              <p class="slide-eyebrow">Synthetic US invoice</p>
+              <h2>One familiar workflow with real failure modes</h2>
+              <div class="status-list">
+                <div><strong>Valid PDF</strong><span>Accepted</span></div>
+                <div><strong>Printed seller</strong><span>Pacific Industrial Supply</span></div>
+                <div><strong>ERP candidates</strong><span>One result</span></div>
+                <div><strong>Supplier match</strong><span>SUP-3007</span></div>
+              </div>
+            </div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>All demo invoices are synthetic and use United States examples.</li>
+            <li>The goal is not to build a complete accounts-payable platform on stage.</li>
+            <li>The invoice gives us one recognizable document for discussing extraction, a tool call, deterministic validation, and review.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="invoice-example" data-kicker="Invoice example" data-title="One upload becomes one managed job">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">FastAPI → Prefect → browser</p>
+            <h2>Dispatch quickly. Process durably. Return a typed result.</h2>
+          </div>
+          <div class="handoff-flow">
+            <div data-reveal><span>01</span><strong>Upload</strong><p>FastAPI accepts one PDF and starts extraction immediately.</p></div><b>→</b>
+            <div data-reveal><span>02</span><strong>Managed work</strong><p>Prefect scans, reads, saves, and runs the Agent.</p></div><b>→</b>
+            <div data-reveal><span>03</span><strong>Review</strong><p>The browser receives a signed PDF URL and typed invoice.</p></div>
+          </div>
+          <div class="handoff-ownership" data-reveal>
+            <span><strong>PostgreSQL</strong> document evidence</span>
+            <span><strong>Object storage</strong> original + parser artifacts</span>
+            <span><strong>Transient</strong> invoice extraction</span>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>Selecting or dropping a PDF starts extraction; there is no second submit button.</li>
+            <li>FastAPI owns the application boundary. Prefect owns the managed timeout, state, logs, and run visibility.</li>
+            <li>The generic document evidence is persisted. The invoice-specific extraction remains transient in this MVP.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="invoice-example" data-kicker="Invoice example" data-title="Demo the real path">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">Live lab</p>
+            <h2>Start with permanent demos. Upload when the room is ready.</h2>
+          </div>
+          <div class="demo-grid">
+            <a href="{{ url_for('invoice_parser') }}" class="demo-option demo-option-live" data-reveal><span>01</span><strong>Supplier match</strong><p>One ERP candidate · SUP-3007</p><b>Open lab →</b></a>
+            <a href="{{ url_for('invoice_parser') }}" class="demo-option" data-reveal><span>02</span><strong>Needs review</strong><p>Two ERP candidates · no guessed match</p><b>Open lab →</b></a>
+            <a href="{{ url_for('invoice_parser') }}" class="demo-option" data-reveal><span>03</span><strong>Your PDF</strong><p>Live managed scan, conversion, tool call, and extraction</p><b>Run extraction →</b></a>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>Open Supplier match. Point from the printed seller to the unique ERP candidate and SUP-3007.</li>
+            <li>Open Needs review. Show the two candidates, null match, and why another retry cannot resolve reality.</li>
+            <li>Compare the source PDF, typed Data, OCR/text, and JSON. Upload only when conditions are good.</li>
+            <li>The permanent demos exercise the same result contract without making the room wait for network-dependent work.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide presentation-slide-dark" data-slide data-section="invoice-example" data-kicker="Invoice example" data-title="Valid schema is not true data">
+          <div class="truth-layout">
+            <p class="truth-quote" data-reveal>Pydantic validates structure, not reality.</p>
+            <div class="truth-list" data-reveal>
+              <div><span>Validated</span><strong><code>total</code> is a positive Decimal</strong></div>
+              <div><span>Not proven</span><strong>The Decimal came from the correct place</strong></div>
+              <div><span>Validated</span><strong><code>supplier_match</code> fits the schema</strong></div>
+              <div><span>Verified by Python</span><strong>The match equals the one ERP candidate</strong></div>
+            </div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>This is the most important reliability distinction in the talk.</li>
+            <li>Pydantic can validate types, required fields, patterns, constraints, and cross-field rules.</li>
+            <li>The surrounding application must verify business facts against authoritative systems when those checks are added.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide presentation-slide-proof" data-slide data-section="invoice-example" data-kicker="Invoice example" data-title="Prove it before and after release">
+          <div class="proof-layout">
+            <div data-reveal>
+              <p class="slide-eyebrow">Before release</p>
+              <h2>Test the code. Evaluate the model.</h2>
+              <div class="proof-list">
+                <div><strong>Unit tests</strong><span>Rules, totals, retries, routes, and failures</span></div>
+                <div><strong>FunctionModel</strong><span>Exact tool arguments and structured responses</span></div>
+                <div><strong>Evaluations</strong><span>Labeled invoices against real models over time</span></div>
+              </div>
+            </div>
+            <div class="observability-panel" data-reveal>
+              <p class="slide-eyebrow">After release</p>
+              <h3>Trace the whole run</h3>
+              <div class="observability-list">
+                <span>FastAPI dispatch</span><b>→</b><span>Prefect flow</span><b>→</b><span>DocFirewall + Docling</span><b>→</b><span>Agent + tool</span><b>→</b><span>Typed result</span>
+              </div>
+              <p>Prefect shows the job. Logfire connects application and model traces.</p>
+            </div>
+          </div>
+          <template data-speaker-notes><ul>
+            <li>Deterministic Python receives deterministic tests. FunctionModel drives exact Agent behavior in CI. Real model quality needs labeled evaluations.</li>
+            <li>In production, the slow or wrong result can originate in the scanner, parser, provider, validator, storage layer, or workflow runtime.</li>
+            <li>Prefect exposes the managed job; Logfire connects the application and Pydantic AI traces.</li>
+            <li>Prompts and document evidence are sensitive telemetry. Credentials and authorization headers must never be deliberately captured.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="invoice-example" data-kicker="Invoice example" data-title="One candidate continues; ambiguity stops">
+          <div class="slide-heading" data-reveal>
+            <p class="slide-eyebrow">Deterministic decision</p>
+            <h2>One candidate continues. Ambiguity stops.</h2>
+          </div>
+          <div class="supplier-decision" data-reveal>
+            <div class="supplier-decision-origin">
+              <span>Supplier lookup tool returns candidates</span>
+              <strong>How many matches did the fake ERP return?</strong>
+            </div>
+            <div class="supplier-decision-arrow" aria-hidden="true">↓</div>
+            <div class="supplier-decision-paths">
+              <div class="supplier-decision-path">
+                <span>Exactly</span>
+                <strong>1 candidate</strong>
+                <p>Use that supplier ID.</p>
+                <b>Continue →</b>
+              </div>
+              <div class="supplier-decision-path supplier-decision-review">
+                <span>Either</span>
+                <strong>0 or 2+ candidates</strong>
+                <p>Return no supplier ID.</p>
+                <b>Human review</b>
+              </div>
+            </div>
+          </div>
+          <p class="supplier-decision-rule" data-reveal>Python applies the rule. The model never chooses among ambiguous records.</p>
+          <template data-speaker-notes><ul>
+            <li>The model requests one supplier search using the seller name printed on the invoice.</li>
+            <li>Python counts the returned ERP candidates. One candidate is accepted. Zero or multiple candidates produce no supplier ID.</li>
+            <li>Ambiguity is a business-data problem, not a reasoning problem. Retrying the model cannot create an authoritative supplier.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide presentation-slide-dark" data-slide data-section="invoice-example" data-kicker="Invoice example" data-title="The reusable architecture">
+          <div class="architecture-stack">
+            <div data-reveal>Unstructured input</div><b>→</b><div data-reveal>Inspectable document evidence</div><b>→</b><div data-reveal>Bounded model interpretation</div><b>→</b><div data-reveal>Typed result</div><b>→</b><div data-reveal>Deterministic Python</div><b>→</b><div data-reveal>Action or human review</div>
+          </div>
+          <p class="architecture-close">The model interprets. Python validates, integrates, and controls what happens next.</p>
+          <template data-speaker-notes><ul>
+            <li>The invoice is only the example. This architecture applies to support tickets, contracts, claims, project reports, and onboarding documents.</li>
+            <li>Unstructured input becomes inspectable evidence before the model maps it into a typed business object.</li>
+            <li>Deterministic Python decides whether the result can continue, must retry, or needs a person.</li>
+          </ul></template>
+        </section>
+
+        <section class="presentation-slide" data-slide data-section="questions" data-kicker="Questions" data-title="Build from the working lab">
+          <div class="resource-layout">
+            <div data-reveal>
+              <p class="slide-eyebrow">Questions</p>
+              <h2>What would you put beyond the chat?</h2>
+              <p class="slide-lead">The slides, synthetic invoices, live workflow, and source code remain public after the talk.</p>
+            </div>
+            <div class="resource-links" data-reveal>
+              <a href="{{ url_for('invoice_parser') }}"><span>Live lab</span><strong>labs.briannewman.info/invoice-parser</strong></a>
+              <a href="https://github.com/bnewman-tech/newman-labs"><span>Source</span><strong>github.com/bnewman-tech/newman-labs</strong></a>
+              <a href="https://briannewman.info"><span>Portfolio</span><strong>briannewman.info</strong></a>
+            </div>
+          </div>
+          <p class="resource-close">Start with one model boundary you can explain, test, and defend.</p>
+          <template data-speaker-notes><ul>
+            <li>Restate the thesis: the model interprets; Python validates, integrates, and controls what happens next.</li>
+            <li>Ask the audience which interpretation step in their work could become a typed, observable model boundary.</li>
+            <li>Leave this slide up after opening questions.</li>
+            <li>The live Lab contains the permanent demos, upload workflow, presentation, and public implementation.</li>
+          </ul></template>
+        </section>
+      </div>
+
+      <nav class="presentation-controls" aria-label="Presentation controls">
+        <button type="button" data-presentation-previous aria-label="Previous slide">←</button>
+        <button type="button" data-presentation-overview>Overview</button>
+        <button type="button" data-presentation-presenter>Presenter</button>
+        <button type="button" data-presentation-fullscreen>Fullscreen</button>
+        <button type="button" data-presentation-next aria-label="Next slide">→</button>
+      </nav>
+
+      <dialog class="presentation-overview" data-presentation-overview-dialog>
+        <div>
+          <header><strong>Slide overview</strong><button type="button" data-presentation-overview-close>Close</button></header>
+          <ol data-presentation-overview-list></ol>
+        </div>
+      </dialog>
+
+      <p class="presentation-help">←/→ navigate · P presenter · O overview · F fullscreen</p>
+    </main>
+
+    <script src="{{ url_for('static', path='/js/invoice-presentation.js') }}?v={{ asset_version }}" defer></script>
+  </body>
+</html>
