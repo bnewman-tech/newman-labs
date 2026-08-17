@@ -52,6 +52,11 @@ jobs:
           enable-cache: true
           version: "0.12.5"
 
+      - name: Audit GitHub Actions
+        run: uvx zizmor@1.29.0 --strict-collection --min-severity=low --format=github .
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Install locked dependencies
         run: uv sync --locked --all-groups
 

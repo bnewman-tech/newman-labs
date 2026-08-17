@@ -52,10 +52,7 @@ class InvoiceExtractionCapacityError(RuntimeError):
     """The managed deployment canceled the run because capacity was full."""
 
 
-INVOICE_EXTRACTION_DEPLOYMENTS = {
-    EnvironmentMode.DEV: "invoice-extraction/invoice-extraction-dev",
-    EnvironmentMode.PROD: "invoice-extraction/invoice-extraction-prod",
-}
+INVOICE_EXTRACTION_DEPLOYMENT = "invoice-extraction/invoice-extraction-prod"
 
 
 @dataclass(slots=True)
@@ -207,6 +204,8 @@ async def start_invoice_extraction(
 ) -> InvoiceExtractionJob:
     """Preflight, privately stage, and dispatch one managed extraction."""
     environment = settings.environment
+    if environment is not EnvironmentMode.PROD:
+        raise RuntimeError("Managed invoice extraction is only available in production")
     await preflight_document(source=source)
     source_key = invoice_extraction_source_key(document_id=source.document_id)
     await create_blobs(
@@ -221,7 +220,7 @@ async def start_invoice_extraction(
     )
     try:
         flow_run = await arun_deployment(
-            name=INVOICE_EXTRACTION_DEPLOYMENTS[environment],
+            name=INVOICE_EXTRACTION_DEPLOYMENT,
             parameters={
                 "document_id": str(source.document_id),
                 "original_filename": source.original_filename,

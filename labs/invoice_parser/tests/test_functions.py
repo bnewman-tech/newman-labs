@@ -380,7 +380,7 @@ async def test_start_invoice_extraction_preflights_stages_and_dispatches(
     assert staged.key == f"document-processing/{document_id}/source.pdf"
     assert staged.content == source.content
     dispatch.assert_awaited_once_with(
-        name=functions.INVOICE_EXTRACTION_DEPLOYMENTS[EnvironmentMode.PROD],
+        name=functions.INVOICE_EXTRACTION_DEPLOYMENT,
         parameters={
             "document_id": str(document_id),
             "original_filename": source.original_filename,
@@ -391,6 +391,32 @@ async def test_start_invoice_extraction_preflights_stages_and_dispatches(
         as_subflow=False,
         idempotency_key=str(document_id),
     )
+
+
+async def test_start_invoice_extraction_rejects_nonproduction_dispatch(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Local development cannot dispatch work to the production deployment."""
+    source = DocumentUpload(
+        document_id=uuid4(),
+        original_filename="newman-invoice.pdf",
+        media_type="application/pdf",
+        content=b"%PDF-1.7\n",
+    )
+    preflight = AsyncMock()
+    create_blobs = AsyncMock()
+    dispatch = AsyncMock()
+    monkeypatch.setattr(functions.settings, "environment", EnvironmentMode.DEV)
+    monkeypatch.setattr(functions, "preflight_document", preflight)
+    monkeypatch.setattr(functions, "create_blobs", create_blobs)
+    monkeypatch.setattr(functions, "arun_deployment", dispatch)
+
+    with pytest.raises(RuntimeError, match="only available in production"):
+        await start_invoice_extraction(source=source)
+
+    preflight.assert_not_awaited()
+    create_blobs.assert_not_awaited()
+    dispatch.assert_not_awaited()
 
 
 async def test_get_invoice_extraction_job_returns_and_deletes_transient_result(
