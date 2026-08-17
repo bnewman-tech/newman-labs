@@ -17,6 +17,12 @@ class InvoiceParty(NewmanLabsModel):
     address: str | None = Field(default=None, max_length=2_000)
     tax_id: str | None = Field(default=None, max_length=100)
 
+    @field_validator("address")
+    @classmethod
+    def normalize_address(cls, value: str | None) -> str | None:
+        """Normalize punctuation and whitespace that models render inconsistently."""
+        return " ".join(value.replace(",", " ").replace(".", "").split()) if value is not None else None
+
 
 class InvoiceLineItem(NewmanLabsModel):
     """One invoice line without assuming a regional tax or catalog format."""
@@ -51,6 +57,15 @@ class ParsedInvoice(NewmanLabsModel):
         gt=0,
         description="Final total printed on the invoice.",
     )
+
+    @field_validator("line_items", mode="before")
+    @classmethod
+    def normalize_line_items(cls, value: object) -> object:
+        """Unwrap the singular item container emitted by some models."""
+        if isinstance(value, dict) and set(value) == {"item"}:
+            items = value["item"]
+            return items if isinstance(items, list) else [items]
+        return value
 
     @field_validator("currency", mode="before")
     @classmethod

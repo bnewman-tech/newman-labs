@@ -119,7 +119,7 @@ async def test_extract_invoice_uses_typed_pydantic_ai_output(
 
     result = await run_invoice_extraction(markdown="# Synthetic invoice")
 
-    build_model.assert_awaited_once_with(model=functions.PydanticAIModel.MINIMAX_M3)
+    build_model.assert_awaited_once_with(model=functions.PydanticAIModel.DEEPSEEK_V4_PRO)
     assert result.output == expected
     assert result.metadata == {"lab": "invoice_parser", "stage": "extraction"}
     assert result.usage.requests == 2
@@ -128,6 +128,8 @@ async def test_extract_invoice_uses_typed_pydantic_ai_output(
     assert request_parameters.instruction_parts is not None
     assert "Return null" in request_parameters.instruction_parts[0].content
     assert "'NOT PROVIDED'" in request_parameters.instruction_parts[0].content
+    assert "Never copy or calculate invoice-level" in request_parameters.instruction_parts[0].content
+    assert "date-shaped value labeled 'PO'" in request_parameters.instruction_parts[0].content
     function_tool = request_parameters.function_tools[0]
     assert function_tool.name == "search_supplier_candidates"
     tool_description = function_tool.description
@@ -147,6 +149,36 @@ async def test_extract_invoice_uses_typed_pydantic_ai_output(
         parsed_invoice_schema["properties"],
     )
     assert parsed_invoice_properties["total"]["description"] == ("Final total printed on the invoice.")
+
+
+@pytest.mark.parametrize("wrap_in_list", [False, True])
+async def test_extract_invoice_normalizes_a_line_item_wrapper(
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    wrap_in_list: bool,
+) -> None:
+    """A model's singular item container is normalized to the list contract."""
+    wrapped = agent_output().model_dump(mode="json")
+    line_items = wrapped["invoice"]["line_items"]
+    wrapped["invoice"]["line_items"] = {"item": line_items if wrap_in_list else line_items[0]}
+    monkeypatch.setattr(
+        functions,
+        "build_agent_model",
+        AsyncMock(return_value=invoice_model(output=wrapped)),
+    )
+
+    result = await run_invoice_extraction(markdown="# Synthetic invoice")
+
+    assert result.output == agent_output()
+    assert result.usage.requests == 2
+
+
+def test_invoice_party_normalizes_address_formatting() -> None:
+    """Equivalent model punctuation produces one stable address."""
+    punctuated = InvoiceParty(name="Newman Supply", address="P.O. Box 12, Austin, TX 78701")
+    plain = InvoiceParty(name="Newman Supply", address="PO Box 12 Austin TX 78701")
+
+    assert punctuated.address == plain.address == "PO Box 12 Austin TX 78701"
 
 
 async def test_extract_invoice_rejects_an_invalid_total(
