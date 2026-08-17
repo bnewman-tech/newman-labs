@@ -1,0 +1,39 @@
+labs/invoice_parser/schemas.py
+  s_194aa81067e07b::t_6a507fff377387 21,23,25
+  s_194aa81067e07b::t_a2672422de7006 20,22,24
+  s_194aa81067e07b::t_edba683ce44c3a 65-67
+  s_194aa81067e07b::t_315c42a8e003b4 61-64,68-69
+pyproject.toml
+  s_194aa81067e07b::t_315c42a8e003b4 3
+labs/invoice_parser/functions.py
+  s_194aa81067e07b::t_6a507fff377387 76-77,83
+  s_194aa81067e07b::t_7c82a50c6970ac 73-75,153
+labs/invoice_parser/tests/test_functions.py
+  s_194aa81067e07b::t_edba683ce44c3a 154,157-158,162-163
+  s_194aa81067e07b::t_7c82a50c6970ac 122,131
+  s_194aa81067e07b::t_6a507fff377387 132,174-181
+  s_194aa81067e07b::t_315c42a8e003b4 155-156,159-161,164-173,182-183
+uv.lock
+  s_194aa81067e07b::t_b7177d138bede8 2061
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "bc5fbcf54bda3e779023d3772c96ff4b5bd58afe",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_194aa81067e07b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01199-d522-7f61-a068-1ea2e2c9e272",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
