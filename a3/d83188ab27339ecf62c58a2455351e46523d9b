@@ -1,0 +1,554 @@
+.codex/environments/environment.toml
+  s_38136d6c2c3ff6::t_8e3f43fa2a64e2 1-74
+.gitattributes
+  s_38136d6c2c3ff6::t_9a27c6cfe03528 1
+.github/workflows/pr-checker.yml
+  s_38136d6c2c3ff6::t_285618c60e44dc 1-92
+AGENTS.md
+  s_38136d6c2c3ff6::t_ae3670d646d70b 1-231
+LICENSE
+  s_57365d65d28aac::t_ee8fafed9c104d 1-201
+README.md
+  s_38136d6c2c3ff6::t_de70249fe3c384 1-86
+analytics/models/staging/houston_311/_houston_311__sources.yml
+  s_2c7848965b4515::t_7c81afad1ea2f0 1-25
+analytics/tests/assert_houston_311_dates_normalized.sql
+  s_4a308c063e3ef2::t_a3ec1cf9aa103f 1-4
+apps/labs/catalog.py
+  s_38136d6c2c3ff6::t_ce14cefea5c3c2 1-47
+apps/labs/errors.py
+  s_6dcdbe2a84067c::t_d6185eacbc20c6 1-23
+apps/labs/main.py
+  s_194aa81067e07b::t_9b97dc41d0167e 1-90
+apps/labs/routes/health.py
+  s_38136d6c2c3ff6::t_89b7a205561378 1-34
+apps/labs/routes/home.py
+  s_84f4665d847bf4::t_e8725afa2da3fc 1-18
+apps/labs/routes/invoice_parser.py
+  s_194aa81067e07b::t_ff78cbf2648ca0 1-171
+apps/labs/routes/lab_index.py
+  s_38136d6c2c3ff6::t_3e2a504c4e1d74 1-31
+apps/labs/routes/privacy.py
+  s_38136d6c2c3ff6::t_b4c4c63cd95d33 1-18
+apps/labs/static/css/site.css
+  s_99347370e2b02b::t_25d09dbd45070a 1-592
+apps/labs/static/demos/README.md
+  s_38136d6c2c3ff6::t_0ea216090348a2 1-13
+apps/labs/static/demos/invoice-basic.json
+  s_38136d6c2c3ff6::t_0b42f048ee4a5f 1-54
+apps/labs/static/demos/invoice-detailed.json
+  s_38136d6c2c3ff6::t_35c656c8950df1 1-64
+apps/labs/static/demos/invoice-supplier-match.json
+  s_38136d6c2c3ff6::t_8eb471af81c7ed 1-64
+apps/labs/static/demos/invoice-supplier-review.json
+  s_38136d6c2c3ff6::t_8006196313a7da 1-51
+apps/labs/templates/labs/invoice_parser.html
+  s_99347370e2b02b::t_e47fb1b77b9d9e 1-309
+apps/labs/templates/pages/home.html
+  s_84f4665d847bf4::t_8ed4796d496e8f 1-47
+apps/labs/templates/pages/privacy.html
+  s_38136d6c2c3ff6::t_86afdb0a12f6ae 1-35
+apps/labs/templating.py
+  s_38136d6c2c3ff6::t_ce2a04676211f3 1-46
+apps/labs/tests/test_health.py
+  s_38136d6c2c3ff6::t_07c99f861c00d5 1-64
+apps/labs/tests/test_invoice_parser.py
+  s_194aa81067e07b::t_f985d226b87b4c 1-399
+brand/DESIGN.md
+  s_16034ea7e54303::t_2a38c43178d587 1-482
+conftest.py
+  s_38136d6c2c3ff6::t_7aba4a27a94d93 1-33
+docs/architecture/project-structure.md
+  s_38136d6c2c3ff6::t_c15888b6f37074 1-133
+docs/operations/deployment.md
+  s_99347370e2b02b::t_2036126165e379 1-87
+docs/operations/development.md
+  s_38136d6c2c3ff6::t_0f5840586e5177 1-67
+docs/operations/observability.md
+  s_38136d6c2c3ff6::t_0b71685fd66ff5 1-17
+labs/houston_signal/README.md
+  s_43b4fddd384a44::t_9625a1fb48a3a5 1-46
+labs/houston_signal/integrations/houston_311/scripts/ingest.py
+  s_38136d6c2c3ff6::t_d707c2f71270f9 1-278
+labs/houston_signal/integrations/houston_311/tests/fixtures.py
+  s_38136d6c2c3ff6::t_44208fdee1746e 1-17
+labs/houston_signal/integrations/houston_311/tests/fixtures/houston_311_page.json
+  s_7a9f1b3d018539::t_32cfa52c21e39f 1-61
+labs/houston_signal/integrations/houston_311/tests/test_database.py
+  s_38136d6c2c3ff6::t_cebfefd5e873a8 1-248
+labs/houston_signal/integrations/houston_311/tests/test_functions.py
+  s_194aa81067e07b::t_ea52d7f63f321e 1-222
+labs/houston_signal/integrations/houston_311/tests/test_ingest.py
+  s_38136d6c2c3ff6::t_c1f0714e9b27f4 1-93
+labs/houston_signal/integrations/houston_emergency_center/__init__.py
+  s_4a308c063e3ef2::t_2d4f9c048a1fc1 1
+labs/houston_signal/integrations/houston_emergency_center/scripts/__init__.py
+  s_4a308c063e3ef2::t_749e3c2a3c8fb2 1
+labs/houston_signal/integrations/houston_emergency_center/scripts/ingest.py
+  s_38136d6c2c3ff6::t_271f14c3fa9d6f 1-316
+labs/houston_signal/integrations/houston_emergency_center/tests/__init__.py
+  s_4a308c063e3ef2::t_32e55559a3a2b8 1
+labs/houston_signal/integrations/houston_emergency_center/tests/test_database.py
+  s_38136d6c2c3ff6::t_edf6b69c5d1f21 1-185
+labs/houston_signal/integrations/houston_emergency_center/tests/test_functions.py
+  s_38136d6c2c3ff6::t_7aa4dfb4e0a075 1-180
+labs/houston_signal/integrations/houston_emergency_center/tests/test_ingest.py
+  s_38136d6c2c3ff6::t_a38370f5386c7e 1-63
+labs/invoice_parser/README.md
+  s_99347370e2b02b::t_4b9f5f8af28d35 1-61
+labs/invoice_parser/__init__.py
+  s_38136d6c2c3ff6::t_dedc7912681c66 1
+labs/invoice_parser/data/README.md
+  s_38136d6c2c3ff6::t_76f9b56353e971 1-13
+labs/invoice_parser/data/suppliers.json
+  s_38136d6c2c3ff6::t_9807e277e965df 1-18
+labs/invoice_parser/functions.py
+  s_194aa81067e07b::t_6a1f3b0f81b97d 1-273
+labs/invoice_parser/integrations/__init__.py
+  s_38136d6c2c3ff6::t_e19e8b24944df1 1
+labs/invoice_parser/integrations/fake_erp/__init__.py
+  s_38136d6c2c3ff6::t_9787ffa0eb0b89 1
+labs/invoice_parser/integrations/fake_erp/functions.py
+  s_38136d6c2c3ff6::t_5fdd8911ae492e 1-21
+labs/invoice_parser/integrations/fake_erp/tests/__init__.py
+  s_38136d6c2c3ff6::t_d99b9bf3279530 1
+labs/invoice_parser/integrations/fake_erp/tests/test_functions.py
+  s_38136d6c2c3ff6::t_0228979486922a 1-23
+labs/invoice_parser/scripts/__init__.py
+  s_38136d6c2c3ff6::t_442c33aafe65dc 1
+labs/invoice_parser/scripts/create_demo_invoices.py
+  s_38136d6c2c3ff6::t_9419630baac4a9 1-269
+labs/invoice_parser/tests/__init__.py
+  s_38136d6c2c3ff6::t_d9741806295fa3 1
+labs/invoice_parser/tests/test_functions.py
+  s_194aa81067e07b::t_32fe0f85c398d1 1-488
+libs/__init__.py
+  s_562b8a8f88e5cf::t_ef2f70af24fdda 1
+libs/blob_storage/functions.py
+  s_38136d6c2c3ff6::t_4e3538610b63b0 1-212
+libs/blob_storage/schemas.py
+  s_38136d6c2c3ff6::t_4c3b2dec2f632a 1-30
+libs/blob_storage/tests/__init__.py
+  s_84f4665d847bf4::t_dc6e9f1a4d239d 1
+libs/blob_storage/tests/test_functions.py
+  s_38136d6c2c3ff6::t_12bc22fb87f23b 1-395
+libs/core/__init__.py
+  s_562b8a8f88e5cf::t_e77bf22e4218d8 1
+libs/core/dependencies.py
+  s_38136d6c2c3ff6::t_e39edcf9f62445 1-32
+libs/core/logger.py
+  s_38136d6c2c3ff6::t_0f62098cb88ecb 1-55
+libs/core/tests/test_dependencies.py
+  s_38136d6c2c3ff6::t_e975f0967a45cd 1-52
+libs/core/tests/test_logger.py
+  s_38136d6c2c3ff6::t_19f404ef766c5a 1-85
+libs/database/alembic/__init__.py
+  s_154e1c6253d76c::t_0d86eb453f7f21 1
+libs/database/alembic/env.py
+  s_38136d6c2c3ff6::t_35776a606a76db 1-104
+libs/database/alembic/versions/0001_initial_newman_labs_schema.py
+  s_38136d6c2c3ff6::t_abb99191cd89c8 1-423
+libs/database/alembic/versions/0002_bound_invoice_extraction_admission.py
+  s_99347370e2b02b::t_10cfe93dfaa3cf 1-61
+libs/database/crud/__init__.py
+  s_16034ea7e54303::t_15b6c486a75eed 1
+libs/database/crud/documents.py
+  s_38136d6c2c3ff6::t_8f53769c8182c5 1-602
+libs/database/crud/ingestion_runs.py
+  s_38136d6c2c3ff6::t_5ca5131dba93a2 1-88
+libs/database/functions.py
+  s_38136d6c2c3ff6::t_86afcf33174ed4 1-203
+libs/database/models/document.py
+  s_38136d6c2c3ff6::t_49e1ce114a4858 1-63
+libs/database/models/document_chunk.py
+  s_38136d6c2c3ff6::t_e2fcd4a7705877 1-69
+libs/database/models/document_embedding.py
+  s_38136d6c2c3ff6::t_f4e5d98479de8e 1-66
+libs/database/models/document_parse.py
+  s_38136d6c2c3ff6::t_db6a0caf655c32 1-62
+libs/database/models/houston_311.py
+  s_4a308c063e3ef2::t_ea3ffb8d28be4e 1-72
+libs/database/models/houston_emergency_center.py
+  s_38136d6c2c3ff6::t_d2a5d93d3692f2 1-87
+libs/database/schemas/__init__.py
+  s_38136d6c2c3ff6::t_ad6d1376bea6b3 1-23
+libs/database/schemas/documents.py
+  s_38136d6c2c3ff6::t_e692fd55a09190 1-85
+libs/database/scripts/__init__.py
+  s_dc7b4749351daa::t_c8d514245840f9 1
+libs/database/scripts/migrate_managed.py
+  s_38136d6c2c3ff6::t_be843e02228e32 1-103
+libs/database/tests/conftest.py
+  s_38136d6c2c3ff6::t_733075548bc85d 1-14
+libs/database/tests/test_database.py
+  s_38136d6c2c3ff6::t_9e61d6015e52fa 1-17
+libs/database/tests/test_documents.py
+  s_38136d6c2c3ff6::t_15a392ad821d5d 1-275
+libs/database/tests/test_functions.py
+  s_38136d6c2c3ff6::t_077e0038b00b42 1-124
+libs/database/tests/test_migrate_managed.py
+  s_38136d6c2c3ff6::t_b445862e359b66 1-155
+libs/database/tests/test_sessions.py
+  s_38136d6c2c3ff6::t_00a176d7b7a6d8 1-72
+libs/dbt/functions.py
+  s_38136d6c2c3ff6::t_8cccbfcd0af1d2 1-92
+libs/dbt/scripts/__init__.py
+  s_cdc70e15ec87fa::t_8c48237cff5108 1
+libs/dbt/scripts/run_dbt.py
+  s_38136d6c2c3ff6::t_a1925ef10ae409 1-48
+libs/dbt/tests/__init__.py
+  s_4a308c063e3ef2::t_1f48049f18889d 1
+libs/dbt/tests/test_functions.py
+  s_38136d6c2c3ff6::t_298b9b61aef2b8 1-87
+libs/dbt/tests/test_run_dbt_script.py
+  s_38136d6c2c3ff6::t_20388f879ca8eb 1-68
+libs/docling/functions.py
+  s_38136d6c2c3ff6::t_2d20808e6416c9 1-152
+libs/docling/schemas.py
+  s_16034ea7e54303::t_d8f7b8ab7d8776 1-15
+libs/docling/settings.py
+  s_38136d6c2c3ff6::t_5d65752682e0d2 1-5
+libs/docling/tests/__init__.py
+  s_16034ea7e54303::t_58cdc2062437d9 1
+libs/docling/tests/test_functions.py
+  s_38136d6c2c3ff6::t_434200ab647646 1-188
+libs/document_intelligence/conversion.py
+  s_38136d6c2c3ff6::t_d6334006e06921 1-150
+libs/document_intelligence/embeddings.py
+  s_38136d6c2c3ff6::t_4a31e442faadd4 1-48
+libs/document_intelligence/functions.py
+  s_38136d6c2c3ff6::t_822b14d7cd7185 1-272
+libs/document_intelligence/schemas.py
+  s_38136d6c2c3ff6::t_36f543c996b0a2 1-112
+libs/document_intelligence/scripts/__init__.py
+  s_38136d6c2c3ff6::t_e98022945938b1 1
+libs/document_intelligence/scripts/cleanup.py
+  s_38136d6c2c3ff6::t_ef2e18743037ea 1-66
+libs/document_intelligence/scripts/pressure_security.py
+  s_38136d6c2c3ff6::t_2d7ec2e1793bf2 1-43
+libs/document_intelligence/security.py
+  s_38136d6c2c3ff6::t_993630444a23ff 1-277
+libs/document_intelligence/settings.py
+  s_38136d6c2c3ff6::t_44ae0ccfeddc27 1-19
+libs/document_intelligence/tests/fixtures/README.md
+  s_38136d6c2c3ff6::t_debbaf178ceaff 1-19
+libs/document_intelligence/tests/test_cleanup_script.py
+  s_38136d6c2c3ff6::t_727c698c4f0d44 1-51
+libs/document_intelligence/tests/test_conversion.py
+  s_38136d6c2c3ff6::t_d61ed2a823ab81 1-177
+libs/document_intelligence/tests/test_embeddings.py
+  s_38136d6c2c3ff6::t_52952c32d5e5f8 1-147
+libs/document_intelligence/tests/test_functions.py
+  s_38136d6c2c3ff6::t_9de9f1204cfe8a 1-489
+libs/document_intelligence/tests/test_security.py
+  s_38136d6c2c3ff6::t_491a83571a234f 1-480
+libs/document_intelligence/vendor/doc_firewall/LICENSE
+  s_38136d6c2c3ff6::t_966d6a9dc679c7 1-21
+libs/document_intelligence/vendor/doc_firewall/README.md
+  s_38136d6c2c3ff6::t_093c384dc9c488 1-12
+libs/document_intelligence/vendor/doc_firewall/document_malware.yar
+  s_38136d6c2c3ff6::t_1f240eebd7b455 1-822
+libs/prefect_utils/deployments/__init__.py
+  s_38136d6c2c3ff6::t_121ac0b2f19c59 1-13
+libs/prefect_utils/deployments/functions.py
+  s_194aa81067e07b::t_0c95e1518700fa 1-181
+libs/prefect_utils/deployments/schemas.py
+  s_194aa81067e07b::t_c43bfe60d391f1 1-56
+libs/prefect_utils/deployments/scripts/__init__.py
+  s_43b4fddd384a44::t_f1c44df48b00e5 1
+libs/prefect_utils/deployments/scripts/deploy.py
+  s_38136d6c2c3ff6::t_fd4e271427f5d8 1-36
+libs/prefect_utils/secrets/__init__.py
+  s_38136d6c2c3ff6::t_41ee41d545fc02 1-11
+libs/prefect_utils/secrets/functions.py
+  s_99347370e2b02b::t_8ed07f72673df0 1-38
+libs/prefect_utils/tests/test_configuration.py
+  s_194aa81067e07b::t_a40d1eae2223c7 1-30
+libs/prefect_utils/tests/test_secrets.py
+  s_38136d6c2c3ff6::t_d6b32f47fa272f 1-52
+libs/pydantic_ai_core/functions.py
+  s_38136d6c2c3ff6::t_650e55964a0500 1-108
+libs/pydantic_ai_core/observability.py
+  s_38136d6c2c3ff6::t_77865fc4d63b19 1-68
+libs/pydantic_ai_core/schemas.py
+  s_38136d6c2c3ff6::t_357982bc5b71de 1-66
+libs/pydantic_ai_core/scripts/__init__.py
+  s_38136d6c2c3ff6::t_aa747d39b876ca 1
+libs/pydantic_ai_core/scripts/basic_agent.py
+  s_38136d6c2c3ff6::t_f351de36390a2c 1-63
+libs/pydantic_ai_core/scripts/smoke_model_matrix.py
+  s_38136d6c2c3ff6::t_fc1a788ec4a466 1-117
+libs/pydantic_ai_core/tests/__init__.py
+  s_2c7848965b4515::t_42d7a81e84c324 1
+libs/pydantic_ai_core/tests/test_functions.py
+  s_38136d6c2c3ff6::t_60088aff49a068 1-265
+libs/pydantic_ai_core/tests/test_observability.py
+  s_38136d6c2c3ff6::t_9d9ea8091aed5a 1-148
+libs/pydantic_ai_core/tests/test_smoke_model_matrix.py
+  s_38136d6c2c3ff6::t_fe0ac2f85c8671 1-34
+prefect.yaml
+  s_194aa81067e07b::t_d85ee7c91c8241 1-125
+pyproject.toml
+  s_194aa81067e07b::t_e6c44943e7c5cc 1-142
+uv.lock
+  s_194aa81067e07b::t_98243dfcc70551 1-4581
+.env.example
+  s_4a308c063e3ef2::t_f36dd0e93c48b4 1-2
+.github/workflows/release-to-production.yml
+  s_194aa81067e07b::t_a73bfd624ae344 1-121
+.gitignore
+  s_38136d6c2c3ff6::t_0029917bfc00a4 1-38
+SECURITY.md
+  s_4a308c063e3ef2::t_62c55135a29644 1-13
+alembic.ini
+  s_4a308c063e3ef2::t_6acaad966354d3 1-38
+analytics/dbt_project.yml
+  s_4a308c063e3ef2::t_280f0542362a7a 1-22
+analytics/models/marts/houston_signal/fact_houston_activity.sql
+  s_4a308c063e3ef2::t_ce9d899d52a5a3 1-74
+analytics/models/marts/houston_signal/fact_houston_activity.yml
+  s_4a308c063e3ef2::t_a83be1b330a7cd 1-46
+analytics/models/staging/houston_311/_houston_311__models.yml
+  s_4a308c063e3ef2::t_abc815370fd3d4 1-45
+analytics/models/staging/houston_311/stg_houston_311__request.sql
+  s_4a308c063e3ef2::t_a54215ba226c1e 1-33
+analytics/models/staging/houston_emergency_center/_houston_emergency_center__sources.yml
+  s_4a308c063e3ef2::t_679c34f35866a2 1-31
+analytics/models/staging/houston_emergency_center/stg_houston_emergency_center__incident.sql
+  s_4a308c063e3ef2::t_60aa93108fdd62 1-30
+analytics/models/staging/houston_emergency_center/stg_houston_emergency_center__incident.yml
+  s_4a308c063e3ef2::t_836d68577a4eea 1-39
+analytics/profiles.yml
+  s_38136d6c2c3ff6::t_dd4d6faf2cc615 1-13
+analytics/tests/assert_houston_activity_status_consistent.sql
+  s_4a308c063e3ef2::t_1d188a475a4aad 1-11
+analytics/tests/assert_houston_emergency_center_contract_consistent.sql
+  s_4a308c063e3ef2::t_013b0ac028f280 1-10
+apps/labs/routes/houston_signal.py
+  s_194aa81067e07b::t_a1b42e04af0c8a 1-55
+apps/labs/schemas.py
+  s_194aa81067e07b::t_855a7a68746b43 1-33
+apps/labs/security.py
+  s_194aa81067e07b::t_87d8f205113936 1-157
+apps/labs/static/css/invoice-presentation.css
+  s_38136d6c2c3ff6::t_1fea2478e3c22b 1-501
+apps/labs/static/js/houston-signal.js
+  s_4a308c063e3ef2::t_f4dc885ffa3d9e 1-408
+apps/labs/static/js/invoice-parser.js
+  s_194aa81067e07b::t_6f14bd321e2f2e 1-461
+apps/labs/static/js/invoice-presentation.js
+  s_38136d6c2c3ff6::t_c983aa480170c2 1-195
+apps/labs/static/js/site.js
+  s_4a308c063e3ef2::t_e3ca39ec8e6e3c 1-27
+apps/labs/templates/labs/houston_signal.html
+  s_194aa81067e07b::t_85055db6a92947 1-445
+apps/labs/templates/labs/invoice_parser_presentation.html
+  s_38136d6c2c3ff6::t_443cf8f05f6f6d 1-650
+apps/labs/templates/layouts/base.html
+  s_4a308c063e3ef2::t_f458fd81d831b4 1-131
+apps/labs/tests/test_home.py
+  s_194aa81067e07b::t_fc3c957ef4f1c7 1-163
+apps/labs/tests/test_houston_signal.py
+  s_194aa81067e07b::t_a029bfa428a028 1-254
+apps/labs/tests/test_security.py
+  s_194aa81067e07b::t_7ba63ff5f2b1aa 1-185
+docs/legal/houston-signal-data-attribution.md
+  s_4a308c063e3ef2::t_5c6ef1529625c8 1-45
+labs/houston_signal/integrations/houston_311/functions.py
+  s_194aa81067e07b::t_08573690778296 1-138
+labs/houston_signal/integrations/houston_311/schemas.py
+  s_194aa81067e07b::t_e39efcafea5606 1-66
+labs/houston_signal/integrations/houston_emergency_center/functions.py
+  s_194aa81067e07b::t_21ad614b0430fb 1-163
+labs/houston_signal/integrations/houston_emergency_center/schemas.py
+  s_194aa81067e07b::t_a958bcaea1b595 1-95
+labs/houston_signal/schemas.py
+  s_194aa81067e07b::t_15b17f38f686db 1-166
+labs/houston_signal/services.py
+  s_194aa81067e07b::t_c7d46f32c0ecae 1-482
+labs/houston_signal/tests/test_services.py
+  s_194aa81067e07b::t_157abc204a47bf 1-127
+labs/invoice_parser/schemas.py
+  s_38136d6c2c3ff6::t_12bc9b2a89d6aa 1-91
+labs/invoice_parser/scripts/extract.py
+  s_38136d6c2c3ff6::t_e72c6915c0f230 1-126
+labs/invoice_parser/tests/test_extract_script.py
+  s_38136d6c2c3ff6::t_d818c035faefbc 1-146
+libs/blob_storage/__init__.py
+  s_4a308c063e3ef2::t_007e84771f2b1d 1
+libs/core/http.py
+  s_194aa81067e07b::t_54918d73f7e7ae 1-70
+libs/core/tests/test_http.py
+  s_194aa81067e07b::t_af674662a4af45 1-50
+libs/database/__init__.py
+  s_7a9f1b3d018539::t_0ead1903a31b91 1
+libs/database/alembic/script.py.mako
+  s_4a308c063e3ef2::t_47de04e8c5e48a 1-30
+libs/database/alembic/versions/0003_remove_invoice_extraction_admission.py
+  s_194aa81067e07b::t_f91773b63a4643 1-46
+libs/database/models/__init__.py
+  s_194aa81067e07b::t_1bc3a03af46736 1-21
+libs/database/models/orchestration.py
+  s_4a308c063e3ef2::t_f48b88bf46405c 1-54
+libs/database/schemas/ingestion_runs.py
+  s_4a308c063e3ef2::t_d173c6af5eaba3 1-26
+libs/dbt/schemas.py
+  s_4a308c063e3ef2::t_96a003c9e1541c 1-11
+libs/docling/__init__.py
+  s_4a308c063e3ef2::t_94bd5f5acf2d81 1
+libs/docling/scripts/__init__.py
+  s_4a308c063e3ef2::t_c16f43e6904052 1
+libs/docling/scripts/convert_pdf.py
+  s_4a308c063e3ef2::t_cdeceb0a3209f8 1-34
+libs/document_intelligence/__init__.py
+  s_4a308c063e3ef2::t_97772ec6f40436 1
+libs/document_intelligence/tests/__init__.py
+  s_4a308c063e3ef2::t_09d6188f4ad412 1
+libs/prefect_utils/__init__.py
+  s_4a308c063e3ef2::t_ed6262ae3666fa 1
+libs/prefect_utils/tests/__init__.py
+  s_4a308c063e3ef2::t_7cd223e3ceeb23 1
+libs/prefect_utils/tests/test_deployments.py
+  s_194aa81067e07b::t_4d795182f5e7f6 1-270
+libs/prefect_utils/tests/test_variables.py
+  s_4a308c063e3ef2::t_bd55d8ece55b97 1-29
+libs/prefect_utils/variables/__init__.py
+  s_4a308c063e3ef2::t_1433d6a896cfa6 1-13
+libs/prefect_utils/variables/functions.py
+  s_4a308c063e3ef2::t_dd7e3fea281ee7 1-22
+libs/pydantic_ai_core/__init__.py
+  s_4a308c063e3ef2::t_47413c24b88470 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a3d83188ab27339ecf62c58a2455351e46523d9b",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_154e1c6253d76c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fed38-890a-7dc3-bb43-ddc36615a817",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_16034ea7e54303": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff1d3-3cf5-72e3-aeed-fa4f57a0c79f",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_194aa81067e07b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01199-d522-7f61-a068-1ea2e2c9e272",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_2c7848965b4515": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feea7-54c9-7fc0-8d51-ef35e596e0cd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_38136d6c2c3ff6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00b9b-a895-7462-bb8f-df1645784afd",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_43b4fddd384a44": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff720-d9b3-7100-9c27-2bef33ee0905",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_4a308c063e3ef2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019feeac-7882-7bc1-b3c0-f0e2d97b2123",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_562b8a8f88e5cf": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8226-5363-7753-8ec7-fe7225b9bffe",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_57365d65d28aac": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6c0b-2787-7002-8d20-c4aa7711f66d",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_6dcdbe2a84067c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff81d-d792-7fc3-886e-57d52ee5cbaa",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_7a9f1b3d018539": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f826d-cb3d-7fb0-ba13-8d31ebfc5ba7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_84f4665d847bf4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ff2f1-0407-7882-89ab-ab87c22a3334",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_99347370e2b02b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a00138-1824-7e43-b99f-6bf0ecef1423",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_cdc70e15ec87fa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f82b0-5cb4-7221-a3e8-758ef6f35f35",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_dc7b4749351daa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8568-c707-7492-addc-262eba1fda64",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
