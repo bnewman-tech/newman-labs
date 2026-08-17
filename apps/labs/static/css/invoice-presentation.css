@@ -221,7 +221,8 @@ ol { margin-block: 0; }
 .capability:last-child { border-right: 0; }
 .capability-messy { box-shadow: inset 0 5px var(--presentation-warning); }
 .capability-model { box-shadow: inset 0 5px var(--presentation-success); }
-.capability p { color: var(--presentation-muted); font-size: clamp(1rem, 1.5vw, 1.3rem); line-height: 1.4; }
+.capability > strong { font-size: clamp(1.5rem, 2vw, 2rem); line-height: 1.15; letter-spacing: -0.02em; }
+.capability p { color: color-mix(in srgb, var(--presentation-muted) 75%, var(--presentation-primary)); font-size: clamp(1.3rem, 1.65vw, 1.55rem); line-height: 1.45; }
 
 .definition-layout { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(28rem, 1.05fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); }
 .definition-list { display: grid; grid-template-columns: 4rem 1fr; border-top: 1px solid rgb(255 255 255 / 0.2); }
@@ -295,9 +296,9 @@ ol { margin-block: 0; }
 .truth-layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(28rem, 1.15fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); }
 .truth-quote { font: 400 clamp(3.25rem, 6vw, 6rem)/0.96 var(--presentation-serif); letter-spacing: -0.045em; text-wrap: balance; }
 .truth-list { border-top: 1px solid rgb(255 255 255 / 0.2); }
-.truth-list div { min-height: 6rem; padding: 1.15rem 0; display: grid; grid-template-columns: minmax(10rem, 0.42fr) minmax(0, 1fr); align-items: center; gap: clamp(1.5rem, 3vw, 3rem); border-bottom: 1px solid rgb(255 255 255 / 0.2); }
-.truth-list span { color: #a7c4d8; font: 700 clamp(0.78rem, 1vw, 0.95rem)/1.35 var(--presentation-mono); letter-spacing: 0.08em; text-transform: uppercase; }
-.truth-list strong { font-size: clamp(1.15rem, 1.7vw, 1.5rem); line-height: 1.35; }
+.truth-list div { min-height: 7rem; padding: 1.25rem 0; display: grid; grid-template-columns: minmax(13rem, 0.42fr) minmax(0, 1fr); align-items: center; gap: clamp(1.5rem, 3vw, 3rem); border-bottom: 1px solid rgb(255 255 255 / 0.2); }
+.truth-list span { color: var(--presentation-dark-muted); font: 700 clamp(1rem, 1.2vw, 1.2rem)/1.3 var(--presentation-mono); letter-spacing: 0.05em; text-transform: uppercase; }
+.truth-list strong { font-size: clamp(1.35rem, 2vw, 1.85rem); line-height: 1.3; }
 
 .proof-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(28rem, 1.1fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); }
 .presentation-slide-proof { padding-block: clamp(1.5rem, 3vh, 2.5rem) clamp(4.75rem, 8vh, 6rem); }
