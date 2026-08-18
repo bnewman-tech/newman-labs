@@ -28,9 +28,11 @@ name that requires review.
 ## Run
 
 Open `/invoice-parser/` to use a permanent demo or upload a PDF. The page posts to
-`POST /invoice-parser/api/extractions`, polls the returned managed job, and
+`POST /invoice-parser/api/extractions`, polls the returned job, and
 displays the validated response on the same page beside the browser's native PDF
-viewer. Uploaded documents switch from an immediate local preview to a five-minute
+viewer. Uploads use the Prefect Secret passcode. Production dispatches
+`invoice-extraction-prod`; `dev` extracts in-process. Uploaded documents switch
+from an immediate local preview to a five-minute
 URL for the persisted private object when extraction completes. Open
 `/invoice-parser/presentation/` for the keyboard-driven talk, presenter notes,
 slide overview, and live-demo handoff.
@@ -44,9 +46,9 @@ uv run python -m labs.invoice_parser.scripts.extract
 
 ## Contract
 
-`start_invoice_extraction()` owns preflight and private staging. The unscheduled
-`invoice-extraction-prod` Prefect deployment supplies isolated managed compute for
-the full workflow. `process_document()` owns DocFirewall approval, conversion,
+`start_invoice_extraction()` owns preflight. Production stages bytes and
+dispatches `invoice-extraction-prod`. Development runs
+`extract_invoice_document()` in-process. `process_document()` owns DocFirewall approval, conversion,
 permanent object storage, exact-hash reuse, and document metadata, and returns the
 retained parser output with the document.
 `run_invoice_extraction()` sends `document.markdown` and fresh typed lookup state

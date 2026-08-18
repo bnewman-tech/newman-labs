@@ -78,6 +78,7 @@ async def test_development_startup_loads_and_releases_the_managed_database(
     shutdown_security = Mock()
     instrument_database = Mock()
     instrument_web = Mock()
+    load_secret = AsyncMock(return_value=SecretStr("newman-test-passcode"))
 
     monkeypatch.setattr(settings, "environment", EnvironmentMode.DEV)
     monkeypatch.setattr(main, "configure_logfire", configure_logfire)
@@ -85,6 +86,7 @@ async def test_development_startup_loads_and_releases_the_managed_database(
     monkeypatch.setattr(main, "get_api_db_engine", create_pool)
     monkeypatch.setattr(main, "dispose_api_engine", dispose_pool)
     monkeypatch.setattr(main, "shutdown_document_security", shutdown_security)
+    monkeypatch.setattr(main, "get_secret", load_secret)
     monkeypatch.setattr(main.logfire, "instrument_sqlalchemy", instrument_database)
     monkeypatch.setattr(main.logfire, "instrument_fastapi", instrument_web)
 
@@ -106,6 +108,8 @@ async def test_development_startup_loads_and_releases_the_managed_database(
     )
     dispose_pool.assert_awaited_once_with()
     shutdown_security.assert_called_once_with()
+    load_secret.assert_awaited_once_with(name=main.PrefectSecret.INVOICE_PARSER_PASSCODE)
+    assert app.state.invoice_parser_access_token == create_passcode_token(passcode="newman-test-passcode")
 
 
 async def test_production_startup_initializes_the_managed_runtime(

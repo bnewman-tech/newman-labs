@@ -325,11 +325,13 @@
     const deadline = Date.now() + 10 * 60 * 1000;
     const statusUrl = new URL(`${uploadForm.action}/${job.flow_run_id}`);
     statusUrl.searchParams.set("document_id", job.document_id);
-    statusUrl.searchParams.set("access_token", job.access_token);
     let delayMilliseconds = initialPollDelayMilliseconds;
     while (Date.now() < deadline) {
       await new Promise((resolve) => window.setTimeout(resolve, delayMilliseconds));
-      const response = await fetch(statusUrl, { cache: "no-store" });
+      const response = await fetch(statusUrl, {
+        cache: "no-store",
+        headers: { "X-Invoice-Job-Access": job.access_token },
+      });
       const payload = await response.json().catch(() => ({}));
       if (response.status === 202) {
         const retryAfterSeconds = Number(response.headers.get("Retry-After"));

@@ -66,7 +66,7 @@ tag on `main` runs the production workflow in this order:
 The protected GitHub `prod` environment contains only release control-plane
 credentials. FastAPI Cloud contains `ENVIRONMENT=prod` plus the Prefect bootstrap
 URL and key. Application credentials remain in named Prefect Secret blocks.
-The production web process loads `newman-labs-invoice-parser-passcode` at startup
+The web process loads `newman-labs-invoice-parser-passcode` at startup
 and retains only a derived token. The raw upload passcode is not stored in Git,
 FastAPI Cloud, logs, cookies, or browser URLs.
 

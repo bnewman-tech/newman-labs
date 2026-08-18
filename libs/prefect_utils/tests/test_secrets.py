@@ -1,5 +1,6 @@
 """Prefect Secret utility tests."""
 
+from collections.abc import Iterator
 from unittest.mock import AsyncMock, Mock
 
 import pytest
@@ -9,6 +10,15 @@ from libs.prefect_utils.secrets import (
     PrefectSecret,
     get_secret,
 )
+from libs.prefect_utils.secrets import functions as secret_functions
+
+
+@pytest.fixture(autouse=True)
+def clear_secret_cache() -> Iterator[None]:
+    """Do not leak process-cached credentials across tests."""
+    secret_functions._secret_values.clear()
+    yield
+    secret_functions._secret_values.clear()
 
 
 async def test_get_secret_loads_required_string(
@@ -24,6 +34,8 @@ async def test_get_secret_loads_required_string(
 
     load_secret.assert_awaited_once_with(PrefectSecret.OLLAMA_API_KEY.value)
     assert value.get_secret_value() == "newman-secret"
+    assert (await get_secret(name=PrefectSecret.OLLAMA_API_KEY)).get_secret_value() == "newman-secret"
+    load_secret.assert_awaited_once_with(PrefectSecret.OLLAMA_API_KEY.value)
 
 
 async def test_get_secret_rejects_empty_values(

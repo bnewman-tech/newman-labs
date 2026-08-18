@@ -103,6 +103,8 @@ async def test_invoice_parser_page_renders_the_small_extraction_workflow() -> No
     assert response.status_code == 200
     assert script.status_code == 200
     assert 'window.prompt("Enter the invoice processing access code.")' in script.text
+    assert 'headers: { "X-Invoice-Job-Access": job.access_token }' in script.text
+    assert 'searchParams.set("access_token"' not in script.text
     assert "all_agent_messages: payload.all_agent_messages" in script.text
     assert "Save one approved document" in response.text
     assert 'accept="application/pdf,.pdf"' in response.text
@@ -168,43 +170,48 @@ async def test_invoice_parser_presentation_remains_available() -> None:
         response = await client.get("/invoice-parser/presentation/")
         script = await client.get("/static/js/invoice-presentation.js")
 
+    page = " ".join(response.text.split())
+
     assert response.status_code == 200
     assert script.status_code == 200
-    assert "data-presentation" in response.text
-    assert "data-speaker-notes" in response.text
-    assert response.text.count("data-slide data-section") == 21
-    assert "data-duration=" not in response.text
-    assert "Timing:" not in response.text
-    assert "Finish by" not in response.text
-    assert "[Sources]" not in response.text
+    assert "data-presentation" in page
+    assert "data-speaker-notes" in page
+    assert page.count("data-slide") == 21
+    assert "data-duration=" not in page
+    assert "Timing:" not in page
+    assert "Finish by" not in page
+    assert "[Sources]" not in page
     assert 'id="duration"' not in script.text
     assert "current.duration" not in script.text
-    assert "01 / 21" in response.text
-    assert "Who owns the loop?" in response.text
-    assert "Tools use typed dependencies" in response.text
-    assert "Schemas travel with the request" in response.text
-    assert "Final total printed on the invoice." in response.text
-    assert "The run leaves a message trace" in response.text
-    assert "all_agent_messages" in response.text
-    assert "search_supplier_candidates" in response.text
-    assert '"part_kind"' in response.text
-    assert "One candidate continues. Ambiguity stops." in response.text
-    assert "0 or 2+ candidates" in response.text
-    assert "The model never chooses among ambiguous records." in response.text
-    assert "Pydantic validates structure, not reality." in response.text
-    assert "Validation can send focused feedback back to the model" in response.text
-    assert "Retry interpretation problems." in response.text
-    assert "A Pydantic schema for typed validation" in response.text
-    assert "/static/images/brian-newman-headshot.webp" in response.text
-    assert "/static/images/brian-newman-portfolio-qr.png" in response.text
-    assert "FunctionModel" in response.text
-    assert "What would you put beyond the chat?" in response.text
-    assert response.text.count('<figure class="code-editor') == 8
-    assert 'class="code-line" data-line="34"' in response.text
-    assert "/static/images/invoice-presentation-hero.jpg" in response.text
-    assert "/static/demos/invoice-supplier-match.pdf" in response.text
-    assert "/static/demos/invoice-supplier-match-preview.png" in response.text
-    assert "/static/js/invoice-presentation.js" in response.text
+    assert "PyHou" not in page
+    assert "data-presentation-date" in page
+    assert "Intl.DateTimeFormat" in script.text
+    assert "Swap the model string. The Agent contract stays." in page
+    assert "Who owns the loop?" in page
+    assert "Tools use typed dependencies" in page
+    assert "Schemas travel with the request" in page
+    assert "Final total printed on the invoice." in page
+    assert "The run leaves a message trace" in page
+    assert "all_agent_messages" in page
+    assert "search_supplier_candidates" in page
+    assert '"part_kind"' in page
+    assert "One candidate continues. Ambiguity stops." in page
+    assert "0 or 2+ candidates" in page
+    assert "The model never chooses among ambiguous records." in page
+    assert "Pydantic validates structure, not reality." in page
+    assert "Validation can send focused feedback back to the model" in page
+    assert "Retry interpretation problems." in page
+    assert "A Pydantic schema for typed validation" in page
+    assert "/static/images/brian-newman-headshot.webp" in page
+    assert "/static/images/brian-newman-portfolio-qr.png" in page
+    assert "FunctionModel" in page
+    assert "Newman Labs home" in page
+    assert page.count('<figure class="code-editor') == 8
+    assert 'class="code-line" data-line="34"' in page
+    assert "/static/images/invoice-presentation-hero.jpg" in page
+    assert "/static/demos/invoice-supplier-match.pdf" in page
+    assert "/static/demos/invoice-supplier-match-preview.png" in page
+    assert "/static/js/invoice-presentation.js" in page
 
 
 async def test_extract_invoice_route_dispatches_a_managed_job(
@@ -289,7 +296,8 @@ async def test_get_invoice_extraction_route_reports_an_active_job(
     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
         response = await client.get(
             f"/invoice-parser/api/extractions/{FLOW_RUN_ID}",
-            params={"document_id": str(DOCUMENT_ID), "access_token": job_access_token()},
+            params={"document_id": str(DOCUMENT_ID)},
+            headers={"X-Invoice-Job-Access": job_access_token()},
         )
 
     assert response.status_code == 202
@@ -314,7 +322,8 @@ async def test_get_invoice_extraction_route_returns_the_typed_result(
     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
         response = await client.get(
             f"/invoice-parser/api/extractions/{FLOW_RUN_ID}",
-            params={"document_id": str(DOCUMENT_ID), "access_token": job_access_token()},
+            params={"document_id": str(DOCUMENT_ID)},
+            headers={"X-Invoice-Job-Access": job_access_token()},
         )
 
     assert response.status_code == 200
@@ -336,7 +345,8 @@ async def test_get_invoice_extraction_route_hides_managed_failures(
     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
         response = await client.get(
             f"/invoice-parser/api/extractions/{FLOW_RUN_ID}",
-            params={"document_id": str(DOCUMENT_ID), "access_token": job_access_token()},
+            params={"document_id": str(DOCUMENT_ID)},
+            headers={"X-Invoice-Job-Access": job_access_token()},
         )
 
     assert response.status_code == 502
@@ -356,7 +366,8 @@ async def test_get_invoice_extraction_route_reports_full_managed_capacity(
     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
         response = await client.get(
             f"/invoice-parser/api/extractions/{FLOW_RUN_ID}",
-            params={"document_id": str(DOCUMENT_ID), "access_token": job_access_token()},
+            params={"document_id": str(DOCUMENT_ID)},
+            headers={"X-Invoice-Job-Access": job_access_token()},
         )
 
     assert response.status_code == 429
@@ -392,7 +403,8 @@ async def test_get_invoice_extraction_rejects_invalid_capability_before_prefect(
     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
         response = await client.get(
             f"/invoice-parser/api/extractions/{FLOW_RUN_ID}",
-            params={"document_id": str(DOCUMENT_ID), "access_token": "invalid"},
+            params={"document_id": str(DOCUMENT_ID)},
+            headers={"X-Invoice-Job-Access": "invalid"},
         )
 
     assert response.status_code == 404

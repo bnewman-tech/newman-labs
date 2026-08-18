@@ -1,5 +1,6 @@
 """Invoice extraction workflow tests."""
 
+import asyncio
 from contextlib import nullcontext
 from datetime import date
 from decimal import Decimal
@@ -425,16 +426,31 @@ async def test_start_invoice_extraction_preflights_stages_and_dispatches(
     )
 
 
-async def test_start_invoice_extraction_rejects_nonproduction_dispatch(
+async def test_start_invoice_extraction_runs_in_process_locally(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """Local development cannot dispatch work to the production deployment."""
+    """Local development extracts in-process and never dispatches the production deployment."""
+    document_id = uuid4()
     source = DocumentUpload(
-        document_id=uuid4(),
+        document_id=document_id,
         original_filename="newman-invoice.pdf",
         media_type="application/pdf",
         content=b"%PDF-1.7\n",
     )
+    expected = InvoiceExtraction(
+        document_id=document_id,
+        document_url="https://storage.example/newman.pdf?signature=temporary",
+        document_markdown="# Invoice",
+        invoice=parsed_invoice(),
+        all_agent_messages=[],
+    )
+    release = asyncio.Event()
+
+    async def extract_when_released(*, source: DocumentUpload) -> InvoiceExtraction:
+        await release.wait()
+        assert source.document_id == document_id
+        return expected
+
     preflight = AsyncMock()
     create_blobs = AsyncMock()
     dispatch = AsyncMock()
@@ -442,13 +458,30 @@ async def test_start_invoice_extraction_rejects_nonproduction_dispatch(
     monkeypatch.setattr(functions, "preflight_document", preflight)
     monkeypatch.setattr(functions, "create_blobs", create_blobs)
     monkeypatch.setattr(functions, "arun_deployment", dispatch)
+    monkeypatch.setattr(functions, "extract_invoice_document", extract_when_released)
 
-    with pytest.raises(RuntimeError, match="only available in production"):
-        await start_invoice_extraction(source=source)
+    job = await start_invoice_extraction(source=source)
+    await asyncio.sleep(0)
 
-    preflight.assert_not_awaited()
+    assert job == InvoiceExtractionJob(document_id=document_id, flow_run_id=document_id)
+    preflight.assert_awaited_once_with(source=source)
     create_blobs.assert_not_awaited()
     dispatch.assert_not_awaited()
+    assert await get_invoice_extraction_job(job=job) is None
+
+    release.set()
+    result = None
+    for _ in range(20):
+        result = await get_invoice_extraction_job(job=job)
+        if result is not None:
+            break
+        await asyncio.sleep(0)
+    assert result == expected
+    with pytest.raises(
+        functions.InvoiceExtractionJobFailedError,
+        match="does not match the requested document",
+    ):
+        await get_invoice_extraction_job(job=job)
 
 
 async def test_get_invoice_extraction_job_returns_and_deletes_transient_result(
@@ -479,6 +512,7 @@ async def test_get_invoice_extraction_job_returns_and_deletes_transient_result(
     )
     read_blob = AsyncMock(return_value=SimpleNamespace(content=expected.model_dump_json().encode()))
     delete_blob = AsyncMock()
+    monkeypatch.setattr(functions.settings, "environment", EnvironmentMode.PROD)
     monkeypatch.setattr(functions, "get_client", Mock(return_value=client_context))
     monkeypatch.setattr(functions, "read_blob", read_blob)
     monkeypatch.setattr(functions, "delete_blob", delete_blob)
@@ -510,6 +544,7 @@ async def test_get_invoice_extraction_job_rejects_a_mismatched_document(
     client_context.__aenter__ = AsyncMock(return_value=client)
     client_context.__aexit__ = AsyncMock(return_value=None)
     read_blob = AsyncMock()
+    monkeypatch.setattr(functions.settings, "environment", EnvironmentMode.PROD)
     monkeypatch.setattr(functions, "get_client", Mock(return_value=client_context))
     monkeypatch.setattr(functions, "read_blob", read_blob)
 
@@ -538,6 +573,7 @@ async def test_get_invoice_extraction_job_reports_a_cancelled_run_as_full_capaci
     client_context = MagicMock()
     client_context.__aenter__ = AsyncMock(return_value=client)
     client_context.__aexit__ = AsyncMock(return_value=None)
+    monkeypatch.setattr(functions.settings, "environment", EnvironmentMode.PROD)
     monkeypatch.setattr(functions, "get_client", Mock(return_value=client_context))
 
     with pytest.raises(functions.InvoiceExtractionCapacityError, match="capacity is full"):

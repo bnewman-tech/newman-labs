@@ -27,6 +27,10 @@ curl --fail http://127.0.0.1:8000/health/live
 curl --fail http://127.0.0.1:8000/health/ready
 ```
 
+The Invoice Parser upload page loads the processing access code from the Prefect
+Secret `newman-labs-invoice-parser-passcode` and runs extraction in the FastAPI
+process. It does not dispatch `invoice-extraction-prod`.
+
 ## Manual workflows
 
 Run the Houston source ingests only when live source and development-database

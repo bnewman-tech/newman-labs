@@ -8,6 +8,7 @@ from pathlib import Path
 from uuid import UUID
 
 import logfire
+from opentelemetry.context import Context, attach, detach
 from prefect.client.orchestration import get_client
 from prefect.deployments.flow_runs import arun_deployment
 from pydantic_ai import Agent, AgentRunResult, ModelRetry, RunContext, UsageLimits
@@ -46,6 +47,9 @@ class InvoiceExtractionTimeoutError(TimeoutError):
 
 class InvoiceExtractionJobFailedError(RuntimeError):
     """The managed invoice extraction did not complete successfully."""
+
+
+_local_invoice_extraction_runs: dict[UUID, asyncio.Task[InvoiceExtraction]] = {}
 
 
 class InvoiceExtractionCapacityError(RuntimeError):
@@ -207,11 +211,24 @@ async def start_invoice_extraction(
     *,
     source: DocumentUpload,
 ) -> InvoiceExtractionJob:
-    """Preflight, privately stage, and dispatch one managed extraction."""
+    """Preflight and start one extraction. Production stages and dispatches; development runs in-process."""
     environment = settings.environment
-    if environment is not EnvironmentMode.PROD:
-        raise RuntimeError("Managed invoice extraction is only available in production")
     await preflight_document(source=source)
+    if environment is not EnvironmentMode.PROD:
+
+        async def extract_in_process() -> InvoiceExtraction:
+            token = attach(Context())
+            try:
+                return await extract_invoice_document(source=source)
+            finally:
+                detach(token)
+
+        task = asyncio.create_task(extract_in_process())
+        _local_invoice_extraction_runs[source.document_id] = task
+        return InvoiceExtractionJob(
+            document_id=source.document_id,
+            flow_run_id=source.document_id,
+        )
     source_key = invoice_extraction_source_key(document_id=source.document_id)
     await create_blobs(
         blobs=[
@@ -252,7 +269,21 @@ async def get_invoice_extraction_job(
     *,
     job: InvoiceExtractionJob,
 ) -> InvoiceExtraction | None:
-    """Return a completed extraction, or None while its managed run is active."""
+    """Return a completed extraction, or None while its run is still active."""
+    task = _local_invoice_extraction_runs.get(job.flow_run_id)
+    if task is not None:
+        if job.document_id != job.flow_run_id:
+            raise InvoiceExtractionJobFailedError("Managed invoice extraction does not match the requested document")
+        if not task.done():
+            return None
+        del _local_invoice_extraction_runs[job.flow_run_id]
+        try:
+            return task.result()
+        except Exception as exc:
+            raise InvoiceExtractionJobFailedError("Managed invoice extraction failed") from exc
+    if settings.environment is not EnvironmentMode.PROD:
+        raise InvoiceExtractionJobFailedError("Managed invoice extraction does not match the requested document")
+
     async with get_client() as client:
         flow_run = await client.read_flow_run(job.flow_run_id)
     if flow_run.parameters.get("document_id") != str(job.document_id):

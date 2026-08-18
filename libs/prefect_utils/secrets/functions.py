@@ -1,5 +1,6 @@
 """Prefect Secret runtime loading."""
 
+import asyncio
 from enum import StrEnum
 
 from prefect.blocks.system import Secret
@@ -25,14 +26,28 @@ class PrefectSecret(StrEnum):
     NEON_OBJECT_STORAGE_PROD_SECRET_ACCESS_KEY = "neon-object-storage-prod-secret-access-key"  # ruff: ignore[hardcoded-password-string] - Block name.
 
 
+_secret_values: dict[PrefectSecret, SecretStr] = {}
+_secret_lock = asyncio.Lock()
+
+
 async def get_secret(*, name: PrefectSecret) -> SecretStr:
     """Load one required Newman Labs credential from Prefect."""
-    try:
-        secret = await Secret.aload(name.value)
-    except Exception as exc:
-        raise RuntimeError(f"Unable to load required Prefect Secret block {name.value}.") from exc
+    cached = _secret_values.get(name)
+    if cached is not None:
+        return cached
 
-    value = secret.get()
-    if not isinstance(value, str) or not value.strip():
-        raise RuntimeError(f"Required Prefect Secret block {name.value} is empty.")
-    return SecretStr(value.strip())
+    async with _secret_lock:
+        cached = _secret_values.get(name)
+        if cached is not None:
+            return cached
+        try:
+            secret = await Secret.aload(name.value)
+        except Exception as exc:
+            raise RuntimeError(f"Unable to load required Prefect Secret block {name.value}.") from exc
+
+        value = secret.get()
+        if not isinstance(value, str) or not value.strip():
+            raise RuntimeError(f"Required Prefect Secret block {name.value} is empty.")
+        loaded = SecretStr(value.strip())
+        _secret_values[name] = loaded
+        return loaded

@@ -6,7 +6,8 @@ the application SQLAlchemy engine.
 
 The `newman-labs-logfire-token` Prefect Secret is loaded before configuration.
 FastAPI startup fails closed when its managed token cannot be loaded. Standalone AI
-entrypoints configure Logfire before creating a model or embedder.
+entrypoints configure Logfire before creating a model or embedder. Prefect Secret
+values are cached in-process after the first load; restart after rotation.
 
 Pydantic AI prompts, results, tool content, and binary content are captured. A
 public document upload must disclose that behavior beside the upload action. HTTP

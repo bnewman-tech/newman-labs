@@ -73,8 +73,10 @@ endblock %}
         <input type="file" name="document" accept="application/pdf,.pdf" required data-invoice-file>
       </label>
       <div class="invoice-upload-action">
-        <p>Extraction starts automatically when you choose or drop a PDF and enter the processing access code. Documents are processed by Prefect Managed,
-          DocFirewall, Docling, Neon, Pydantic AI Gateway, its model provider, and Pydantic Logfire. The document record
+        <p>Extraction starts automatically when you choose or drop a PDF and enter the processing access code. Documents
+          are processed by Prefect Managed,
+          DocFirewall, Docling, Neon, Pydantic AI Gateway, its model provider, and Pydantic Logfire. Local development
+          runs that pipeline in this process. The document record
           and private parser artifacts are scheduled for deletion after 30 days. The transient extraction handoff is
           deleted after delivery and no invoice-analysis record is retained. Do not upload regulated or highly sensitive
           information. <a href="{{ url_for('privacy') }}">Privacy notice</a>.</p>
