@@ -126,6 +126,14 @@
   }
 
   buildNavigation();
+  const dateLabel = root.querySelector("[data-presentation-date]");
+  if (dateLabel) {
+    dateLabel.textContent = new Intl.DateTimeFormat(undefined, {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }).format(new Date());
+  }
 
   showSlide(index, false);
   previous.addEventListener("click", () => showSlide(index - 1));

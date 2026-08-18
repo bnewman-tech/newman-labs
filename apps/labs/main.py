@@ -28,7 +28,7 @@ from apps.labs.security import (
     create_passcode_token,
 )
 from apps.labs.templating import STATIC_DIRECTORY
-from libs.core.dependencies import EnvironmentMode, settings
+from libs.core.dependencies import settings
 from libs.database.functions import (
     DatabaseRole,
     dispose_api_engine,
@@ -58,9 +58,8 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         capture_headers=False,
         excluded_urls="/health/live",
     )
-    if settings.environment is EnvironmentMode.PROD:
-        access_passcode = await get_secret(name=PrefectSecret.INVOICE_PARSER_PASSCODE)
-        _app.state.invoice_parser_access_token = create_passcode_token(passcode=access_passcode.get_secret_value())
+    access_passcode = await get_secret(name=PrefectSecret.INVOICE_PARSER_PASSCODE)
+    _app.state.invoice_parser_access_token = create_passcode_token(passcode=access_passcode.get_secret_value())
     try:
         yield
     finally:

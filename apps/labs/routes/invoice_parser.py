@@ -3,7 +3,7 @@
 from typing import Annotated
 from uuid import UUID, uuid4
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
+from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, Request, UploadFile, status
 from fastapi.responses import HTMLResponse, Response
 
 from apps.labs.schemas import InvoiceExtractionJobResponse
@@ -36,7 +36,7 @@ def require_invoice_extraction_access(
     request: Request,
     passcode: Annotated[str, Form(min_length=1, max_length=128)],
 ) -> None:
-    """Validate access before invoice staging or managed dispatch."""
+    """Validate access before invoice extraction starts."""
     if not has_valid_invoice_access(request=request, passcode=passcode):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -85,7 +85,7 @@ async def extract_invoice(
         File(description="One English-language PDF invoice"),
     ],
 ) -> InvoiceExtractionJobResponse:
-    """Securely stage and dispatch one managed invoice extraction."""
+    """Securely start one invoice extraction."""
     original_filename = (document.filename or "document.pdf").replace("\\", "/")
     original_filename = original_filename.rsplit("/", maxsplit=1)[-1]
     if len(original_filename) > DOCUMENT_FILENAME_MAX_LENGTH:
@@ -129,10 +129,10 @@ async def get_invoice_extraction(
     request: Request,
     flow_run_id: UUID,
     document_id: UUID,
-    access_token: str,
+    access_token: Annotated[str, Header(alias="X-Invoice-Job-Access")],
     response: Response,
 ) -> InvoiceExtraction | InvoiceExtractionJobResponse:
-    """Poll one managed extraction and return its result when complete."""
+    """Poll one extraction and return its result when complete."""
     if not has_valid_job_access(
         request=request,
         document_id=document_id,

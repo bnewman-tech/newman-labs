@@ -100,7 +100,7 @@ class InvoiceExtraction(NewmanLabsModel):
 
 
 class InvoiceExtractionJob(NewmanLabsModel):
-    """One remotely executing invoice extraction."""
+    """One in-flight invoice extraction."""
 
     document_id: UUID
     flow_run_id: UUID
