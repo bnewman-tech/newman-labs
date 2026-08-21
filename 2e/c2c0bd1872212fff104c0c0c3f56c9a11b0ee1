@@ -1,0 +1,25 @@
+.github/workflows/release-to-production.yml
+  s_aa05719e6821b0::t_b4f52e6989751d 72-75,79,113-120,125
+  s_aa05719e6821b0::t_2dee8c19f59fbc 78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "2ec2c0bd1872212fff104c0c0c3f56c9a11b0ee1",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_aa05719e6821b0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a024e7-09ce-7412-a32a-c8fa95f85bd4",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
