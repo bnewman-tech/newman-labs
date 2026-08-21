@@ -53,10 +53,9 @@ checking, dependency auditing, Alembic, dbt, tests, and migration reversibility
 against disposable PostgreSQL.
 
 Merging does not deploy or change the release version. From the GitHub Actions
-page, run `Release to Production` from `main` and choose a semantic version
-increment. Patch is the normal choice; minor and major releases reset the lower
-components. The workflow derives the next version from the latest `v*` tag, so
-Git tags are the only release-version source of truth. The non-package uv project
+page, run `Release to Production` from `main` and choose a patch, minor, or major
+increment. The workflow derives the next version from the latest `v*` tag, so Git
+tags are the only release-version source of truth. The non-package uv project
 keeps `0.0.0` as inert metadata; it is never a deployed version.
 
 The workflow creates a draft release for the exact `main` commit, then runs the

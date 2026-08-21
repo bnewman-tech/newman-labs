@@ -114,7 +114,6 @@ jobs:
           fi
 
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
-          echo "### Prepared $tag" >> "$GITHUB_STEP_SUMMARY"
 
   deploy:
     name: Deploy ${{ needs.prepare.outputs.tag }}
@@ -250,4 +249,3 @@ jobs:
             --draft=false \
             --latest \
             --repo "$GITHUB_REPOSITORY"
-          echo "### Published $TAG" >> "$GITHUB_STEP_SUMMARY"

@@ -1,6 +1,6 @@
 [project]
 name = "newman-labs"
-# Newman Labs is not packaged; production releases are versioned by Git tags.
+# Non-package metadata only; releases use Git tags.
 version = "0.0.0"
 description = "Public data products and engineering labs"
 readme = "README.md"
