@@ -9,8 +9,12 @@ import httpx
 import pytest
 
 from apps.labs.main import app
+from apps.labs.rate_limiting import INVOICE_SUBMISSION_RATE_LIMIT
 from apps.labs.routes import invoice_parser
-from apps.labs.security import create_job_access_token, create_passcode_token
+from apps.labs.security import (
+    create_job_access_token,
+    create_passcode_token,
+)
 from labs.invoice_parser.functions import InvoiceExtractionCapacityError, InvoiceExtractionJobFailedError
 from labs.invoice_parser.schemas import (
     InvoiceExtraction,
@@ -186,6 +190,10 @@ async def test_invoice_parser_presentation_remains_available() -> None:
     assert "PyHou" not in page
     assert "data-presentation-date" in page
     assert "Intl.DateTimeFormat" in script.text
+    assert "if (includeSlides) message.slides = slideMetadata;" in script.text
+    assert "postMessage(message, presentationOrigin)" in script.text
+    assert 'postMessage({ type: "presentation-state", index, slides:' not in script.text
+    assert "postMessage({type},'*')" not in script.text
     assert "Swap the model string. The Agent contract stays." in page
     assert "Who owns the loop?" in page
     assert "Tools use typed dependencies" in page
@@ -212,6 +220,31 @@ async def test_invoice_parser_presentation_remains_available() -> None:
     assert "/static/demos/invoice-supplier-match.pdf" in page
     assert "/static/demos/invoice-supplier-match-preview.png" in page
     assert "/static/js/invoice-presentation.js" in page
+
+
+async def test_invoice_parser_presentation_uses_local_fonts() -> None:
+    """The standalone presentation avoids third-party font requests."""
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.get("/invoice-parser/presentation/")
+
+    assert response.status_code == 200
+    assert "/static/fonts/newsreader-latin-wght-normal.woff2" in response.text
+    assert "/static/fonts/manrope-latin-wght-normal.woff2" in response.text
+    assert "fonts.googleapis.com" not in response.text
+    assert "fonts.gstatic.com" not in response.text
+
+
+async def test_invoice_parser_presenter_keeps_controls_stable() -> None:
+    """Presenter title wrapping does not move the notes and controls."""
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        script = await client.get("/static/js/invoice-presentation.js")
+
+    assert script.status_code == 200
+    assert "grid-template-rows:auto minmax(0,1fr) auto" in script.text
+    assert "min-width:0;min-height:0" in script.text
+    assert ".preview{min-height:150px" in script.text
 
 
 async def test_extract_invoice_route_dispatches_a_managed_job(
@@ -281,6 +314,82 @@ async def test_extract_invoice_rejects_invalid_access_before_staging(
     assert response.status_code == 403
     assert response.json() == {"detail": "The invoice processing access code is not valid."}
     start.assert_not_awaited()
+
+
+async def test_extract_invoice_rejects_missing_passcode_before_staging(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """An omitted upload code cannot stage managed work."""
+    start = AsyncMock()
+    monkeypatch.setattr(invoice_parser, "start_invoice_extraction", start)
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.post(
+            "/invoice-parser/api/extractions",
+            files={"document": ("newman.pdf", b"%PDF-1.7\n", "application/pdf")},
+        )
+
+    assert response.status_code == 403
+    assert response.json() == {"detail": "The invoice processing access code is not valid."}
+    start.assert_not_awaited()
+
+
+async def test_extract_invoice_rate_limits_repeated_submissions(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Repeated submissions return 429 with Retry-After before managed work."""
+    start = AsyncMock()
+    monkeypatch.setattr(invoice_parser, "start_invoice_extraction", start)
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        for _ in range(INVOICE_SUBMISSION_RATE_LIMIT.max_requests):
+            response = await client.post(
+                "/invoice-parser/api/extractions",
+                data={"passcode": "incorrect"},
+                files={"document": ("newman.pdf", b"%PDF-1.7\n", "application/pdf")},
+            )
+            assert response.status_code == 403
+        locked = await client.post(
+            "/invoice-parser/api/extractions",
+            data={"passcode": "incorrect"},
+            files={"document": ("newman.pdf", b"%PDF-1.7\n", "application/pdf")},
+        )
+
+    assert locked.status_code == 429
+    assert locked.json() == {"detail": INVOICE_SUBMISSION_RATE_LIMIT.detail}
+    assert locked.headers["retry-after"].isdigit()
+    assert int(locked.headers["retry-after"]) > 0
+    start.assert_not_awaited()
+
+
+async def test_extract_invoice_allows_valid_passcode_after_failed_attempts(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Submissions below the request limit do not block a valid passcode."""
+    start = AsyncMock(
+        return_value=InvoiceExtractionJob(
+            document_id=DOCUMENT_ID,
+            flow_run_id=FLOW_RUN_ID,
+        )
+    )
+    monkeypatch.setattr(invoice_parser, "start_invoice_extraction", start)
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        for _ in range(INVOICE_SUBMISSION_RATE_LIMIT.max_requests - 1):
+            failed = await client.post(
+                "/invoice-parser/api/extractions",
+                data={"passcode": "incorrect"},
+                files={"document": ("newman.pdf", b"%PDF-1.7\n", "application/pdf")},
+            )
+            assert failed.status_code == 403
+        response = await client.post(
+            "/invoice-parser/api/extractions",
+            data={"passcode": "newman-test-passcode"},
+            files={"document": ("newman-invoice.pdf", b"%PDF-1.7\n", "application/pdf")},
+        )
+
+    assert response.status_code == 202
+    start.assert_awaited_once()
 
 
 async def test_get_invoice_extraction_route_reports_an_active_job(

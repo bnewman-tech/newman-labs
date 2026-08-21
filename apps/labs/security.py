@@ -9,6 +9,7 @@ from fastapi import Request, Response, status
 from starlette.datastructures import Headers
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
+from apps.labs.templating import ASSET_VERSION, VERSIONED_ASSET_PATHS
 from libs.core.dependencies import EnvironmentMode, settings
 
 ALLOWED_HOSTS = [
@@ -139,6 +140,15 @@ async def add_security_headers(
     """Apply browser security headers to every application response."""
     response = await call_next(request)
     path = request.url.path.rstrip("/")
+    if path.startswith("/static/") and response.status_code in {
+        status.HTTP_200_OK,
+        status.HTTP_304_NOT_MODIFIED,
+    }:
+        response.headers["Cache-Control"] = (
+            "public, max-age=31536000, immutable"
+            if path.removeprefix("/static") in VERSIONED_ASSET_PATHS and request.query_params.get("v") == ASSET_VERSION
+            else "public, max-age=300, must-revalidate"
+        )
     if path.startswith("/static/demos/") and path.endswith(".pdf"):
         response.headers["Content-Security-Policy"] = "base-uri 'self'; frame-ancestors 'self'; object-src 'none'"
     elif path == "/invoice-parser/presentation":

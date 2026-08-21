@@ -13,6 +13,7 @@
   const sectionNavigation = root.querySelector("[data-presentation-sections]");
   const overview = root.querySelector("[data-presentation-overview-dialog]");
   const overviewList = root.querySelector("[data-presentation-overview-list]");
+  const presentationOrigin = location.origin;
   const slideMetadata = slides.map((slide, slideIndex) => ({
     index: slideIndex,
     section: slide.dataset.section,
@@ -30,9 +31,11 @@
   let presenterWindow = null;
   let pointerStart = null;
 
-  function sendPresenterState() {
+  function sendPresenterState(includeSlides = false) {
     if (!presenterWindow || presenterWindow.closed) return;
-    presenterWindow.postMessage({ type: "presentation-state", index, slides: slideMetadata }, "*");
+    const message = { type: "presentation-state", index };
+    if (includeSlides) message.slides = slideMetadata;
+    presenterWindow.postMessage(message, presentationOrigin);
   }
 
   function showSlide(nextIndex, updateHash = true) {
@@ -113,16 +116,15 @@
       *{box-sizing:border-box}body{margin:0;height:100vh;overflow:hidden;color:var(--navy);background:var(--canvas);font:16px Manrope,system-ui,sans-serif}
       main{height:100%;padding:18px;display:grid;grid-template-columns:330px 1fr;gap:18px}aside,section,footer{border:1px solid var(--border);border-radius:12px;background:var(--surface)}
       aside{padding:12px;overflow:auto}ol{margin:0;padding:0;display:grid;gap:6px;list-style:none}li button{width:100%;padding:10px;border:1px solid var(--border);border-radius:7px;color:var(--navy);background:#fff;text-align:left;cursor:pointer}li button.active{color:#fff;background:var(--navy);border-color:var(--navy)}li small{display:block;margin-bottom:4px;opacity:.7;text-transform:uppercase;letter-spacing:.07em}li strong{line-height:1.2}
-      .workspace{display:grid;grid-template-rows:auto 1fr auto;gap:18px;min-width:0}.preview{padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:28px}.preview small{color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.preview strong{display:block;margin-top:8px;font-size:30px;line-height:1.08}.notes{padding:32px;overflow:auto}.notes p{margin:0;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.08em}.notes h1{margin:12px 0 24px;font-size:42px;line-height:1.05}.notes ul{margin:0;padding-left:1.2em;display:grid;gap:18px;font-size:26px;line-height:1.3}footer{min-height:70px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}footer button{min-height:44px;padding:10px 18px;border:0;border-radius:7px;color:#fff;background:var(--blue);font-weight:700;cursor:pointer}#counter{font:700 20px ui-monospace,monospace}
+      .workspace{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:18px;min-width:0;min-height:0}.preview{min-height:150px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}.preview small{color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.preview strong{display:block;margin-top:8px;font-size:30px;line-height:1.08}.notes{padding:32px;overflow:auto}.notes p{margin:0;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.08em}.notes h1{margin:12px 0 24px;font-size:42px;line-height:1.05}.notes ul{margin:0;padding-left:1.2em;display:grid;gap:18px;font-size:26px;line-height:1.3}footer{min-height:70px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}footer button{min-height:44px;padding:10px 18px;border:0;border-radius:7px;color:#fff;background:var(--blue);font-weight:700;cursor:pointer}#counter{font:700 20px ui-monospace,monospace}
       </style></head><body><main><aside><ol id="slide-list"></ol></aside><div class="workspace"><section class="preview"><div><small>Current</small><strong id="current"></strong></div><div><small>Next</small><strong id="next"></strong></div></section><section class="notes"><p id="section"></p><h1 id="title"></h1><ul id="notes"></ul></section><footer><button id="previous">← Previous</button><span id="counter"></span><button id="next-button">Next →</button></footer></div></main><script>
-      let currentIndex=0;let slides=[];const send=(type)=>window.opener&&window.opener.postMessage({type},'*');
+      let currentIndex=0;let slides=[];const presentationOrigin=window.opener.location.origin;const send=(type,index)=>window.opener.postMessage(index===undefined?{type}:{type,index},presentationOrigin);
       function render(){const current=slides[currentIndex];const next=slides[Math.min(currentIndex+1,slides.length-1)];if(!current)return;document.getElementById('current').textContent=current.title;document.getElementById('next').textContent=next.title;document.getElementById('section').textContent=current.kicker;document.getElementById('title').textContent=current.title;document.getElementById('notes').replaceChildren(...current.notes.map(note=>{const item=document.createElement('li');item.textContent=note;return item}));document.getElementById('counter').textContent=String(currentIndex+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');document.querySelectorAll('#slide-list button').forEach((button,index)=>button.classList.toggle('active',index===currentIndex))}
-      function build(){const list=document.getElementById('slide-list');list.replaceChildren(...slides.map((slide,index)=>{const item=document.createElement('li');const button=document.createElement('button');const small=document.createElement('small');const strong=document.createElement('strong');small.textContent=String(index+1).padStart(2,'0')+' · '+slide.kicker;strong.textContent=slide.title;button.append(small,strong);button.onclick=()=>window.opener&&window.opener.postMessage({type:'goto',index},'*');item.append(button);return item}))}
-      window.addEventListener('message',(event)=>{if(event.data?.type!=='presentation-state')return;currentIndex=event.data.index;slides=event.data.slides;build();render()});
+      function build(){const list=document.getElementById('slide-list');list.replaceChildren(...slides.map((slide,index)=>{const item=document.createElement('li');const button=document.createElement('button');const small=document.createElement('small');const strong=document.createElement('strong');small.textContent=String(index+1).padStart(2,'0')+' · '+slide.kicker;strong.textContent=slide.title;button.append(small,strong);button.onclick=()=>send('goto',index);item.append(button);return item}))}
+      window.addEventListener('message',(event)=>{if(event.origin!==presentationOrigin||event.source!==window.opener||event.data?.type!=='presentation-state')return;currentIndex=event.data.index;if(event.data.slides){slides=event.data.slides;build()}render()});
       document.getElementById('previous').onclick=()=>send('previous');document.getElementById('next-button').onclick=()=>send('next');document.addEventListener('keydown',(event)=>{if(event.key==='ArrowLeft')send('previous');if(event.key==='ArrowRight'||event.key===' ')send('next')});send('request-state');
       <\/script></body></html>`);
     presenterWindow.document.close();
-    sendPresenterState();
   }
 
   buildNavigation();
@@ -194,10 +196,10 @@
   });
 
   window.addEventListener("message", (event) => {
-    if (event.source !== presenterWindow) return;
+    if (event.origin !== presentationOrigin || event.source !== presenterWindow) return;
     if (event.data?.type === "next") showSlide(index + 1);
     if (event.data?.type === "previous") showSlide(index - 1);
     if (event.data?.type === "goto") showSlide(event.data.index);
-    if (event.data?.type === "request-state") sendPresenterState();
+    if (event.data?.type === "request-state") sendPresenterState(true);
   });
 })();

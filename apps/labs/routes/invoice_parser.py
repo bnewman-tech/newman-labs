@@ -34,7 +34,7 @@ INVOICE_EXTRACTION_CAPACITY_RETRY_AFTER_SECONDS = 60
 
 def require_invoice_extraction_access(
     request: Request,
-    passcode: Annotated[str, Form(min_length=1, max_length=128)],
+    passcode: Annotated[str, Form(max_length=128)] = "",
 ) -> None:
     """Validate access before invoice extraction starts."""
     if not has_valid_invoice_access(request=request, passcode=passcode):

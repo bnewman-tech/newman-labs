@@ -1,131 +1,117 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% block description %}Public software, data, and applied AI projects by Brian Newman.{% endblock %}">
-    <meta name="author" content="Brian Newman">
-    <meta name="theme-color" content="#1a4164">
-    <link rel="canonical" href="{{ request.url.replace(query='') }}">
-    <meta property="og:title" content="{{ self.title() | striptags }}">
-    <meta property="og:description" content="{{ self.description() | striptags }}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.url.replace(query='') }}">
-    <meta property="og:site_name" content="Newman Labs">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ self.title() | striptags }}">
-    <meta name="twitter:description" content="{{ self.description() | striptags }}">
-    <title>{% block title %}Newman Labs{% endblock %}</title>
-    <link rel="icon" href="{{ url_for('static', path='/favicon.ico') }}" sizes="any">
-    <link rel="icon" href="{{ url_for('static', path='/images/favicon-32x32.png') }}" type="image/png" sizes="32x32">
-    <link rel="icon" href="{{ url_for('static', path='/images/favicon-16x16.png') }}" type="image/png" sizes="16x16">
-    <link rel="apple-touch-icon" href="{{ url_for('static', path='/images/apple-touch-icon.png') }}" sizes="180x180">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
-    >
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap"
-      >
-    </noscript>
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/site.css') }}?v={{ asset_version }}">
-    <script src="{{ url_for('static', path='/js/site.js') }}?v={{ asset_version }}" defer></script>
-    {% block head %}{% endblock %}
-  </head>
-  <body class="{% block body_class %}{% endblock %}">
-    <div class="scroll-progress" aria-hidden="true"></div>
-    <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <header class="site-header">
-      <div class="site-nav">
-        <a class="brand" href="{{ url_for('labs_index') }}" aria-label="Newman Labs home">
-          <img
-            src="{{ url_for('static', path='/images/brian-newman-wordmark-white-720.png') }}"
-            srcset="{{ url_for('static', path='/images/brian-newman-wordmark-white-360.png') }} 360w, {{ url_for('static', path='/images/brian-newman-wordmark-white-720.png') }} 720w"
-            sizes="(max-width: 640px) 160px, 226px"
-            alt="Brian Newman"
-            width="720"
-            height="59"
-            decoding="async"
-          >
-          <span aria-hidden="true"></span>
-          <b>Labs</b>
-        </a>
-        <nav class="global-navigation" aria-label="Primary">
-          <a href="{{ url_for('labs_index') }}" {% if active_page == 'labs' %}aria-current="page"{% endif %}>Home</a>
-          <div class="labs-menu">
-            <button
-              type="button"
-              aria-expanded="false"
-              aria-controls="labs-menu-panel"
-              data-labs-menu-trigger
-            >
-              Labs
-              <svg viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M3 5.5h14M3 10h14M3 14.5h14"></path>
-              </svg>
-            </button>
-            <div id="labs-menu-panel" class="labs-menu-panel" data-labs-menu-panel hidden>
-              <p>Lab index</p>
-              <nav aria-label="Labs">
-                <ol>
-                  {% for lab in labs %}
-                  <li>
-                    <a href="{{ url_for(lab.route_name) }}" {% if active_page == lab.slug %}aria-current="page"{% endif %}>
-                      <strong>{{ lab.name }}</strong>
-                      <small>{{ lab.summary }} <b>{{ lab.status.value | replace('_', ' ') | title }}</b></small>
-                    </a>
-                  </li>
-                  {% endfor %}
-                </ol>
-              </nav>
-              <a class="labs-menu-portfolio" href="https://briannewman.info" rel="noreferrer">Brian Newman portfolio <span aria-hidden="true">↗</span></a>
-            </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="{% block description %}Public software, data, and applied AI projects by Brian Newman.{% endblock %}">
+  <meta name="author" content="Brian Newman">
+  <meta name="theme-color" content="#1a4164">
+  <link rel="canonical" href="{{ request.url.replace(query='') }}">
+  <meta property="og:title" content="{{ self.title() | striptags }}">
+  <meta property="og:description" content="{{ self.description() | striptags }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ request.url.replace(query='') }}">
+  <meta property="og:site_name" content="Newman Labs">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ self.title() | striptags }}">
+  <meta name="twitter:description" content="{{ self.description() | striptags }}">
+  <title>{% block title %}Newman Labs{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', path='/favicon.ico') }}" sizes="any">
+  <link rel="icon" href="{{ url_for('static', path='/images/favicon-32x32.png') }}" type="image/png" sizes="32x32">
+  <link rel="icon" href="{{ url_for('static', path='/images/favicon-16x16.png') }}" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="{{ url_for('static', path='/images/apple-touch-icon.png') }}" sizes="180x180">
+  {% include "layouts/fonts.html" %}
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/site.css') }}?v={{ asset_version }}">
+  <script src="{{ url_for('static', path='/js/site.js') }}?v={{ asset_version }}" defer></script>
+  {% block head %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-nav">
+      <a class="brand" href="{{ url_for('labs_index') }}" aria-label="Newman Labs home">
+        <img src="{{ url_for('static', path='/images/brian-newman-wordmark-white-720.png') }}"
+          srcset="{{ url_for('static', path='/images/brian-newman-wordmark-white-360.png') }} 360w, {{ url_for('static', path='/images/brian-newman-wordmark-white-720.png') }} 720w"
+          sizes="(max-width: 640px) 160px, 226px" alt="Brian Newman" width="720" height="59" decoding="async">
+        <span aria-hidden="true"></span>
+        <b>Labs</b>
+      </a>
+      <nav class="global-navigation" aria-label="Primary">
+        <a href="{{ url_for('labs_index') }}" {% if active_page=='labs' %}aria-current="page" {% endif %}>Home</a>
+        <div class="labs-menu">
+          <button type="button" aria-expanded="false" aria-controls="labs-menu-panel" data-labs-menu-trigger>
+            Labs
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M3 5.5h14M3 10h14M3 14.5h14"></path>
+            </svg>
+          </button>
+          <div id="labs-menu-panel" class="labs-menu-panel" data-labs-menu-panel hidden>
+            <p>Lab index</p>
+            <nav aria-label="Labs">
+              <ol>
+                {% for lab in labs %}
+                <li>
+                  <a href="{{ url_for(lab.route_name) }}" {% if active_page==lab.slug %}aria-current="page" {% endif %}>
+                    <strong>{{ lab.name }}</strong>
+                    <small>{{ lab.summary }} <b>{{ lab.status.value | replace('_', ' ') | title }}</b></small>
+                  </a>
+                </li>
+                {% endfor %}
+              </ol>
+            </nav>
+            <a class="labs-menu-portfolio" href="https://briannewman.info" rel="noreferrer">Brian Newman portfolio <span
+                aria-hidden="true">↗</span></a>
           </div>
-        </nav>
-      </div>
-    </header>
-
-    <main id="main-content">{% block content %}{% endblock %}</main>
-
-    <footer class="site-footer">
-      <div class="site-footer-inner">
-        <div class="footer-identity">
-          <strong>Brian Newman</strong>
-          <span>Engineer to Zero.</span>
         </div>
+      </nav>
+    </div>
+  </header>
 
-        <nav class="footer-nav" aria-label="Footer">
-          <a href="{{ url_for('privacy') }}">Privacy</a>
-          <a href="https://briannewman.info" rel="noreferrer">Portfolio ↗</a>
-          <a href="https://briannewman.info/blog" rel="noreferrer">Writing ↗</a>
-        </nav>
+  <main id="main-content">{% block content %}{% endblock %}</main>
 
-        <div class="footer-socials">
-          <a href="https://www.linkedin.com/in/brian-newman-info/" aria-label="LinkedIn" rel="noreferrer" target="_blank">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003zM7.119 20.452H3.555V9h3.564v11.452zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zm15.11 13.019H16.89V14.87c0-1.333-.027-3.045-1.855-3.045-1.858 0-2.142 1.45-2.142 2.948v5.679H9.335V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"></path></svg>
-          </a>
-          <a href="https://x.com/newman_tech" aria-label="X" rel="noreferrer" target="_blank">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"></path></svg>
-          </a>
-        </div>
-
-        <p class="footer-copyright">© {{ current_year }} Brian Newman</p>
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-identity">
+        <strong>Brian Newman</strong>
+        <span>Engineer to Zero.</span>
       </div>
-    </footer>
-    {% block scripts %}{% endblock %}
-    {% if cloudflare_web_analytics_site_id %}
-    <script
-      type="module"
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token":"{{ cloudflare_web_analytics_site_id }}"}'
-    ></script>
-    {% endif %}
-  </body>
+
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="{{ url_for('privacy') }}">Privacy</a>
+        <a href="https://briannewman.info" rel="noreferrer">Portfolio ↗</a>
+        <a href="https://briannewman.info/blog" rel="noreferrer">Writing ↗</a>
+      </nav>
+
+      <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/brian-newman-info/" aria-label="LinkedIn" rel="noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003zM7.119 20.452H3.555V9h3.564v11.452zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zm15.11 13.019H16.89V14.87c0-1.333-.027-3.045-1.855-3.045-1.858 0-2.142 1.45-2.142 2.948v5.679H9.335V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z">
+            </path>
+          </svg>
+        </a>
+        <a href="https://x.com/newman_tech" aria-label="X" rel="noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z">
+            </path>
+          </svg>
+        </a>
+      </div>
+
+      <p class="footer-copyright">© {{ current_year }} Brian Newman</p>
+    </div>
+  </footer>
+  {% block scripts %}{% endblock %}
+  {% if cloudflare_web_analytics_site_id %}
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"{{ cloudflare_web_analytics_site_id }}"}'></script>
+  {% endif %}
+</body>
+
 </html>

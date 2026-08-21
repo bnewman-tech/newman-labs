@@ -177,6 +177,7 @@ async def test_houston_signal_product_renders_database_backed_views(
         app.dependency_overrides.clear()
 
     assert product_response.status_code == 200
+    product_page = " ".join(product_response.text.split())
     for expected_text in (
         "A daily public-data view of Houston service requests",
         'aria-selected="true" aria-controls="overview-panel"',
@@ -203,7 +204,7 @@ async def test_houston_signal_product_renders_database_backed_views(
         "Houston 311 and Houston Emergency Center data are ingested",
         "Schedules and observes both typed source ingests",
     ):
-        assert expected_text in product_response.text
+        assert expected_text in product_page
 
     assert map_response.status_code == 200
     assert map_response.headers["cache-control"] == ("public, max-age=300, stale-while-revalidate=60")

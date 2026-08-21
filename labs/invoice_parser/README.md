@@ -2,10 +2,11 @@
 
 Invoice Parser is a small, public document-extraction workflow. FastAPI validates
 one PDF and applies the pinned YARA gate before private staging. The production
-upload requires its shared access passcode, each polling request carries a signed
-job capability, and Prefect deployment concurrency rejects work beyond the
-configured capacity. Managed compute then runs DocFirewall, Docling, the generic
-document pipeline, and one
+upload requires its shared access passcode, and the application applies bounded
+process-local per-client limits with stricter policies for submissions and polling.
+Each polling request carries a signed job capability, and Prefect deployment
+concurrency rejects work beyond the configured capacity. Managed compute then
+runs DocFirewall, Docling, the generic document pipeline, and one
 Pydantic AI agent before returning a typed invoice and optional supplier match
 from the read-only fake ERP integration.
 
