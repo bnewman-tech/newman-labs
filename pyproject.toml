@@ -1,6 +1,7 @@
 [project]
 name = "newman-labs"
-version = "0.2.22"
+# Non-package metadata only; releases use Git tags.
+version = "0.0.0"
 description = "Public data products and engineering labs"
 readme = "README.md"
 requires-python = "==3.13.*"

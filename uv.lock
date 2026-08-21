@@ -2060,7 +2060,7 @@ wheels = [
 
 [[package]]
 name = "newman-labs"
-version = "0.2.22"
+version = "0.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "aiobotocore" },

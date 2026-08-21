@@ -1,23 +1,130 @@
 name: Release to Production
+run-name: Release Newman Labs (${{ inputs.bump }})
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version increment
+        required: true
+        default: patch
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 concurrency:
   group: release-to-production
   cancel-in-progress: false
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
-  release:
-    name: Release Newman Labs
-    if: ${{ !github.event.release.prerelease }}
+  prepare:
+    name: Prepare release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Prepare draft release
+        id: release
+        env:
+          BUMP: ${{ inputs.bump }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ "$GITHUB_REF" != "refs/heads/main" ]]; then
+            echo "Releases must run from main, not $GITHUB_REF" >&2
+            exit 1
+          fi
+
+          git fetch --no-tags origin main
+          if [[ "$(git rev-parse HEAD)" != "$(git rev-parse refs/remotes/origin/main)" ]]; then
+            echo "The selected commit is no longer the head of main" >&2
+            exit 1
+          fi
+
+          version_pattern='^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$'
+          mapfile -t current_tags < <(
+            git tag --points-at HEAD --list 'v*' --sort=-version:refname
+          )
+          if (( ${#current_tags[@]} > 1 )); then
+            echo "The release commit has multiple version tags" >&2
+            exit 1
+          fi
+
+          if (( ${#current_tags[@]} == 1 )); then
+            tag="${current_tags[0]}"
+            if [[ ! "$tag" =~ $version_pattern ]]; then
+              echo "The release commit has invalid version tag $tag" >&2
+              exit 1
+            fi
+            if [[ "$(gh release view "$tag" --json isDraft --jq .isDraft)" != "true" ]]; then
+              echo "$tag is already published" >&2
+              exit 1
+            fi
+            echo "Reusing draft release $tag"
+          else
+            latest_tag="$(
+              git tag --list 'v[0-9]*.[0-9]*.[0-9]*' \
+                --sort=-version:refname | head -n 1
+            )"
+            if [[ ! "$latest_tag" =~ $version_pattern ]]; then
+              echo "The latest version tag is missing or invalid: $latest_tag" >&2
+              exit 1
+            fi
+
+            major="${BASH_REMATCH[1]}"
+            minor="${BASH_REMATCH[2]}"
+            patch="${BASH_REMATCH[3]}"
+            case "$BUMP" in
+              major)
+                major=$((major + 1))
+                minor=0
+                patch=0
+                ;;
+              minor)
+                minor=$((minor + 1))
+                patch=0
+                ;;
+              patch)
+                patch=$((patch + 1))
+                ;;
+              *)
+                echo "Unsupported version increment: $BUMP" >&2
+                exit 1
+                ;;
+            esac
+            tag="v${major}.${minor}.${patch}"
+            gh release create "$tag" \
+              --draft \
+              --fail-on-no-commits \
+              --generate-notes \
+              --target "$GITHUB_SHA"
+          fi
+
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    name: Deploy ${{ needs.prepare.outputs.tag }}
+    needs: prepare
     runs-on: ubuntu-24.04
     timeout-minutes: 25
-    environment: prod
+    environment:
+      name: prod
+      url: https://labs.briannewman.info
+    permissions:
+      contents: read
 
     steps:
       - name: Check out release
@@ -25,16 +132,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+          ref: ${{ needs.prepare.outputs.tag }}
 
       - name: Verify release commit is on main
-        run: git merge-base --is-ancestor HEAD refs/remotes/origin/main
-
-      - name: Verify release version
         run: |
-          python_version="$(
-            python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])'
-          )"
-          test "$GITHUB_REF_NAME" = "v$python_version"
+          git merge-base --is-ancestor HEAD refs/remotes/origin/main
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
 
       - name: Set up Python and uv
         uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
@@ -119,3 +222,30 @@ jobs:
             --retry 10 --retry-delay 6 --retry-all-errors \
             https://labs.briannewman.info/static/css/site.css \
             > /dev/null
+
+  publish:
+    name: Publish ${{ needs.prepare.outputs.tag }}
+    needs: [prepare, deploy]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: Publish verified release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+        run: |
+          tag_sha="$(
+            gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$TAG" \
+              --jq .object.sha
+          )"
+          if [[ "$tag_sha" != "$GITHUB_SHA" ]]; then
+            echo "$TAG moved from $GITHUB_SHA to $tag_sha" >&2
+            exit 1
+          fi
+          gh release edit "$TAG" \
+            --draft=false \
+            --latest \
+            --repo "$GITHUB_REPOSITORY"
