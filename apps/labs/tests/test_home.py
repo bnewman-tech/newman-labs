@@ -24,6 +24,14 @@ async def test_labs_index_uses_shared_shell() -> None:
     assert "Houston public-service activity across 311 requests" in response.text
     assert "/static/images/brian-newman-wordmark-white-720.png" in response.text
     assert "/static/favicon.ico" in response.text
+    assert "/static/fonts/newsreader-latin-wght-normal.woff2" in response.text
+    assert 'rel="preload"' in response.text
+    assert 'as="font"' in response.text
+    assert "fonts.googleapis.com" not in response.text
+    assert "fonts.gstatic.com" not in response.text
+    assert "@font-face" in response.text
+    assert 'font-family: "Newsreader"' in response.text
+    assert 'font-family: "Manrope"' in response.text
     assert '<meta name="theme-color" content="#1a4164">' in response.text
     assert '<link rel="canonical" href="http://test/">' in response.text
     assert '<meta property="og:url" content="http://test/">' in response.text
@@ -158,6 +166,7 @@ async def test_privacy_notice_discloses_site_and_document_processing() -> None:
     assert "A separate consent checkbox is not required" in response.text
     assert "Cloudflare Web Analytics" in response.text
     assert "does not set analytics cookies" in response.text
+    assert "typefaces from Google Fonts" not in response.text
     assert "strictly functional, 30-day browser cookie" not in response.text
     assert "Storage and retention" not in response.text
     assert "30-day default retention" not in response.text

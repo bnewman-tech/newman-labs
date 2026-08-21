@@ -125,6 +125,11 @@ library policy stays with its owning library. Prefect Secret blocks are canonica
 for database, object-storage, Logfire, and AI-provider credentials; consumers load
 their own credential when constructing the connection or client.
 
+`apps/labs` applies bounded process-local per-client request limits before reading
+request bodies. Health checks and static assets are exempt; expensive API paths
+carry stricter policies. This is lightweight single-process abuse protection, not
+a distributed quota or denial-of-service boundary.
+
 FastAPI Cloud stores only `ENVIRONMENT`, `PREFECT_API_URL`, and
 `PREFECT_API_KEY`. Supported environments are `dev` and `prod`.
 

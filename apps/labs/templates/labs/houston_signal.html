@@ -1,16 +1,18 @@
 {% extends "layouts/base.html" %}
 
 {% block title %}Houston Signal · Newman Labs{% endblock %}
-{% block description %}Explore Houston's current 311 source feed and the Houston Emergency Center active-incident snapshot.{% endblock %}
+{% block description %}Explore Houston's current 311 source feed and the Houston Emergency Center active-incident
+snapshot.{% endblock %}
 {% block body_class %}site-signal{% endblock %}
 
 {% block head %}
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""
->
+<link rel="preload" as="style" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""
+  onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</noscript>
 {% endblock %}
 
 {% block content %}
@@ -27,20 +29,25 @@
     </div>
     <div>
       <dt>Refreshed</dt>
-      <dd>{{ data.source_refreshed_at.strftime('%b %d · %H:%M UTC') if data.source_refreshed_at else "Not available" }}</dd>
+      <dd>{{ data.source_refreshed_at.strftime('%b %d · %H:%M UTC') if data.source_refreshed_at else "Not available" }}
+      </dd>
     </div>
     <div>
       <dt>Pipeline</dt>
-      <dd><span class="status-dot status-{{ platform.status }}" aria-hidden="true"></span>{{ platform.status.replace('_', ' ') | title }}</dd>
+      <dd><span class="status-dot status-{{ platform.status }}" aria-hidden="true"></span>{{
+        platform.status.replace('_', ' ') | title }}</dd>
     </div>
   </dl>
 </header>
 
 <nav class="product-tabs" aria-label="Houston Signal views" role="tablist">
   <div class="section-shell">
-    <button type="button" role="tab" aria-selected="true" aria-controls="overview-panel" id="overview-tab" data-tab="overview">Overview</button>
-    <button type="button" role="tab" aria-selected="false" aria-controls="map-panel" id="map-tab" data-tab="map" tabindex="-1">Map</button>
-    <button type="button" role="tab" aria-selected="false" aria-controls="pipeline-panel" id="pipeline-tab" data-tab="pipeline" tabindex="-1">Pipeline</button>
+    <button type="button" role="tab" aria-selected="true" aria-controls="overview-panel" id="overview-tab"
+      data-tab="overview">Overview</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="map-panel" id="map-tab" data-tab="map"
+      tabindex="-1">Map</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pipeline-panel" id="pipeline-tab"
+      data-tab="pipeline" tabindex="-1">Pipeline</button>
   </div>
 </nav>
 
@@ -81,21 +88,22 @@
     </form>
 
     <div class="map-layout">
-      <div
-        id="houston-map"
-        class="request-map"
-        data-map
-        data-endpoint="{{ url_for('houston_signal_map_data') }}"
-        aria-label="Interactive map of recent Houston 311 requests"
-      ></div>
+      <div id="houston-map" class="request-map" data-map data-endpoint="{{ url_for('houston_signal_map_data') }}"
+        aria-label="Interactive map of recent Houston 311 requests"></div>
       <aside class="map-context" aria-live="polite">
         <section class="map-summary" aria-label="Filtered map summary">
           <p class="eyebrow">Matching requests</p>
           <strong data-map-count>Loading…</strong>
           <p data-map-note>Loading recent geocoded requests.</p>
           <dl>
-            <div><dt>Mapped cells</dt><dd data-map-cell-count>—</dd></div>
-            <div><dt>Still open</dt><dd data-map-open-count>—</dd></div>
+            <div>
+              <dt>Mapped cells</dt>
+              <dd data-map-cell-count>—</dd>
+            </div>
+            <div>
+              <dt>Still open</dt>
+              <dd data-map-open-count>—</dd>
+            </div>
           </dl>
         </section>
         <section class="map-selection" aria-label="Selected map cell">
@@ -114,73 +122,99 @@
           <span><b>Lower</b><b>Higher</b></span>
           <em><i aria-hidden="true"></i> Selected cell</em>
         </div>
-        <p class="map-privacy">Locations are rounded to approximately 1 km. Exact addresses and source coordinates are not published.</p>
+        <p class="map-privacy">Locations are rounded to approximately 1 km. Exact addresses and source coordinates are
+          not published.</p>
       </aside>
     </div>
   </section>
 
-  <section id="overview-panel" class="tab-panel" role="tabpanel" aria-labelledby="overview-tab" data-tab-panel="overview">
+  <section id="overview-panel" class="tab-panel" role="tabpanel" aria-labelledby="overview-tab"
+    data-tab-panel="overview">
     <section class="metric-band" aria-labelledby="houston-311-summary-heading">
       <div class="metric-band-heading section-shell">
         <div>
           <p class="eyebrow">Houston 311 · current published feed</p>
           <h2 id="houston-311-summary-heading">What Houston is publishing now</h2>
         </div>
-        <p>All open cases plus cases closed in the last two weeks. This is a current source snapshot, not a complete historical count.</p>
+        <p>All open cases plus cases closed in the last two weeks. This is a current source snapshot, not a complete
+          historical count.</p>
       </div>
       <dl class="section-shell">
         <div>
           <dt>Cases in the current feed</dt>
-          <dd>{{ "{:,}".format(data.current_cases) }}</dd>
-          <small>{{ "{:,}".format(data.open_cases) }} are still open</small>
+          <dd>{{ "{:,}".format(data.current_cases) }}<small>{{ "{:,}".format(data.open_cases) }} are still open</small>
+          </dd>
         </div>
         <div>
           <dt>Created in the latest 30 days</dt>
-          <dd>{{ "{:,}".format(data.visible_cases_last_30_days) }}</dd>
-          <small>Through {{ data.latest_request_date.strftime('%B %d, %Y') if data.latest_request_date else "the latest source date" }}</small>
+          <dd>{{ "{:,}".format(data.visible_cases_last_30_days) }}<small>Through {{
+              data.latest_request_date.strftime('%B %d, %Y') if data.latest_request_date else "the latest source date"
+              }}</small></dd>
         </div>
         <div>
           <dt>Closed among those cases</dt>
-          <dd>{{ data.visible_closed_percent_last_30_days }}<span>%</span></dd>
-          <small>Among cases from the same 30-day window that remain in the feed</small>
+          <dd>{{ data.visible_closed_percent_last_30_days }}<span>%</span><small>Among cases from the same 30-day window
+              that remain in the feed</small></dd>
         </div>
         <div>
           <dt>Median time to close</dt>
           <dd class="metric-compact">
             {% if data.visible_closure_median_hours_last_90_days is none %}
-              Not available
+            Not available
             {% elif data.visible_closure_median_hours_last_90_days >= 48 %}
-              {{ (data.visible_closure_median_hours_last_90_days / 24) | round(1) }}<span> days</span>
+            {{ (data.visible_closure_median_hours_last_90_days / 24) | round(1) }}<span> days</span>
             {% else %}
-              {{ data.visible_closure_median_hours_last_90_days | round(1) }}<span> hrs</span>
+            {{ data.visible_closure_median_hours_last_90_days | round(1) }}<span> hrs</span>
             {% endif %}
+            <small>Among closed cases still in the feed from the latest 90 days</small>
           </dd>
-          <small>Among closed cases still in the feed from the latest 90 days</small>
         </div>
       </dl>
     </section>
 
-    <section class="houston-emergency-center-overview section-shell reveal" aria-labelledby="houston-emergency-center-heading">
+    <section class="houston-emergency-center-overview section-shell reveal"
+      aria-labelledby="houston-emergency-center-heading">
       <div class="houston-emergency-center-summary">
         <p class="eyebrow">Houston Emergency Center · active snapshot</p>
-        <h2 id="houston-emergency-center-heading">{{ "{:,}".format(data.houston_emergency_center.active_incidents) }} active incidents</h2>
-        <p class="houston-emergency-center-intro">Houston publishes active Fire and Police calls. Houston Signal retains each incident it sees for 365 days.</p>
+        <h2 id="houston-emergency-center-heading">{{ "{:,}".format(data.houston_emergency_center.active_incidents) }}
+          active incidents</h2>
+        <p class="houston-emergency-center-intro">Houston publishes active Fire and Police calls. Houston Signal retains
+          each incident it sees for 365 days.</p>
         <dl>
-          <div><dt>Retained by Houston Signal</dt><dd>{{ "{:,}".format(data.houston_emergency_center.retained_incidents) }}</dd></div>
-          <div><dt>Active Fire calls</dt><dd>{{ "{:,}".format(data.houston_emergency_center.active_fire_incidents) }}</dd></div>
-          <div><dt>Active Police calls</dt><dd>{{ "{:,}".format(data.houston_emergency_center.active_police_incidents) }}</dd></div>
-          <div><dt>Latest active call opened</dt><dd>{{ data.houston_emergency_center.latest_incident_at.strftime('%b %d · %H:%M') if data.houston_emergency_center.latest_incident_at else 'Not available' }}</dd></div>
-          <div><dt>Source refreshed</dt><dd>{{ data.houston_emergency_center.refreshed_at.strftime('%b %d · %H:%M UTC') if data.houston_emergency_center.refreshed_at else 'Not available' }}</dd></div>
+          <div>
+            <dt>Retained by Houston Signal</dt>
+            <dd>{{ "{:,}".format(data.houston_emergency_center.retained_incidents) }}</dd>
+          </div>
+          <div>
+            <dt>Active Fire calls</dt>
+            <dd>{{ "{:,}".format(data.houston_emergency_center.active_fire_incidents) }}</dd>
+          </div>
+          <div>
+            <dt>Active Police calls</dt>
+            <dd>{{ "{:,}".format(data.houston_emergency_center.active_police_incidents) }}</dd>
+          </div>
+          <div>
+            <dt>Latest active call opened</dt>
+            <dd>{{ data.houston_emergency_center.latest_incident_at.strftime('%b %d · %H:%M') if
+              data.houston_emergency_center.latest_incident_at else 'Not available' }}</dd>
+          </div>
+          <div>
+            <dt>Source refreshed</dt>
+            <dd>{{ data.houston_emergency_center.refreshed_at.strftime('%b %d · %H:%M UTC') if
+              data.houston_emergency_center.refreshed_at else 'Not available' }}</dd>
+          </div>
         </dl>
         <p class="houston-emergency-center-warning">{{ data.houston_emergency_center.coverage_warning }}</p>
       </div>
       <div class="houston-emergency-center-types">
         <p class="eyebrow">Current call types</p>
-        {% set max_houston_emergency_center_type = (data.houston_emergency_center.incident_types | map(attribute='request_count') | max) if data.houston_emergency_center.incident_types else 1 %}
+        {% set max_houston_emergency_center_type = (data.houston_emergency_center.incident_types |
+        map(attribute='request_count') | max) if data.houston_emergency_center.incident_types else 1 %}
         <ol class="ranked-list">
           {% for item in data.houston_emergency_center.incident_types %}
           <li style="--bar-size: {{ (item.request_count / max_houston_emergency_center_type * 100) | round(1) }}%">
-            <div><span>{{ "%02d" | format(loop.index) }}</span><strong>{{ item.label }}</strong><b>{{ "{:,}".format(item.request_count) }}</b></div>
+            <div><span>{{ "%02d" | format(loop.index) }}</span><strong>{{ item.label }}</strong><b>{{
+                "{:,}".format(item.request_count) }}</b></div>
             <i aria-hidden="true"></i>
           </li>
           {% else %}
@@ -203,7 +237,8 @@
         <span><i class="legend-request"></i> Visible cases</span>
         <span><i class="legend-closed"></i> Recently closed</span>
       </div>
-      <div class="trend-chart" data-trend-chart role="img" aria-label="Houston 311 cases visible in the current source snapshot by creation date"></div>
+      <div class="trend-chart" data-trend-chart role="img"
+        aria-label="Houston 311 cases visible in the current source snapshot by creation date"></div>
     </section>
 
     <section class="breakdown-grid section-shell reveal">
@@ -211,13 +246,16 @@
         <div class="breakdown-heading">
           <p class="eyebrow">Request types</p>
           <h2>Top request types</h2>
-          <p>Created in the 30 days ending {{ data.latest_request_date.strftime('%B %d, %Y') if data.latest_request_date else "the latest source date" }}.</p>
+          <p>Created in the 30 days ending {{ data.latest_request_date.strftime('%B %d, %Y') if data.latest_request_date
+            else "the latest source date" }}.</p>
         </div>
-        {% set max_case_type = (data.top_case_types | map(attribute='request_count') | max) if data.top_case_types else 1 %}
+        {% set max_case_type = (data.top_case_types | map(attribute='request_count') | max) if data.top_case_types else
+        1 %}
         <ol class="ranked-list">
           {% for item in data.top_case_types %}
           <li style="--bar-size: {{ (item.request_count / max_case_type * 100) | round(1) }}%">
-            <div><span>{{ "%02d" | format(loop.index) }}</span><strong>{{ item.label }}</strong><b>{{ "{:,}".format(item.request_count) }}</b></div>
+            <div><span>{{ "%02d" | format(loop.index) }}</span><strong>{{ item.label }}</strong><b>{{
+                "{:,}".format(item.request_count) }}</b></div>
             <i aria-hidden="true"></i>
           </li>
           {% else %}
@@ -231,13 +269,15 @@
           <h2>Council districts</h2>
           <p>Request volume in the same 30-day period.</p>
         </div>
-        {% set max_district = (data.district_activity | map(attribute='request_count') | max) if data.district_activity else 1 %}
+        {% set max_district = (data.district_activity | map(attribute='request_count') | max) if data.district_activity
+        else 1 %}
         <ol class="ranked-list ranked-list-districts">
           {% for item in data.district_activity %}
           <li style="--bar-size: {{ (item.request_count / max_district * 100) | round(1) }}%">
             <div>
               <span>{{ "%02d" | format(loop.index) }}</span>
-              <strong>{% if item.label == "Unknown" %}Unknown district{% else %}District {{ item.label }}{% endif %}</strong>
+              <strong>{% if item.label == "Unknown" %}Unknown district{% else %}District {{ item.label }}{% endif
+                %}</strong>
               <b>{{ "{:,}".format(item.request_count) }}</b>
             </div>
             <i aria-hidden="true"></i>
@@ -250,7 +290,8 @@
     </section>
   </section>
 
-  <section id="pipeline-panel" class="tab-panel" role="tabpanel" aria-labelledby="pipeline-tab" data-tab-panel="pipeline" hidden>
+  <section id="pipeline-panel" class="tab-panel" role="tabpanel" aria-labelledby="pipeline-tab"
+    data-tab-panel="pipeline" hidden>
     <section class="pipeline-intro section-shell">
       <div>
         <p class="eyebrow">Pipeline status</p>
@@ -261,12 +302,24 @@
 
     <section class="source-status section-shell" aria-labelledby="source-status-heading">
       <div class="section-heading section-heading-compact">
-        <div><p class="eyebrow">Source health</p><h2 id="source-status-heading">Latest committed loads</h2></div>
+        <div>
+          <p class="eyebrow">Source health</p>
+          <h2 id="source-status-heading">Latest committed loads</h2>
+        </div>
         <p>Each source owns its extraction cadence. Both publish through the same PostgreSQL and dbt foundation.</p>
       </div>
       <div class="table-scroll">
         <table>
-          <thead><tr><th>Source</th><th>Status</th><th>Completed</th><th>Extracted</th><th>Changed</th><th>Watermark</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Status</th>
+              <th>Completed</th>
+              <th>Extracted</th>
+              <th>Changed</th>
+              <th>Watermark</th>
+            </tr>
+          </thead>
           <tbody>
             {% for source in platform.sources %}
             <tr>
@@ -278,7 +331,9 @@
               <td>{{ source.current_watermark or 'Not available' }}</td>
             </tr>
             {% else %}
-            <tr><td colspan="6">No source runs recorded.</td></tr>
+            <tr>
+              <td colspan="6">No source runs recorded.</td>
+            </tr>
             {% endfor %}
           </tbody>
         </table>
@@ -289,8 +344,10 @@
     <section class="pipeline-metrics section-shell" aria-label="Latest source ingestion run">
       <div>
         <span>Latest run</span>
-        <strong class="pipeline-metric-text"><i class="status-dot status-{{ platform.status }}" aria-hidden="true"></i>{{ platform.status.replace('_', ' ') | title }}</strong>
-        <small>{{ latest_run.completed_at.strftime('%b %d, %Y · %H:%M UTC') if latest_run else 'Waiting for the first committed load' }}</small>
+        <strong class="pipeline-metric-text"><i class="status-dot status-{{ platform.status }}"
+            aria-hidden="true"></i>{{ platform.status.replace('_', ' ') | title }}</strong>
+        <small>{{ latest_run.completed_at.strftime('%b %d, %Y · %H:%M UTC') if latest_run else 'Waiting for the first
+          committed load' }}</small>
       </div>
       <div>
         <span>Source</span>
@@ -315,13 +372,11 @@
           <p class="eyebrow">Data path</p>
           <h2 id="pipeline-flow-heading">Two sources, one reporting model.</h2>
         </div>
-        <p>Prefect schedules both ingests. PostgreSQL persists validated source rows, dbt transforms them, and Houston Signal queries the shared fact.</p>
+        <p>Prefect schedules both ingests. PostgreSQL persists validated source rows, dbt transforms them, and Houston
+          Signal queries the shared fact.</p>
       </div>
-      <figure
-        class="pipeline-diagram"
-        data-pipeline-diagram
-        aria-label="Houston 311 and Houston Emergency Center data are ingested into PostgreSQL, transformed by dbt, and reported through Houston Signal. Prefect schedules and observes both ingests."
-      >
+      <figure class="pipeline-diagram" data-pipeline-diagram
+        aria-label="Houston 311 and Houston Emergency Center data are ingested into PostgreSQL, transformed by dbt, and reported through Houston Signal. Prefect schedules and observes both ingests.">
         <div class="pipeline-orchestrator">
           <span><i aria-hidden="true"></i> Orchestration</span>
           <strong>Prefect</strong>
@@ -374,12 +429,30 @@
       <div>
         <p class="eyebrow">Latest row accounting</p>
         <dl class="status-list">
-          <div><dt>Inserted</dt><dd>{{ "{:,}".format(latest_run.inserted_rows) }}</dd></div>
-          <div><dt>Updated</dt><dd>{{ "{:,}".format(latest_run.updated_rows) }}</dd></div>
-          <div><dt>Unchanged</dt><dd>{{ "{:,}".format(latest_run.unchanged_rows) }}</dd></div>
-          <div><dt>Deactivated</dt><dd>{{ "{:,}".format(latest_run.deactivated_rows) }}</dd></div>
-          <div><dt>Deleted by retention</dt><dd>{{ "{:,}".format(latest_run.deleted_rows) }}</dd></div>
-          <div><dt>Current watermark</dt><dd>{{ latest_run.current_watermark or 'Not available' }}</dd></div>
+          <div>
+            <dt>Inserted</dt>
+            <dd>{{ "{:,}".format(latest_run.inserted_rows) }}</dd>
+          </div>
+          <div>
+            <dt>Updated</dt>
+            <dd>{{ "{:,}".format(latest_run.updated_rows) }}</dd>
+          </div>
+          <div>
+            <dt>Unchanged</dt>
+            <dd>{{ "{:,}".format(latest_run.unchanged_rows) }}</dd>
+          </div>
+          <div>
+            <dt>Deactivated</dt>
+            <dd>{{ "{:,}".format(latest_run.deactivated_rows) }}</dd>
+          </div>
+          <div>
+            <dt>Deleted by retention</dt>
+            <dd>{{ "{:,}".format(latest_run.deleted_rows) }}</dd>
+          </div>
+          <div>
+            <dt>Current watermark</dt>
+            <dd>{{ latest_run.current_watermark or 'Not available' }}</dd>
+          </div>
         </dl>
       </div>
     </section>
@@ -387,12 +460,24 @@
 
     <section class="run-history section-shell reveal" aria-labelledby="run-history-heading">
       <div class="section-heading section-heading-compact">
-        <div><p class="eyebrow">Database audit</p><h2 id="run-history-heading">Recent ingestion runs</h2></div>
+        <div>
+          <p class="eyebrow">Database audit</p>
+          <h2 id="run-history-heading">Recent ingestion runs</h2>
+        </div>
         <p>Audit rows are committed with their source load.</p>
       </div>
       <div class="table-scroll">
         <table>
-          <thead><tr><th>Completed</th><th>Source</th><th>Status</th><th>Extracted</th><th>Loaded</th><th>Changed</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Completed</th>
+              <th>Source</th>
+              <th>Status</th>
+              <th>Extracted</th>
+              <th>Loaded</th>
+              <th>Changed</th>
+            </tr>
+          </thead>
           <tbody>
             {% for run in platform.run_history %}
             <tr>
@@ -404,7 +489,9 @@
               <td>{{ "{:,}".format(run.changed_rows) }}</td>
             </tr>
             {% else %}
-            <tr><td colspan="6">No ingestion runs recorded.</td></tr>
+            <tr>
+              <td colspan="6">No ingestion runs recorded.</td>
+            </tr>
             {% endfor %}
           </tbody>
         </table>
@@ -422,13 +509,16 @@
     </div>
     <p>
       Derived from the City of Houston
-      <a href="https://mycity2.houstontx.gov/pubgis01/rest/services/311/Houston311_RecentServiceRequests/FeatureServer" rel="noreferrer">311 Recent Service Requests feed</a>
+      <a href="https://mycity2.houstontx.gov/pubgis01/rest/services/311/Houston311_RecentServiceRequests/FeatureServer"
+        rel="noreferrer">311 Recent Service Requests feed</a>
       and the public
-      <a href="https://mycity2.houstontx.gov/pubgis01/rest/services/HEC/HEC_Active_Incidents/MapServer/0" rel="noreferrer">Houston Emergency Center active-incident layer</a>, including Fire and Police records.
+      <a href="https://mycity2.houstontx.gov/pubgis01/rest/services/HEC/HEC_Active_Incidents/MapServer/0"
+        rel="noreferrer">Houston Emergency Center active-incident layer</a>, including Fire and Police records.
       Map data and tiles are ©
       <a href="https://www.openstreetmap.org/copyright" rel="noreferrer">OpenStreetMap contributors</a>.
     </p>
-    <p>Source feeds may be incomplete, delayed, corrected, or removed. Locations are intentionally reduced in precision and must not be used for emergency response, outreach, insurance, or safety decisions.</p>
+    <p>Source feeds may be incomplete, delayed, corrected, or removed. Locations are intentionally reduced in precision
+      and must not be used for emergency response, outreach, insurance, or safety decisions.</p>
   </section>
 </div>
 
@@ -436,10 +526,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-  crossorigin=""
-></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="{{ url_for('static', path='/js/houston-signal.js') }}?v={{ asset_version }}" defer></script>
 {% endblock %}

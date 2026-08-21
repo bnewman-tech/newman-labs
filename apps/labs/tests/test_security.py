@@ -12,6 +12,7 @@ from pydantic import SecretStr
 from apps.labs import main
 from apps.labs.main import app, lifespan
 from apps.labs.security import RequestBodyLimitMiddleware, create_passcode_token
+from apps.labs.templating import ASSET_VERSION
 from libs.core.dependencies import EnvironmentMode, settings
 from libs.database.functions import DatabaseRole
 
@@ -26,6 +27,44 @@ async def test_application_rejects_unknown_hosts() -> None:
         response = await client.get("/health/live")
 
     assert response.status_code == 400
+
+
+async def test_static_assets_use_immutable_cache_headers() -> None:
+    """Current versioned assets advertise a long-lived immutable cache."""
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.get(
+            "/static/css/site.css",
+            params={"v": ASSET_VERSION},
+        )
+
+    assert response.status_code == 200
+    assert response.headers["cache-control"] == "public, max-age=31536000, immutable"
+
+
+async def test_unversioned_static_assets_revalidate_after_a_short_cache() -> None:
+    """Unversioned and stale-version assets cannot remain immutable across releases."""
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        unversioned = await client.get("/static/css/site.css")
+        stale_version = await client.get("/static/css/site.css", params={"v": "stale"})
+        untracked_asset = await client.get(
+            "/static/demos/invoice-basic.json",
+            params={"v": ASSET_VERSION},
+        )
+        revalidated = await client.get(
+            "/static/css/site.css",
+            headers={"If-None-Match": unversioned.headers["etag"]},
+        )
+
+    assert unversioned.status_code == 200
+    assert unversioned.headers["cache-control"] == "public, max-age=300, must-revalidate"
+    assert stale_version.status_code == 200
+    assert stale_version.headers["cache-control"] == "public, max-age=300, must-revalidate"
+    assert untracked_asset.status_code == 200
+    assert untracked_asset.headers["cache-control"] == "public, max-age=300, must-revalidate"
+    assert revalidated.status_code == 304
+    assert revalidated.headers["cache-control"] == "public, max-age=300, must-revalidate"
 
 
 async def test_application_sets_browser_security_headers() -> None:
@@ -49,6 +88,7 @@ async def test_public_demo_pdfs_allow_same_origin_viewer() -> None:
         response = await client.get("/static/demos/invoice-supplier-match.pdf")
 
     assert response.status_code == 200
+    assert response.headers["cache-control"] == "public, max-age=300, must-revalidate"
     assert response.headers["content-security-policy"] == ("base-uri 'self'; frame-ancestors 'self'; object-src 'none'")
     assert "x-frame-options" not in response.headers
 

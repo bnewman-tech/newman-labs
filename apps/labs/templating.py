@@ -12,19 +12,19 @@ from libs.core.dependencies import EnvironmentMode, settings
 
 APP_DIRECTORY = Path(__file__).resolve().parent
 STATIC_DIRECTORY = APP_DIRECTORY / "static"
+VERSIONED_ASSET_PATHS = (
+    "/css/site.css",
+    "/css/invoice-parser.css",
+    "/css/invoice-presentation.css",
+    "/js/site.js",
+    "/js/houston-signal.js",
+    "/js/invoice-parser.js",
+    "/js/invoice-presentation.js",
+    "/fonts/manrope-latin-wght-normal.woff2",
+    "/fonts/newsreader-latin-wght-normal.woff2",
+)
 ASSET_VERSION = sha256(
-    b"".join(
-        path.read_bytes()
-        for path in (
-            STATIC_DIRECTORY / "css" / "site.css",
-            STATIC_DIRECTORY / "css" / "invoice-parser.css",
-            STATIC_DIRECTORY / "css" / "invoice-presentation.css",
-            STATIC_DIRECTORY / "js" / "site.js",
-            STATIC_DIRECTORY / "js" / "houston-signal.js",
-            STATIC_DIRECTORY / "js" / "invoice-parser.js",
-            STATIC_DIRECTORY / "js" / "invoice-presentation.js",
-        )
-    )
+    b"".join((STATIC_DIRECTORY / path.removeprefix("/")).read_bytes() for path in VERSIONED_ASSET_PATHS)
 ).hexdigest()[:12]
 
 

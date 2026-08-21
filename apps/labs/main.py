@@ -13,6 +13,7 @@ from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from apps.labs.errors import database_unavailable
+from apps.labs.rate_limiting import InMemoryRateLimiter, RateLimitMiddleware
 from apps.labs.routes import (
     health,
     home,
@@ -71,9 +72,13 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(title="Newman Labs", lifespan=lifespan)
 app.state.invoice_parser_access_token = secrets.token_hex(32)
+app.state.rate_limiter = InMemoryRateLimiter()
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=ALLOWED_HOSTS)
 app.add_middleware(GZipMiddleware, minimum_size=1_000, compresslevel=6)
 app.add_middleware(RequestBodyLimitMiddleware, max_body_bytes=MAX_REQUEST_BODY_BYTES)
+# Registered after body-limit so Starlette LIFO runs it first and can reject
+# rate-limited requests without buffering multipart bodies.
+app.add_middleware(RateLimitMiddleware)
 app.middleware("http")(add_security_headers)
 app.add_exception_handler(SQLAlchemyError, database_unavailable)
 app.mount(

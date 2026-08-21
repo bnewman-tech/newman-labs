@@ -5,13 +5,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from labs.houston_signal.schemas import (
     ActivityBreakdown,
-    DailyActivity,
-    HoustonEmergencyCenterOverview,
     HoustonSignalMapData,
     HoustonSignalMapFilterOptions,
     HoustonSignalOverview,
     HoustonSignalPlatformStatus,
-    IngestionRun,
     MapCellFeature,
     MapCellGeometry,
     MapCellProperties,
@@ -26,173 +23,214 @@ async def get_houston_signal_overview(
     session: AsyncSession,
 ) -> HoustonSignalOverview:
     """Load dashboard measures from the Houston Signal fact."""
-    summary_result = await session.execute(
+    result = await session.execute(
         text(
             """
             WITH latest_source AS (
                 SELECT max(activity_at) AS latest_activity_at
                 FROM analytics_houston_signal.fact_houston_activity
                 WHERE source_name = 'houston_311'
-            )
-            SELECT
-                count(*) AS current_cases,
-                count(*) FILTER (WHERE is_active) AS open_cases,
-                count(*) FILTER (
-                    WHERE activity_at >=
-                        (SELECT latest_activity_at FROM latest_source)
-                        - interval '29 days'
-                ) AS visible_cases_last_30_days,
-                coalesce(
-                    round(
-                        100.0 * count(*) FILTER (
-                            WHERE activity_at >=
-                                (SELECT latest_activity_at FROM latest_source)
-                                - interval '29 days'
-                              AND closed_at IS NOT NULL
-                        ) / nullif(
-                            count(*) FILTER (
+            ),
+            summary AS (
+                SELECT
+                    count(*) AS current_cases,
+                    count(*) FILTER (WHERE is_active) AS open_cases,
+                    count(*) FILTER (
+                        WHERE activity_at >=
+                            (SELECT latest_activity_at FROM latest_source)
+                            - interval '29 days'
+                    ) AS visible_cases_last_30_days,
+                    coalesce(
+                        round(
+                            100.0 * count(*) FILTER (
                                 WHERE activity_at >=
                                     (SELECT latest_activity_at FROM latest_source)
                                     - interval '29 days'
+                                  AND closed_at IS NOT NULL
+                            ) / nullif(
+                                count(*) FILTER (
+                                    WHERE activity_at >=
+                                        (SELECT latest_activity_at FROM latest_source)
+                                        - interval '29 days'
+                                ),
+                                0
                             ),
-                            0
+                            1
                         ),
-                        1
+                        0
+                    ) AS visible_closed_percent_last_30_days,
+                    percentile_cont(0.5) WITHIN GROUP (
+                        ORDER BY extract(epoch FROM (closed_at - activity_at)) / 3600
+                    ) FILTER (
+                        WHERE activity_at >=
+                            (SELECT latest_activity_at FROM latest_source)
+                            - interval '89 days'
+                          AND closed_at >= activity_at
+                    ) AS visible_closure_median_hours_last_90_days,
+                    max(activity_at)::date AS latest_request_date,
+                    max(source_refreshed_at) AS source_refreshed_at
+                FROM analytics_houston_signal.fact_houston_activity
+                WHERE source_name = 'houston_311'
+            ),
+            daily AS (
+                SELECT coalesce(
+                    jsonb_agg(
+                        jsonb_build_object(
+                            'request_date', request_date,
+                            'request_count', request_count,
+                            'closed_request_count', closed_request_count
+                        )
+                        ORDER BY request_date
                     ),
-                    0
-                ) AS visible_closed_percent_last_30_days,
-                percentile_cont(0.5) WITHIN GROUP (
-                    ORDER BY extract(epoch FROM (closed_at - activity_at)) / 3600
-                ) FILTER (
-                    WHERE activity_at >=
-                        (SELECT latest_activity_at FROM latest_source)
-                        - interval '89 days'
-                      AND closed_at >= activity_at
-                ) AS visible_closure_median_hours_last_90_days,
-                max(activity_at)::date AS latest_request_date,
-                max(source_refreshed_at) AS source_refreshed_at
-            FROM analytics_houston_signal.fact_houston_activity
-            WHERE source_name = 'houston_311'
-            """
-        )
-    )
-    summary = dict(summary_result.mappings().one())
-
-    daily_result = await session.execute(
-        text(
-            """
+                    '[]'::jsonb
+                ) AS daily_activity
+                FROM (
+                    SELECT
+                        activity_at::date AS request_date,
+                        count(*)::integer AS request_count,
+                        count(*) FILTER (WHERE closed_at IS NOT NULL)::integer
+                            AS closed_request_count
+                    FROM analytics_houston_signal.fact_houston_activity
+                    WHERE source_name = 'houston_311'
+                      AND activity_at >= (
+                          SELECT latest_activity_at - interval '364 days'
+                          FROM latest_source
+                      )
+                    GROUP BY activity_at::date
+                ) daily_rows
+            ),
+            case_types AS (
+                SELECT coalesce(
+                    jsonb_agg(
+                        jsonb_build_object(
+                            'label', label,
+                            'request_count', request_count
+                        )
+                        ORDER BY request_count DESC, label
+                    ),
+                    '[]'::jsonb
+                ) AS top_case_types
+                FROM (
+                    SELECT
+                        coalesce(activity_type, 'Unclassified') AS label,
+                        count(*)::integer AS request_count
+                    FROM analytics_houston_signal.fact_houston_activity
+                    WHERE source_name = 'houston_311'
+                      AND activity_at >= (
+                          SELECT latest_activity_at - interval '29 days'
+                          FROM latest_source
+                      )
+                    GROUP BY coalesce(activity_type, 'Unclassified')
+                    ORDER BY request_count DESC, label
+                    LIMIT 8
+                ) case_type_rows
+            ),
+            districts AS (
+                SELECT coalesce(
+                    jsonb_agg(
+                        jsonb_build_object(
+                            'label', label,
+                            'request_count', request_count
+                        )
+                        ORDER BY request_count DESC, label
+                    ),
+                    '[]'::jsonb
+                ) AS district_activity
+                FROM (
+                    SELECT
+                        coalesce(council_district, 'Unknown') AS label,
+                        count(*)::integer AS request_count
+                    FROM analytics_houston_signal.fact_houston_activity
+                    WHERE source_name = 'houston_311'
+                      AND activity_at >= (
+                          SELECT latest_activity_at - interval '29 days'
+                          FROM latest_source
+                      )
+                    GROUP BY coalesce(council_district, 'Unknown')
+                ) district_rows
+            ),
+            emergency AS (
+                SELECT
+                    count(*)::integer AS retained_incidents,
+                    count(*) FILTER (WHERE is_active)::integer AS active_incidents,
+                    count(*) FILTER (
+                        WHERE is_active AND agency = 'F'
+                    )::integer AS active_fire_incidents,
+                    count(*) FILTER (
+                        WHERE is_active AND agency = 'P'
+                    )::integer AS active_police_incidents,
+                    max(activity_at) FILTER (WHERE is_active) AS latest_incident_at,
+                    max(source_refreshed_at) AS refreshed_at
+                FROM analytics_houston_signal.fact_houston_activity
+                WHERE source_name = 'houston_emergency_center'
+            ),
+            emergency_types AS (
+                SELECT coalesce(
+                    jsonb_agg(
+                        jsonb_build_object(
+                            'label', label,
+                            'request_count', request_count
+                        )
+                        ORDER BY request_count DESC, label
+                    ),
+                    '[]'::jsonb
+                ) AS incident_types
+                FROM (
+                    SELECT
+                        activity_type AS label,
+                        count(*)::integer AS request_count
+                    FROM analytics_houston_signal.fact_houston_activity
+                    WHERE source_name = 'houston_emergency_center'
+                      AND is_active
+                    GROUP BY activity_type
+                    ORDER BY request_count DESC, activity_type
+                    LIMIT 6
+                ) emergency_type_rows
+            )
             SELECT
-                activity_at::date AS request_date,
-                count(*)::integer AS request_count,
-                count(*) FILTER (WHERE closed_at IS NOT NULL)::integer
-                    AS closed_request_count
-            FROM analytics_houston_signal.fact_houston_activity
-            WHERE source_name = 'houston_311'
-              AND activity_at >= (
-                  SELECT max(activity_at) - interval '364 days'
-                  FROM analytics_houston_signal.fact_houston_activity
-                  WHERE source_name = 'houston_311'
-              )
-            GROUP BY activity_at::date
-            ORDER BY request_date
+                summary.current_cases,
+                summary.open_cases,
+                summary.visible_cases_last_30_days,
+                summary.visible_closed_percent_last_30_days,
+                summary.visible_closure_median_hours_last_90_days,
+                summary.latest_request_date,
+                summary.source_refreshed_at,
+                daily.daily_activity,
+                case_types.top_case_types,
+                districts.district_activity,
+                jsonb_build_object(
+                    'retained_incidents', emergency.retained_incidents,
+                    'active_incidents', emergency.active_incidents,
+                    'active_fire_incidents', emergency.active_fire_incidents,
+                    'active_police_incidents', emergency.active_police_incidents,
+                    'latest_incident_at', emergency.latest_incident_at,
+                    'refreshed_at', emergency.refreshed_at,
+                    'incident_types', emergency_types.incident_types
+                ) AS houston_emergency_center
+            FROM summary
+            CROSS JOIN daily
+            CROSS JOIN case_types
+            CROSS JOIN districts
+            CROSS JOIN emergency
+            CROSS JOIN emergency_types
             """
         )
     )
-    daily_activity = [DailyActivity.model_validate(dict(row)) for row in daily_result.mappings()]
-
-    case_type_result = await session.execute(
-        text(
-            """
-            SELECT
-                coalesce(activity_type, 'Unclassified') AS label,
-                count(*)::integer AS request_count
-            FROM analytics_houston_signal.fact_houston_activity
-            WHERE source_name = 'houston_311'
-              AND activity_at >= (
-                  SELECT max(activity_at) - interval '29 days'
-                  FROM analytics_houston_signal.fact_houston_activity
-                  WHERE source_name = 'houston_311'
-              )
-            GROUP BY coalesce(activity_type, 'Unclassified')
-            ORDER BY request_count DESC, label
-            LIMIT 8
-            """
-        )
-    )
-    top_case_types = [ActivityBreakdown.model_validate(dict(row)) for row in case_type_result.mappings()]
-
-    district_result = await session.execute(
-        text(
-            """
-            SELECT
-                coalesce(council_district, 'Unknown') AS label,
-                count(*)::integer AS request_count
-            FROM analytics_houston_signal.fact_houston_activity
-            WHERE source_name = 'houston_311'
-              AND activity_at >= (
-                  SELECT max(activity_at) - interval '29 days'
-                  FROM analytics_houston_signal.fact_houston_activity
-                  WHERE source_name = 'houston_311'
-              )
-            GROUP BY coalesce(council_district, 'Unknown')
-            ORDER BY request_count DESC, label
-            """
-        )
-    )
-    district_activity = [ActivityBreakdown.model_validate(dict(row)) for row in district_result.mappings()]
-
-    emergency_center_result = await session.execute(
-        text(
-            """
-            SELECT
-                count(*)::integer AS retained_incidents,
-                count(*) FILTER (WHERE is_active)::integer AS active_incidents,
-                count(*) FILTER (
-                    WHERE is_active AND agency = 'F'
-                )::integer AS active_fire_incidents,
-                count(*) FILTER (
-                    WHERE is_active AND agency = 'P'
-                )::integer AS active_police_incidents,
-                max(activity_at) FILTER (WHERE is_active) AS latest_incident_at,
-                max(source_refreshed_at) AS refreshed_at
-            FROM analytics_houston_signal.fact_houston_activity
-            WHERE source_name = 'houston_emergency_center'
-            """
-        )
-    )
-    emergency_center = dict(emergency_center_result.mappings().one())
-    emergency_types_result = await session.execute(
-        text(
-            """
-            SELECT
-                activity_type AS label,
-                count(*)::integer AS request_count
-            FROM analytics_houston_signal.fact_houston_activity
-            WHERE source_name = 'houston_emergency_center'
-              AND is_active
-            GROUP BY activity_type
-            ORDER BY request_count DESC, activity_type
-            LIMIT 6
-            """
-        )
-    )
-    emergency_center.update(
-        incident_types=[ActivityBreakdown.model_validate(dict(row)) for row in emergency_types_result.mappings()],
-        coverage_warning=("Calls that open and close between source refreshes may not appear in the retained history."),
-    )
-
-    summary.update(
-        daily_activity=daily_activity,
-        top_case_types=top_case_types,
-        district_activity=district_activity,
-        houston_311_coverage_warning=(
+    row = dict(result.mappings().one())
+    return HoustonSignalOverview.model_validate({
+        **row,
+        "houston_311_coverage_warning": (
             "Houston publishes all open 311 cases and only closed cases from the "
             "last two weeks. Older creation dates therefore show unresolved cases, "
             "not complete historical request volume."
         ),
-        houston_emergency_center=HoustonEmergencyCenterOverview.model_validate(emergency_center),
-    )
-    return HoustonSignalOverview.model_validate(summary)
+        "houston_emergency_center": {
+            **row["houston_emergency_center"],
+            "coverage_warning": (
+                "Calls that open and close between source refreshes may not appear in the retained history."
+            ),
+        },
+    })
 
 
 async def get_houston_signal_platform_status(
@@ -200,64 +238,75 @@ async def get_houston_signal_platform_status(
     session: AsyncSession,
 ) -> HoustonSignalPlatformStatus:
     """Load source-run status directly from the orchestration audit table."""
-    history_result = await session.execute(
+    result = await session.execute(
         text(
             """
             SELECT
-                source_name,
-                status,
-                started_at,
-                completed_at,
-                extracted_rows,
-                inserted_rows,
-                updated_rows,
-                unchanged_rows,
-                deactivated_rows,
-                deleted_rows,
-                current_watermark
-            FROM orchestration.ingestion_run
-            ORDER BY completed_at DESC
-            LIMIT 8
+                (
+                    SELECT coalesce(
+                        jsonb_agg(to_jsonb(run_row) ORDER BY run_row.completed_at DESC),
+                        '[]'::jsonb
+                    )
+                    FROM (
+                        SELECT
+                            source_name,
+                            status,
+                            started_at,
+                            completed_at,
+                            extracted_rows,
+                            inserted_rows,
+                            updated_rows,
+                            unchanged_rows,
+                            deactivated_rows,
+                            deleted_rows,
+                            current_watermark
+                        FROM orchestration.ingestion_run
+                        ORDER BY completed_at DESC
+                        LIMIT 8
+                    ) run_row
+                ) AS run_history,
+                (
+                    SELECT coalesce(
+                        jsonb_agg(to_jsonb(source_row) ORDER BY source_row.source_name),
+                        '[]'::jsonb
+                    )
+                    FROM (
+                        SELECT DISTINCT ON (source_name)
+                            source_name,
+                            status,
+                            started_at,
+                            completed_at,
+                            extracted_rows,
+                            inserted_rows,
+                            updated_rows,
+                            unchanged_rows,
+                            deactivated_rows,
+                            deleted_rows,
+                            current_watermark
+                        FROM orchestration.ingestion_run
+                        ORDER BY source_name, completed_at DESC
+                    ) source_row
+                ) AS sources
             """
         )
     )
-    run_history = [IngestionRun.model_validate(dict(row)) for row in history_result.mappings()]
-
-    sources_result = await session.execute(
-        text(
-            """
-            SELECT DISTINCT ON (source_name)
-                source_name,
-                status,
-                started_at,
-                completed_at,
-                extracted_rows,
-                inserted_rows,
-                updated_rows,
-                unchanged_rows,
-                deactivated_rows,
-                deleted_rows,
-                current_watermark
-            FROM orchestration.ingestion_run
-            ORDER BY source_name, completed_at DESC
-            """
-        )
-    )
-    sources = [IngestionRun.model_validate(dict(row)) for row in sources_result.mappings()]
+    payload = dict(result.mappings().one())
+    sources = payload["sources"]
+    run_history = payload["run_history"]
     if not sources:
-        status = "not_run"
-    elif any(source.status == "failed" for source in sources):
-        status = "failed"
+        rollup = "not_run"
+    elif any(source["status"] == "failed" for source in sources):
+        rollup = "failed"
     elif len(sources) < EXPECTED_SOURCE_COUNT:
-        status = "partial"
+        rollup = "partial"
     else:
-        status = "succeeded"
-    return HoustonSignalPlatformStatus(
-        status=status,
-        latest_run=run_history[0] if run_history else None,
-        run_history=run_history,
-        sources=sources,
-    )
+        rollup = "succeeded"
+    return HoustonSignalPlatformStatus.model_validate({
+        "status": rollup,
+        "latest_run": run_history[0] if run_history else None,
+        "run_history": run_history,
+        "sources": sources,
+    })
 
 
 async def get_houston_signal_map_data(
