@@ -69,11 +69,15 @@ jobs:
               echo "The release commit has invalid version tag $tag" >&2
               exit 1
             fi
-            if [[ "$(gh release view "$tag" --json isDraft --jq .isDraft)" != "true" ]]; then
+            release_is_draft="$(
+              gh release view "$tag" --json isDraft --jq .isDraft 2>/dev/null || true
+            )"
+            if [[ "$release_is_draft" == "false" ]]; then
               echo "$tag is already published" >&2
               exit 1
+            elif [[ "$release_is_draft" == "true" ]]; then
+              echo "Reusing draft release $tag"
             fi
-            echo "Reusing draft release $tag"
           else
             latest_tag="$(
               git tag --list 'v[0-9]*.[0-9]*.[0-9]*' \
@@ -106,11 +110,19 @@ jobs:
                 ;;
             esac
             tag="v${major}.${minor}.${patch}"
+            gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" \
+              -f ref="refs/tags/$tag" \
+              -f sha="$GITHUB_SHA" \
+              > /dev/null
+            release_is_draft=""
+          fi
+
+          if [[ -z "$release_is_draft" ]]; then
             gh release create "$tag" \
               --draft \
               --fail-on-no-commits \
               --generate-notes \
-              --target "$GITHUB_SHA"
+              --verify-tag
           fi
 
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
