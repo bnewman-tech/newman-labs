@@ -52,8 +52,15 @@ Open a pull request into `main`. The PR Checker runs formatting, linting, type
 checking, dependency auditing, Alembic, dbt, tests, and migration reversibility
 against disposable PostgreSQL.
 
-Merging does not deploy. Publishing a non-prerelease GitHub release with a `v*`
-tag on `main` runs the production workflow in this order:
+Merging does not deploy or change the release version. From the GitHub Actions
+page, run `Release to Production` from `main` and choose a semantic version
+increment. Patch is the normal choice; minor and major releases reset the lower
+components. The workflow derives the next version from the latest `v*` tag, so
+Git tags are the only release-version source of truth. The non-package uv project
+keeps `0.0.0` as inert metadata; it is never a deployed version.
+
+The workflow creates a draft release for the exact `main` commit, then runs the
+production sequence:
 
 1. apply forward-only Alembic migrations;
 2. build and test dbt;
@@ -62,6 +69,13 @@ tag on `main` runs the production workflow in this order:
    queue, and schedules;
 4. deploy FastAPI Cloud;
 5. verify the public health, lab, data, and asset paths.
+
+Only a fully verified deployment publishes the draft and marks it as the latest
+GitHub release. A failed deployment leaves the release as a mutable draft. Rerun
+the failed jobs to reuse that tag and draft; starting a new release after a
+corrective merge advances to the next version. The workflow verifies the tag
+still identifies the deployed commit before publishing it. Published tags are
+never moved or reused.
 
 The protected GitHub `prod` environment contains only release control-plane
 credentials. FastAPI Cloud contains `ENVIRONMENT=prod` plus the Prefect bootstrap
