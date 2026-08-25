@@ -77,9 +77,9 @@ endblock %}
           are processed by Prefect Managed,
           DocFirewall, Docling, Neon, Pydantic AI Gateway, its model provider, and Pydantic Logfire. Local development
           runs that pipeline in this process. The document record
-          and private parser artifacts are scheduled for deletion after 30 days. The transient extraction handoff is
-          deleted after delivery and no invoice-analysis record is retained. Do not upload regulated or highly sensitive
-          information. <a href="{{ url_for('privacy') }}">Privacy notice</a>.</p>
+          and private parser artifacts are scheduled for deletion after 30 days. The retryable extraction handoff is
+          scheduled for deletion after one day, and no invoice-analysis record is retained. Do not upload regulated or
+          highly sensitive information. <a href="{{ url_for('privacy') }}">Privacy notice</a>.</p>
       </div>
     </form>
 

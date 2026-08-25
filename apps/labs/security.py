@@ -6,6 +6,7 @@ from collections.abc import Awaitable, Callable
 from uuid import UUID
 
 from fastapi import Request, Response, status
+from pydantic import SecretStr
 from starlette.datastructures import Headers
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
@@ -33,13 +34,13 @@ def create_passcode_token(*, passcode: str) -> str:
 
 def create_job_access_token(
     *,
-    invoice_access_token: str,
+    job_signing_key: SecretStr,
     document_id: UUID,
     flow_run_id: UUID,
 ) -> str:
     """Bind polling authority to one document and managed flow run."""
     return hmac.new(
-        invoice_access_token.encode(),
+        job_signing_key.get_secret_value().encode(),
         f"{document_id}:{flow_run_id}".encode(),
         hashlib.sha256,
     ).hexdigest()
@@ -63,7 +64,7 @@ def has_valid_job_access(
 ) -> bool:
     """Validate a polling capability before any Prefect API request."""
     expected = create_job_access_token(
-        invoice_access_token=request.app.state.invoice_parser_access_token,
+        job_signing_key=request.app.state.invoice_parser_job_signing_key,
         document_id=document_id,
         flow_run_id=flow_run_id,
     )
@@ -79,8 +80,8 @@ class RequestBodyLimitMiddleware:
         self.max_body_bytes = max_body_bytes
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
-        """Buffer a bounded body and replay it to the downstream application."""
-        if scope["type"] != "http":
+        """Buffer a bounded body only for methods that may consume one."""
+        if scope["type"] != "http" or scope["method"] in {"GET", "HEAD"}:
             await self.app(scope, receive, send)
             return
 
@@ -133,14 +134,12 @@ class RequestBodyLimitMiddleware:
         await send({"type": "http.response.body", "body": body})
 
 
-async def add_security_headers(
-    request: Request,
-    call_next: Callable[[Request], Awaitable[Response]],
-) -> Response:
-    """Apply browser security headers to every application response."""
-    response = await call_next(request)
+def apply_security_headers(*, request: Request, response: Response) -> Response:
+    """Apply the browser security policy to one response."""
     path = request.url.path.rstrip("/")
-    if path.startswith("/static/") and response.status_code in {
+    if path == "/invoice-parser/api" or path.startswith("/invoice-parser/api/"):
+        response.headers["Cache-Control"] = "no-store"
+    elif path.startswith("/static/") and response.status_code in {
         status.HTTP_200_OK,
         status.HTTP_304_NOT_MODIFIED,
     }:
@@ -165,3 +164,14 @@ async def add_security_headers(
     if settings.environment is EnvironmentMode.PROD:
         response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return response
+
+
+async def add_security_headers(
+    request: Request,
+    call_next: Callable[[Request], Awaitable[Response]],
+) -> Response:
+    """Apply browser security headers to every handled application response."""
+    return apply_security_headers(
+        request=request,
+        response=await call_next(request),
+    )

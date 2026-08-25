@@ -251,7 +251,8 @@ async def process_document(
                     )
                 else:
                     persisted = existing
-    except Exception:
+    except BaseException:
+        # Cancellation after storage must not bypass untracked-object cleanup.
         for stored_blob in reversed(stored_blobs):
             await delete_blob(bucket=stored_blob.bucket, key=stored_blob.key)
         raise

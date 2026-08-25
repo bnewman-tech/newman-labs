@@ -39,7 +39,10 @@ def test_rate_limit_policy_covers_the_application() -> None:
     )
     assert request_rate_limit_policy(method="GET", path="/houston-signal/data/map") is HOUSTON_MAP_RATE_LIMIT
     assert request_rate_limit_policy(method="GET", path="/health/live") is None
-    assert request_rate_limit_policy(method="GET", path="/static/css/site.css") is None
+    assert request_rate_limit_policy(method="HEAD", path="/health/live") is None
+    assert request_rate_limit_policy(method="POST", path="/health/live") is DEFAULT_RATE_LIMIT
+    assert request_rate_limit_policy(method="GET", path="/health/ready") is DEFAULT_RATE_LIMIT
+    assert request_rate_limit_policy(method="GET", path="/static/css/site.css") is DEFAULT_RATE_LIMIT
 
 
 def test_rate_limiter_is_per_client_and_resets_after_the_window(

@@ -18,6 +18,7 @@ from labs.invoice_parser import functions
 from labs.invoice_parser.functions import (
     extract_invoice_document,
     get_invoice_extraction_job,
+    read_managed_invoice_extraction_result,
     run_invoice_extraction,
     start_invoice_extraction,
 )
@@ -31,7 +32,7 @@ from labs.invoice_parser.schemas import (
     SupplierMatch,
 )
 from libs.core.dependencies import EnvironmentMode
-from libs.database.schemas import ProcessedDocument
+from libs.database.schemas import PersistedDocument, ProcessedDocument
 from libs.document_intelligence.schemas import DocumentUpload
 
 
@@ -426,6 +427,37 @@ async def test_start_invoice_extraction_preflights_stages_and_dispatches(
     )
 
 
+async def test_start_invoice_extraction_cleans_staging_when_dispatch_is_cancelled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Request cancellation cannot leave a private source waiting for retention cleanup."""
+    document_id = uuid4()
+    source = DocumentUpload(
+        document_id=document_id,
+        original_filename="newman-invoice.pdf",
+        media_type="application/pdf",
+        content=b"%PDF-1.7\n",
+    )
+    delete_blob = AsyncMock()
+    monkeypatch.setattr(functions.settings, "environment", EnvironmentMode.PROD)
+    monkeypatch.setattr(functions, "preflight_document", AsyncMock())
+    monkeypatch.setattr(functions, "create_blobs", AsyncMock())
+    monkeypatch.setattr(
+        functions,
+        "arun_deployment",
+        AsyncMock(side_effect=asyncio.CancelledError),
+    )
+    monkeypatch.setattr(functions, "delete_blob", delete_blob)
+
+    with pytest.raises(asyncio.CancelledError):
+        await start_invoice_extraction(source=source)
+
+    delete_blob.assert_awaited_once_with(
+        bucket=functions.DOCUMENT_STORAGE_BUCKET,
+        key=f"document-processing/{document_id}/source.pdf",
+    )
+
+
 async def test_start_invoice_extraction_runs_in_process_locally(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -484,50 +516,90 @@ async def test_start_invoice_extraction_runs_in_process_locally(
         await get_invoice_extraction_job(job=job)
 
 
-async def test_get_invoice_extraction_job_returns_and_deletes_transient_result(
+async def test_read_managed_invoice_extraction_result_refreshes_url_and_requires_active_document(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """A completed run delivers its typed result and removes the handoff object."""
-    document_id = uuid4()
-    flow_run_id = uuid4()
-    job = InvoiceExtractionJob(document_id=document_id, flow_run_id=flow_run_id)
-    state = Mock()
-    state.is_final.return_value = True
-    state.is_cancelled.return_value = False
-    state.is_completed.return_value = True
-    client = AsyncMock()
-    client.read_flow_run.return_value = SimpleNamespace(
-        state=state,
-        parameters={"document_id": str(document_id)},
-    )
-    client_context = MagicMock()
-    client_context.__aenter__ = AsyncMock(return_value=client)
-    client_context.__aexit__ = AsyncMock(return_value=None)
+    """A retained result stays retryable only while its persisted document is active."""
+    job_document_id = uuid4()
+    result_document_id = uuid4()
     expected = InvoiceExtraction(
-        document_id=document_id,
+        document_id=result_document_id,
         document_url="https://storage.example/newman.pdf?signature=temporary",
         document_markdown="# Invoice",
         invoice=parsed_invoice(),
         all_agent_messages=[],
     )
-    read_blob = AsyncMock(return_value=SimpleNamespace(content=expected.model_dump_json().encode()))
-    delete_blob = AsyncMock()
-    monkeypatch.setattr(functions.settings, "environment", EnvironmentMode.PROD)
-    monkeypatch.setattr(functions, "get_client", Mock(return_value=client_context))
+    stored_result = SimpleNamespace(content=expected.model_dump_json().encode())
+    read_blob = AsyncMock(return_value=stored_result)
+    persisted_document = PersistedDocument(
+        document_id=result_document_id,
+        parse_id=uuid4(),
+        chunk_count=0,
+        storage_bucket="newman-labs",
+        original_object_key=f"documents/{result_document_id}/original.pdf",
+        markdown_object_key=f"documents/{result_document_id}/parses/newman/document.md",
+        docling_document_object_key=f"documents/{result_document_id}/parses/newman/docling.json",
+    )
+    get_persisted_document = AsyncMock(side_effect=[persisted_document, persisted_document, None])
+    create_download_url = AsyncMock(
+        side_effect=[
+            "https://storage.example/newman.pdf?signature=fresh-1",
+            "https://storage.example/newman.pdf?signature=fresh-2",
+        ]
+    )
+    session = MagicMock()
+    session_context = MagicMock()
+    session_context.__aenter__ = AsyncMock(return_value=session)
+    session_context.__aexit__ = AsyncMock(return_value=None)
     monkeypatch.setattr(functions, "read_blob", read_blob)
-    monkeypatch.setattr(functions, "delete_blob", delete_blob)
+    monkeypatch.setattr(functions, "get_api_db_engine", Mock(return_value=MagicMock()))
+    monkeypatch.setattr(functions, "AsyncSession", Mock(return_value=session_context))
+    monkeypatch.setattr(functions, "get_persisted_document", get_persisted_document)
+    monkeypatch.setattr(functions, "create_download_url", create_download_url)
 
-    result = await get_invoice_extraction_job(job=job)
+    first = await read_managed_invoice_extraction_result(document_id=job_document_id)
+    second = await read_managed_invoice_extraction_result(document_id=job_document_id)
+    with pytest.raises(
+        functions.InvoiceExtractionJobFailedError,
+        match="document is unavailable",
+    ):
+        await read_managed_invoice_extraction_result(document_id=job_document_id)
+    assert first == expected.model_copy(update={"document_url": "https://storage.example/newman.pdf?signature=fresh-1"})
+    assert second == expected.model_copy(
+        update={"document_url": "https://storage.example/newman.pdf?signature=fresh-2"}
+    )
+    assert read_blob.await_count == 3
+    read_blob.assert_awaited_with(
+        bucket=functions.DOCUMENT_STORAGE_BUCKET,
+        key=f"document-processing/{job_document_id}/result.json",
+    )
+    assert get_persisted_document.await_count == 3
+    get_persisted_document.assert_awaited_with(
+        session=session,
+        document_id=result_document_id,
+    )
+    assert create_download_url.await_count == 2
+    create_download_url.assert_awaited_with(
+        bucket="newman-labs",
+        key=f"documents/{result_document_id}/original.pdf",
+    )
 
-    assert result == expected
-    read_blob.assert_awaited_once_with(
-        bucket=functions.DOCUMENT_STORAGE_BUCKET,
-        key=f"document-processing/{document_id}/result.json",
+
+async def test_read_managed_invoice_extraction_result_reports_missing_handoff(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A missing retained result becomes the managed job's safe failure."""
+    monkeypatch.setattr(
+        functions,
+        "read_blob",
+        AsyncMock(side_effect=RuntimeError("storage unavailable")),
     )
-    delete_blob.assert_awaited_once_with(
-        bucket=functions.DOCUMENT_STORAGE_BUCKET,
-        key=f"document-processing/{document_id}/result.json",
-    )
+
+    with pytest.raises(
+        functions.InvoiceExtractionJobFailedError,
+        match="result is unavailable",
+    ):
+        await read_managed_invoice_extraction_result(document_id=uuid4())
 
 
 async def test_get_invoice_extraction_job_rejects_a_mismatched_document(

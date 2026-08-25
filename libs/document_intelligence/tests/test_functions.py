@@ -1,5 +1,6 @@
 """Integration tests for the complete document-processing workflow."""
 
+import asyncio
 import hashlib
 import json
 from contextlib import nullcontext
@@ -386,6 +387,70 @@ async def test_process_document_deletes_blob_when_persistence_fails(
             source=document_scenario.source,
             index_for_search=True,
         )
+
+    assert [call.kwargs["key"] for call in delete_blob.await_args_list] == [
+        document_scenario.stored.docling_document.key,
+        document_scenario.stored.markdown.key,
+        document_scenario.stored.original.key,
+    ]
+
+
+@pytest.mark.integration
+async def test_process_document_deletes_blobs_when_persistence_is_cancelled(
+    monkeypatch: pytest.MonkeyPatch,
+    document_scenario: DocumentScenario,
+) -> None:
+    """Cancellation after storage cannot bypass private-object cleanup."""
+    persistence_started = asyncio.Event()
+
+    async def persist_until_cancelled(**_kwargs: object) -> None:
+        persistence_started.set()
+        await asyncio.Future()
+
+    monkeypatch.setattr(
+        functions,
+        "approve_document",
+        AsyncMock(return_value=document_scenario.approved),
+    )
+    monkeypatch.setattr(
+        functions,
+        "convert_document",
+        AsyncMock(return_value=document_scenario.converted),
+    )
+    monkeypatch.setattr(
+        functions,
+        "embed_document_chunks",
+        AsyncMock(return_value=[document_scenario.embedded]),
+    )
+    monkeypatch.setattr(
+        functions,
+        "create_blobs",
+        AsyncMock(
+            return_value=[
+                document_scenario.stored.original,
+                document_scenario.stored.markdown,
+                document_scenario.stored.docling_document,
+            ]
+        ),
+    )
+    monkeypatch.setattr(
+        functions,
+        "persist_document",
+        AsyncMock(side_effect=persist_until_cancelled),
+    )
+    delete_blob = AsyncMock()
+    monkeypatch.setattr(functions, "delete_blob", delete_blob)
+
+    task = asyncio.create_task(
+        process_document(
+            source=document_scenario.source,
+            index_for_search=True,
+        )
+    )
+    await asyncio.wait_for(persistence_started.wait(), timeout=1)
+    task.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await task
 
     assert [call.kwargs["key"] for call in delete_blob.await_args_list] == [
         document_scenario.stored.docling_document.key,

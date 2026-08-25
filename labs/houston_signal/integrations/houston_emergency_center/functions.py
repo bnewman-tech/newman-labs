@@ -2,7 +2,7 @@
 
 import logging
 import ssl
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 import httpx
 import polars as pl
@@ -41,6 +41,7 @@ SOURCE_FIELDS = (
     "CombinedResponse",
 )
 MAX_RESPONSE_BYTES = 8 * 1024 * 1024
+SOURCE_TIMESTAMP_MAX_FUTURE_SKEW = timedelta(minutes=5)
 
 
 def parse_houston_emergency_center_active_incidents(
@@ -151,6 +152,14 @@ def prepare_houston_emergency_center_snapshot(
     """Create one load row for every active incident in the observation."""
     if not records:
         raise ValueError("Houston Emergency Center returned no active incidents")
+    future_incident = next(
+        (incident for incident in records if incident.opened_at > observed_at + SOURCE_TIMESTAMP_MAX_FUTURE_SKEW),
+        None,
+    )
+    if future_incident is not None:
+        raise ValueError(
+            f"Houston Emergency Center incident {future_incident.source_incident_id} has a future CALL_TIME"
+        )
     return pl.DataFrame([
         {
             **record.model_dump(),

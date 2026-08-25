@@ -15,6 +15,7 @@ from pydantic_ai import Agent, AgentRunResult, ModelRetry, RunContext, UsageLimi
 from pydantic_ai.capabilities import Thinking
 from pydantic_ai.models import Model
 from pydantic_ai.settings import ModelSettings
+from sqlalchemy.ext.asyncio import AsyncSession
 
 sys.path.append(str(Path.cwd()))
 
@@ -33,6 +34,8 @@ from libs.blob_storage.functions import (
 )
 from libs.blob_storage.schemas import BlobUpload
 from libs.core.dependencies import EnvironmentMode, settings
+from libs.database.crud.documents import get_persisted_document
+from libs.database.functions import get_api_db_engine
 from libs.document_intelligence.functions import DOCUMENT_STORAGE_BUCKET, process_document
 from libs.document_intelligence.schemas import DocumentUpload
 from libs.document_intelligence.security import preflight_document
@@ -207,6 +210,30 @@ def invoice_extraction_result_key(*, document_id: UUID) -> str:
     return f"{DOCUMENT_STAGING_PREFIX}/{document_id}/result.json"
 
 
+async def read_managed_invoice_extraction_result(*, document_id: UUID) -> InvoiceExtraction:
+    """Return a retained managed result with a fresh private document URL."""
+    try:
+        stored_result = await read_blob(
+            bucket=DOCUMENT_STORAGE_BUCKET,
+            key=invoice_extraction_result_key(document_id=document_id),
+        )
+    except Exception as exc:
+        raise InvoiceExtractionJobFailedError("Managed invoice extraction result is unavailable") from exc
+    result = InvoiceExtraction.model_validate_json(stored_result.content)
+    async with AsyncSession(get_api_db_engine(), expire_on_commit=False) as session:
+        persisted_document = await get_persisted_document(
+            session=session,
+            document_id=result.document_id,
+        )
+    if persisted_document is None:
+        raise InvoiceExtractionJobFailedError("Managed invoice extraction document is unavailable")
+    document_url = await create_download_url(
+        bucket=persisted_document.storage_bucket,
+        key=persisted_document.original_object_key,
+    )
+    return result.model_copy(update={"document_url": document_url})
+
+
 async def start_invoice_extraction(
     *,
     source: DocumentUpload,
@@ -253,7 +280,7 @@ async def start_invoice_extraction(
             as_subflow=False,
             idempotency_key=str(source.document_id),
         )
-    except Exception:
+    except BaseException:
         await delete_blob(
             bucket=DOCUMENT_STORAGE_BUCKET,
             key=source_key,
@@ -295,14 +322,4 @@ async def get_invoice_extraction_job(
     if not flow_run.state.is_completed():
         raise InvoiceExtractionJobFailedError("Managed invoice extraction failed")
 
-    result_key = invoice_extraction_result_key(document_id=job.document_id)
-    stored_result = await read_blob(
-        bucket=DOCUMENT_STORAGE_BUCKET,
-        key=result_key,
-    )
-    result = InvoiceExtraction.model_validate_json(stored_result.content)
-    await delete_blob(
-        bucket=DOCUMENT_STORAGE_BUCKET,
-        key=result_key,
-    )
-    return result
+    return await read_managed_invoice_extraction_result(document_id=job.document_id)

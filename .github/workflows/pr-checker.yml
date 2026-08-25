@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 20
     services:
       postgres:
-        image: pgvector/pgvector:0.8.5-pg17-bookworm@sha256:d2ef61f42ef767baa5a1475393303cc235bcd92febd9d7014eddb48b41f3bad0
+        image: pgvector/pgvector:0.8.6-pg18-bookworm@sha256:2ba9ca5f2e7daa0f0e7723cba1ee9167bab54efd3640516a44ac1a928dd67e7a
         env:
           POSTGRES_DB: newman_labs_test
           POSTGRES_PASSWORD: postgres
@@ -41,24 +41,24 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python and uv
-        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           python-version: "3.13"
           enable-cache: true
           version: "0.12.5"
 
-      - name: Audit GitHub Actions
-        run: uvx zizmor@1.29.0 --strict-collection --min-severity=low --format=github .
-        env:
-          GH_TOKEN: ${{ github.token }}
-
       - name: Install locked dependencies
         run: uv sync --locked --all-groups
+
+      - name: Audit GitHub Actions
+        run: uv run --no-sync zizmor --strict-collection --min-severity=low --format=github .
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Check Python formatting
         run: uv run --no-sync ruff format --check .

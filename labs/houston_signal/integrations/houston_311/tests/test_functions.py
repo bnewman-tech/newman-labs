@@ -220,3 +220,12 @@ def test_prepare_snapshot_retains_all_observed_cases() -> None:
         old.case_number,
         recent.case_number,
     }
+
+
+def test_prepare_snapshot_rejects_future_created_dates() -> None:
+    """A malformed source timestamp cannot poison durable watermarks."""
+    observed_at = datetime(2026, 7, 21, tzinfo=UTC)
+    record = fixture_records()[0].model_copy(update={"created_at": observed_at + timedelta(minutes=6)})
+
+    with pytest.raises(ValueError, match="future CreatedDate"):
+        prepare_houston_311_snapshot(records=[record], observed_at=observed_at)

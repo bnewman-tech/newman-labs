@@ -1,7 +1,7 @@
 """Application security policy tests."""
 
 from collections.abc import AsyncIterator
-from unittest.mock import AsyncMock, Mock
+from unittest.mock import AsyncMock, Mock, call
 
 import httpx
 import pytest
@@ -10,8 +10,9 @@ from fastapi.responses import JSONResponse
 from pydantic import SecretStr
 
 from apps.labs import main
+from apps.labs.errors import unexpected_error
 from apps.labs.main import app, lifespan
-from apps.labs.security import RequestBodyLimitMiddleware, create_passcode_token
+from apps.labs.security import RequestBodyLimitMiddleware, add_security_headers, create_passcode_token
 from apps.labs.templating import ASSET_VERSION
 from libs.core.dependencies import EnvironmentMode, settings
 from libs.database.functions import DatabaseRole
@@ -81,6 +82,36 @@ async def test_application_sets_browser_security_headers() -> None:
     assert "strict-transport-security" not in response.headers
 
 
+async def test_invoice_api_responses_are_not_cached() -> None:
+    """Sensitive invoice API responses cannot be retained by browsers or intermediaries."""
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.get("/invoice-parser/api/not-found")
+
+    assert response.status_code == 404
+    assert response.headers["cache-control"] == "no-store"
+
+
+async def test_unhandled_invoice_api_errors_are_not_cached() -> None:
+    """The outer server-error boundary preserves invoice response hardening."""
+    failing_app = FastAPI()
+    failing_app.middleware("http")(add_security_headers)
+    failing_app.add_exception_handler(Exception, unexpected_error)
+
+    @failing_app.get("/invoice-parser/api/failure")
+    async def fail() -> None:
+        raise RuntimeError("newman test failure")
+
+    transport = httpx.ASGITransport(app=failing_app, raise_app_exceptions=False)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.get("/invoice-parser/api/failure")
+
+    assert response.status_code == 500
+    assert response.json() == {"detail": "Internal server error"}
+    assert response.headers["cache-control"] == "no-store"
+    assert response.headers["x-content-type-options"] == "nosniff"
+
+
 async def test_public_demo_pdfs_allow_same_origin_viewer() -> None:
     """Committed demo PDFs can render in the Lab's native browser frame."""
     transport = httpx.ASGITransport(app=app)
@@ -118,7 +149,11 @@ async def test_development_startup_loads_and_releases_the_managed_database(
     shutdown_security = Mock()
     instrument_database = Mock()
     instrument_web = Mock()
-    load_secret = AsyncMock(return_value=SecretStr("newman-test-passcode"))
+    managed_secrets = {
+        main.PrefectSecret.INVOICE_PARSER_PASSCODE: SecretStr("newman-test-passcode"),
+        main.PrefectSecret.INVOICE_PARSER_JOB_SIGNING_KEY: SecretStr("newman-test-job-signing-key"),
+    }
+    load_secret = AsyncMock(side_effect=lambda *, name: managed_secrets[name])
 
     monkeypatch.setattr(settings, "environment", EnvironmentMode.DEV)
     monkeypatch.setattr(main, "configure_logfire", configure_logfire)
@@ -148,8 +183,12 @@ async def test_development_startup_loads_and_releases_the_managed_database(
     )
     dispose_pool.assert_awaited_once_with()
     shutdown_security.assert_called_once_with()
-    load_secret.assert_awaited_once_with(name=main.PrefectSecret.INVOICE_PARSER_PASSCODE)
+    load_secret.assert_has_awaits([
+        call(name=main.PrefectSecret.INVOICE_PARSER_PASSCODE),
+        call(name=main.PrefectSecret.INVOICE_PARSER_JOB_SIGNING_KEY),
+    ])
     assert app.state.invoice_parser_access_token == create_passcode_token(passcode="newman-test-passcode")
+    assert app.state.invoice_parser_job_signing_key.get_secret_value() == "newman-test-job-signing-key"
 
 
 async def test_production_startup_initializes_the_managed_runtime(
@@ -163,7 +202,11 @@ async def test_production_startup_initializes_the_managed_runtime(
     create_pool = Mock(return_value=api_engine)
     instrument_database = Mock()
     instrument_web = Mock()
-    load_secret = AsyncMock(return_value=SecretStr("newman-test-passcode"))
+    managed_secrets = {
+        main.PrefectSecret.INVOICE_PARSER_PASSCODE: SecretStr("newman-test-passcode"),
+        main.PrefectSecret.INVOICE_PARSER_JOB_SIGNING_KEY: SecretStr("newman-test-job-signing-key"),
+    }
+    load_secret = AsyncMock(side_effect=lambda *, name: managed_secrets[name])
 
     monkeypatch.setattr(settings, "environment", EnvironmentMode.PROD)
     monkeypatch.setattr(main, "configure_logfire", configure_logfire)
@@ -189,8 +232,12 @@ async def test_production_startup_initializes_the_managed_runtime(
         capture_headers=False,
         excluded_urls="/health/live",
     )
-    load_secret.assert_awaited_once_with(name=main.PrefectSecret.INVOICE_PARSER_PASSCODE)
+    load_secret.assert_has_awaits([
+        call(name=main.PrefectSecret.INVOICE_PARSER_PASSCODE),
+        call(name=main.PrefectSecret.INVOICE_PARSER_JOB_SIGNING_KEY),
+    ])
     assert app.state.invoice_parser_access_token == create_passcode_token(passcode="newman-test-passcode")
+    assert app.state.invoice_parser_job_signing_key.get_secret_value() == "newman-test-job-signing-key"
 
 
 async def test_request_body_limit_rejects_declared_oversize_before_routing() -> None:
@@ -205,6 +252,23 @@ async def test_request_body_limit_rejects_declared_oversize_before_routing() -> 
 
     assert response.status_code == 413
     assert response.json() == {"detail": "The request body is too large."}
+
+
+async def test_request_body_limit_does_not_buffer_bodyless_methods() -> None:
+    """GET and HEAD routes do not allocate attacker-supplied request bodies."""
+    downstream = FastAPI()
+
+    @downstream.get("/")
+    async def bodyless_route() -> dict[str, str]:
+        return {"status": "ok"}
+
+    limited_application = RequestBodyLimitMiddleware(downstream, max_body_bytes=1)
+    transport = httpx.ASGITransport(app=limited_application)
+    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.request("GET", "/", content=b"newman")
+
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
 
 
 async def test_request_body_limit_rejects_oversize_chunked_content() -> None:

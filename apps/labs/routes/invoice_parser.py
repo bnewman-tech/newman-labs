@@ -112,7 +112,7 @@ async def extract_invoice(
             document_id=job.document_id,
             flow_run_id=job.flow_run_id,
             access_token=create_job_access_token(
-                invoice_access_token=request.app.state.invoice_parser_access_token,
+                job_signing_key=request.app.state.invoice_parser_job_signing_key,
                 document_id=job.document_id,
                 flow_run_id=job.flow_run_id,
             ),
