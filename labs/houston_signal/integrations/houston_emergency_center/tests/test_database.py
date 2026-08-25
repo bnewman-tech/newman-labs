@@ -100,9 +100,20 @@ async def test_load_reconciles_deactivation_and_reactivation() -> None:
                 observed_at=started_at + timedelta(minutes=1),
             ),
         )
-        third = await load(
+        first_missing = await load(
             incidents[:1],
             observed_at=started_at + timedelta(minutes=2),
+        )
+
+        async with get_database_connection() as connection:
+            still_active = await connection.fetchrow(
+                "SELECT is_active, ended_at FROM raw.houston_emergency_center_incident WHERE incident_id = $1",
+                incidents[1].incident_id,
+            )
+
+        second_missing = await load(
+            incidents[:1],
+            observed_at=started_at + timedelta(minutes=3),
         )
 
         async with get_database_connection() as connection:
@@ -111,9 +122,9 @@ async def test_load_reconciles_deactivation_and_reactivation() -> None:
                 incidents[1].incident_id,
             )
 
-        fourth = await load(
+        reactivated_result = await load(
             incidents,
-            observed_at=started_at + timedelta(minutes=3),
+            observed_at=started_at + timedelta(minutes=4),
         )
 
         async with get_database_connection() as connection:
@@ -123,13 +134,16 @@ async def test_load_reconciles_deactivation_and_reactivation() -> None:
             )
 
         assert sorted((result.inserted_rows, result.unchanged_rows) for result in initial_results) == [(0, 2), (2, 0)]
-        assert (third.unchanged_rows, third.deactivated_rows) == (1, 1)
+        assert (first_missing.unchanged_rows, first_missing.deactivated_rows) == (1, 0)
+        assert still_active is not None
+        assert (still_active["is_active"], still_active["ended_at"]) == (True, None)
+        assert (second_missing.unchanged_rows, second_missing.deactivated_rows) == (1, 1)
         assert deactivated is not None
         assert (deactivated["is_active"], deactivated["ended_at"] is not None) == (
             False,
             True,
         )
-        assert (fourth.unchanged_rows, fourth.updated_rows) == (1, 1)
+        assert (reactivated_result.unchanged_rows, reactivated_result.updated_rows) == (1, 1)
         assert reactivated is not None
         assert (reactivated["is_active"], reactivated["ended_at"]) == (True, None)
     finally:
@@ -161,13 +175,23 @@ async def test_retention_deletes_only_inactive_incidents_older_than_365_days() -
             warnings=[],
             retention_days=365,
         )
-        following = await load_houston_emergency_center_active_incidents(
+        first_missing = await load_houston_emergency_center_active_incidents(
             dataframe=prepare_houston_emergency_center_snapshot(
                 records=[current_incident],
                 observed_at=observed_at + timedelta(minutes=1),
             ),
             started_at=observed_at + timedelta(minutes=1),
             observed_at=observed_at + timedelta(minutes=1),
+            warnings=[],
+            retention_days=365,
+        )
+        confirmed_missing = await load_houston_emergency_center_active_incidents(
+            dataframe=prepare_houston_emergency_center_snapshot(
+                records=[current_incident],
+                observed_at=observed_at + timedelta(minutes=2),
+            ),
+            started_at=observed_at + timedelta(minutes=2),
+            observed_at=observed_at + timedelta(minutes=2),
             warnings=[],
             retention_days=365,
         )
@@ -179,7 +203,8 @@ async def test_retention_deletes_only_inactive_incidents_older_than_365_days() -
             )
 
         assert initial.deleted_rows == 0
-        assert (following.deactivated_rows, following.deleted_rows) == (1, 1)
+        assert (first_missing.deactivated_rows, first_missing.deleted_rows) == (0, 0)
+        assert (confirmed_missing.deactivated_rows, confirmed_missing.deleted_rows) == (1, 1)
         assert old_row == 0
     finally:
         await delete_fixture_rows(incident_ids=incident_ids)

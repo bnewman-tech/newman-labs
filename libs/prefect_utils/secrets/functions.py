@@ -15,6 +15,7 @@ class PrefectSecret(StrEnum):
     DATABASE_PROD_OWNER_URL = "neon-database-prod-direct-url"
     DATABASE_PROD_WEB_URL = "neon-database-prod-web-url"
     INVOICE_PARSER_PASSCODE = "newman-labs-invoice-parser-passcode"
+    INVOICE_PARSER_JOB_SIGNING_KEY = "newman-labs-invoice-parser-job-signing-key"
     LOGFIRE_TOKEN = "newman-labs-logfire-token"  # ruff: ignore[hardcoded-password-string] - Block name.
     OLLAMA_API_KEY = "ollama-api-key"
     PYDANTIC_AI_GATEWAY_API_KEY = "pydantic-ai-gateway-api-key"

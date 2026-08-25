@@ -91,7 +91,7 @@ class InMemoryRateLimiter:
 
 def request_rate_limit_policy(*, method: str, path: str) -> RateLimitPolicy | None:
     """Return the policy for one normalized application path."""
-    if path == "/health" or path.startswith(("/health/", "/static/")):
+    if method in {"GET", "HEAD"} and path == "/health/live":
         return None
     if method == "POST" and path == "/invoice-parser/api/extractions":
         return INVOICE_SUBMISSION_RATE_LIMIT

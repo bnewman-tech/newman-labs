@@ -201,6 +201,8 @@ async def load_houston_emergency_center_active_incidents(
                         ended_at = $1,
                         ingested_at = $1
                     WHERE target.is_active
+                      -- One reduced snapshot cannot deactivate the omitted active set.
+                      AND target.last_seen_at < $2
                       AND NOT EXISTS (
                           SELECT 1
                           FROM pg_temp.houston_emergency_center_incident_stage
@@ -212,6 +214,7 @@ async def load_houston_emergency_center_active_incidents(
                 SELECT count(*) FROM deactivated
                 """,
                 observed_at,
+                latest_observed_at,
             )
         else:
             deactivated_rows = 0

@@ -14,9 +14,8 @@ The MVP deliberately stops there. It does not classify documents, query a
 production ERP,
 persist invoice analyses, retain browser history, save human reviews, or create
 embeddings. The document record and its private objects follow the shared 30-day
-retention policy. The structured invoice uses a private transient handoff object
-that is deleted when the browser retrieves it; no invoice-analysis record is
-retained.
+retention policy. The structured invoice uses a private retryable handoff object
+that is scheduled for deletion after one day; no invoice-analysis record is retained.
 
 ## Data
 

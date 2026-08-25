@@ -21,7 +21,7 @@ definitions:
     name: "{{ prefect.variables.serverless_work_pool_name }}"
     work_queue_name: default
     job_variables:
-      image: prefecthq/prefect-client:3-python3.13
+      image: prefecthq/prefect-client:3-python3.13@sha256:7798526b8ba2b492dd7b5a1753e0fa2913e71277d4e9df888618c8e75237cca9
 
 deployments:
   - name: invoice-extraction-prod

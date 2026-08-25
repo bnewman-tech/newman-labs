@@ -8,11 +8,12 @@ from contextlib import asynccontextmanager
 import logfire
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from pydantic import SecretStr
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
-from apps.labs.errors import database_unavailable
+from apps.labs.errors import database_unavailable, unexpected_error
 from apps.labs.rate_limiting import InMemoryRateLimiter, RateLimitMiddleware
 from apps.labs.routes import (
     health,
@@ -59,8 +60,9 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         capture_headers=False,
         excluded_urls="/health/live",
     )
-    access_passcode = await get_secret(name=PrefectSecret.INVOICE_PARSER_PASSCODE)
-    _app.state.invoice_parser_access_token = create_passcode_token(passcode=access_passcode.get_secret_value())
+    invoice_passcode = await get_secret(name=PrefectSecret.INVOICE_PARSER_PASSCODE)
+    _app.state.invoice_parser_access_token = create_passcode_token(passcode=invoice_passcode.get_secret_value())
+    _app.state.invoice_parser_job_signing_key = await get_secret(name=PrefectSecret.INVOICE_PARSER_JOB_SIGNING_KEY)
     try:
         yield
     finally:
@@ -72,6 +74,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(title="Newman Labs", lifespan=lifespan)
 app.state.invoice_parser_access_token = secrets.token_hex(32)
+app.state.invoice_parser_job_signing_key = SecretStr(secrets.token_hex(32))
 app.state.rate_limiter = InMemoryRateLimiter()
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=ALLOWED_HOSTS)
 app.add_middleware(GZipMiddleware, minimum_size=1_000, compresslevel=6)
@@ -81,6 +84,7 @@ app.add_middleware(RequestBodyLimitMiddleware, max_body_bytes=MAX_REQUEST_BODY_B
 app.add_middleware(RateLimitMiddleware)
 app.middleware("http")(add_security_headers)
 app.add_exception_handler(SQLAlchemyError, database_unavailable)
+app.add_exception_handler(Exception, unexpected_error)
 app.mount(
     "/static",
     StaticFiles(directory=STATIC_DIRECTORY),

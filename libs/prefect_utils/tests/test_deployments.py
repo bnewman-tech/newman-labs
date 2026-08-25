@@ -37,8 +37,8 @@ deployments:
     work_pool:
       work_queue_name: default
       job_variables:
-        image: prefecthq/prefect-client:3-python3.13
-"""
+        image: MANAGED_IMAGE
+""".replace("MANAGED_IMAGE", functions.PREFECT_MANAGED_IMAGE)
         )
 
     current_id = UUID("00000000-0000-0000-0000-000000000001")
@@ -140,8 +140,8 @@ deployments:
     work_pool:
       work_queue_name: default
       job_variables:
-        image: prefecthq/prefect-client:3-python3.13
-"""
+        image: MANAGED_IMAGE
+""".replace("MANAGED_IMAGE", functions.PREFECT_MANAGED_IMAGE)
         )
 
     deployment_id = UUID("00000000-0000-0000-0000-000000000031")
@@ -155,7 +155,7 @@ deployments:
         tags=["newman-labs", "prod"],
         parameters={"environment": "prod"},
         work_queue_name="default",
-        job_variables={"image": "prefecthq/prefect-client:3-python3.13"},
+        job_variables={"image": functions.PREFECT_MANAGED_IMAGE},
         concurrency_limit=None,
         global_concurrency_limit=None,
         concurrency_options=None,

@@ -1,6 +1,6 @@
 """Houston Emergency Center extraction and transformation tests."""
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 import httpx
 import pytest
@@ -178,3 +178,16 @@ def test_prepare_houston_emergency_center_snapshot_scopes_identity_by_agency() -
         "F:29603408:2026-07-21T15:21:00+00:00",
         "P:29603408:2026-07-21T15:21:00+00:00",
     }
+
+
+def test_prepare_houston_emergency_center_snapshot_rejects_future_call_times() -> None:
+    """A malformed CALL_TIME cannot poison lifecycle reconciliation."""
+    observed_at = datetime(2026, 7, 21, 16, 0, tzinfo=UTC)
+    incident = parse_houston_emergency_center_active_incidents(source_payload())[0]
+    incident = incident.model_copy(update={"opened_at": observed_at + timedelta(minutes=6)})
+
+    with pytest.raises(ValueError, match="future CALL_TIME"):
+        prepare_houston_emergency_center_snapshot(
+            records=[incident],
+            observed_at=observed_at,
+        )

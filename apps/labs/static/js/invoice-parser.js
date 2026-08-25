@@ -100,12 +100,23 @@
     return fallback;
   }
 
+  function approvedPdfUrl(value) {
+    const url = new URL(value, window.location.origin);
+    const sameOriginHttp = url.origin === window.location.origin && url.protocol === "http:";
+    if (url.protocol !== "https:" && url.protocol !== "blob:" && !sameOriginHttp) {
+      throw new Error("The PDF URL is not allowed.");
+    }
+    return url.href;
+  }
+
   function setPdfSource(url, filename, openUrl = url, ownsUrl = false) {
-    if (ownedPdfUrl && ownedPdfUrl !== url) URL.revokeObjectURL(ownedPdfUrl);
-    ownedPdfUrl = ownsUrl ? url : null;
-    sourceLink.href = openUrl;
+    const pdfUrl = approvedPdfUrl(url);
+    const sourceUrl = approvedPdfUrl(openUrl);
+    if (ownedPdfUrl && ownedPdfUrl !== pdfUrl) URL.revokeObjectURL(ownedPdfUrl);
+    ownedPdfUrl = ownsUrl ? pdfUrl : null;
+    sourceLink.href = sourceUrl;
     setText("[data-invoice-source-name]", filename);
-    pdfFrame.src = url;
+    pdfFrame.src = pdfUrl;
     pdfFrame.hidden = false;
     previewPlaceholder.hidden = true;
   }

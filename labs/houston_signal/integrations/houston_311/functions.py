@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 import ssl
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 import httpx
@@ -33,6 +34,7 @@ PAGE_SIZE = 2_000
 OBJECT_ID_OVERLAP = 2_000
 MAX_RECORDS = 50_000
 MAX_RESPONSE_BYTES = 64 * 1024 * 1024
+SOURCE_TIMESTAMP_MAX_FUTURE_SKEW = timedelta(minutes=5)
 
 
 async def get_houston_311_records(
@@ -117,6 +119,12 @@ def prepare_houston_311_snapshot(
     """Create one latest observed row for every case returned by the source."""
     if not records:
         raise ValueError("Houston 311 returned no service requests")
+    future_record = next(
+        (record for record in records if record.created_at > observed_at + SOURCE_TIMESTAMP_MAX_FUTURE_SKEW),
+        None,
+    )
+    if future_record is not None:
+        raise ValueError(f"Houston 311 case {future_record.case_number} has a future CreatedDate")
 
     return (
         pl

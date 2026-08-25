@@ -7,6 +7,7 @@ from uuid import UUID
 
 import httpx
 import pytest
+from pydantic import SecretStr
 
 from apps.labs.main import app
 from apps.labs.rate_limiting import INVOICE_SUBMISSION_RATE_LIMIT
@@ -38,15 +39,32 @@ def configure_invoice_extraction_access(monkeypatch: pytest.MonkeyPatch) -> None
         "invoice_parser_access_token",
         create_passcode_token(passcode="newman-test-passcode"),
     )
+    monkeypatch.setattr(
+        app.state,
+        "invoice_parser_job_signing_key",
+        SecretStr("newman-test-job-signing-key"),
+    )
 
 
 def job_access_token() -> str:
     """Return the valid polling capability for the fixed test job."""
     return create_job_access_token(
-        invoice_access_token=app.state.invoice_parser_access_token,
+        job_signing_key=app.state.invoice_parser_job_signing_key,
         document_id=DOCUMENT_ID,
         flow_run_id=FLOW_RUN_ID,
     )
+
+
+def test_shared_passcode_cannot_mint_job_capabilities() -> None:
+    """Polling authority depends on server-only entropy, not the upload passcode."""
+    legitimate = job_access_token()
+    passcode_derived = create_job_access_token(
+        job_signing_key=SecretStr(create_passcode_token(passcode="newman-test-passcode")),
+        document_id=DOCUMENT_ID,
+        flow_run_id=FLOW_RUN_ID,
+    )
+
+    assert passcode_derived != legitimate
 
 
 def extraction() -> InvoiceExtraction:
@@ -112,7 +130,7 @@ async def test_invoice_parser_page_renders_the_small_extraction_workflow() -> No
     assert "all_agent_messages: payload.all_agent_messages" in script.text
     assert "Save one approved document" in response.text
     assert 'accept="application/pdf,.pdf"' in response.text
-    assert "The transient extraction handoff is deleted after delivery" in " ".join(response.text.split())
+    assert "The retryable extraction handoff is scheduled for deletion after one day" in " ".join(response.text.split())
     assert "Extraction starts automatically when you choose or drop a PDF" in response.text
     assert "data-invoice-submit" not in response.text
     assert "Prefect Managed" in response.text
@@ -267,6 +285,7 @@ async def test_extract_invoice_route_dispatches_a_managed_job(
         )
 
     assert response.status_code == 202
+    assert response.headers["cache-control"] == "no-store"
     assert response.json()["document_id"] == str(DOCUMENT_ID)
     assert response.json()["flow_run_id"] == str(FLOW_RUN_ID)
     assert len(response.json()["access_token"]) == 64

@@ -93,7 +93,8 @@ async def create_blobs(*, blobs: Sequence[BlobUpload]) -> list[StoredBlob]:
                         etag=response.get("ETag"),
                     )
                 )
-        except Exception:
+        except BaseException:
+            # Cancellation must roll back completed private writes before it propagates.
             for stored_blob in reversed(stored_blobs):
                 await client.delete_object(
                     Bucket=stored_blob.bucket,

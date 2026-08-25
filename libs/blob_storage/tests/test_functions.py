@@ -1,5 +1,6 @@
 """Tests for S3-compatible blob CRUD operations."""
 
+import asyncio
 import hashlib
 from datetime import UTC, datetime, timedelta
 from unittest.mock import AsyncMock, MagicMock, call, patch
@@ -126,6 +127,51 @@ async def test_create_blobs_removes_partial_writes() -> None:
                 ),
             ]
         )
+
+    client.delete_object.assert_awaited_once_with(
+        Bucket="newman-labs",
+        Key="documents/newman/original.pdf",
+    )
+
+
+async def test_create_blobs_removes_partial_writes_when_cancelled() -> None:
+    """Cancellation cannot leave a partially written private object batch."""
+    second_write_started = asyncio.Event()
+
+    async def put_object(**kwargs: object) -> dict[str, str]:
+        if kwargs["Key"] == "documents/newman/original.pdf":
+            return {"ETag": '"newman-original-etag"'}
+        second_write_started.set()
+        await asyncio.Future()
+        raise AssertionError("unreachable")
+
+    client = AsyncMock()
+    client.put_object.side_effect = put_object
+    session = client_session(client)
+
+    with patch("libs.blob_storage.functions.get_session", return_value=session):
+        task = asyncio.create_task(
+            create_blobs(
+                blobs=[
+                    BlobUpload(
+                        bucket="newman-labs",
+                        key="documents/newman/original.pdf",
+                        content=b"%PDF-1.7",
+                        content_type="application/pdf",
+                    ),
+                    BlobUpload(
+                        bucket="newman-labs",
+                        key="documents/newman/document.md",
+                        content=b"# Invoice",
+                        content_type="text/markdown",
+                    ),
+                ]
+            )
+        )
+        await asyncio.wait_for(second_write_started.wait(), timeout=1)
+        task.cancel()
+        with pytest.raises(asyncio.CancelledError):
+            await task
 
     client.delete_object.assert_awaited_once_with(
         Bucket="newman-labs",

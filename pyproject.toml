@@ -39,11 +39,13 @@ dev = [
     "pip-audit>=2.10,<3",
     "pytest>=8.4",
     "pytest-asyncio>=1.1",
-    "reportlab>=4.4,<5",
+    "reportlab>=5,<6",
     "respx>=0.22",
     "ruff>=0.12",
-    "ty>=0.0.70",
+    # 0.0.74's strict unsound-assignment rule rejects SQLAlchemy's typed descriptors.
+    "ty==0.0.73",
     "types-aiobotocore-s3>=3.9,<4",
+    "zizmor==1.29.0",
 ]
 analytics-release = [
     "dbt-postgres>=1.10,<2",
@@ -59,9 +61,6 @@ package = false
 # Keep this string form compatible with FastAPI Cloud's uv builder.
 override-dependencies = [
     "opencv-python ; sys_platform == 'never'",
-    # dbt-core 1.12.2 still caps sqlparse below its security-fixed release.
-    # Newman Labs verifies dbt parsing and all analytics models against 0.6.0.
-    "sqlparse==0.6.0",
 ]
 
 # Docling runs on CPU in managed environments.
