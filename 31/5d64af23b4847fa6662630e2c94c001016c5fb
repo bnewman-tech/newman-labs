@@ -1,0 +1,158 @@
+docs/operations/deployment.md
+  s_a0ae92dff71160::t_575947c6e48cc8 82-85
+libs/blob_storage/tests/test_functions.py
+  s_a0ae92dff71160::t_3890bed390d384 139-147,149,152-154,171-174
+  s_a0ae92dff71160::t_b09cac42f9bae6 155-169
+  s_a0ae92dff71160::t_8ce3587e186265 3,137-138,148,150-151
+  s_a0ae92dff71160::t_9c7b458bd90f9e 170,175-181
+labs/invoice_parser/functions.py
+  s_a0ae92dff71160::t_f516a9ac6d6c0c 18,37-38,283
+  s_a0ae92dff71160::t_9fde69ce412c3e 213-214,219,235-236,325
+  s_a0ae92dff71160::t_04c872c5d45047 222-234
+  s_a0ae92dff71160::t_ee1fde381dc487 215-218,220-221
+labs/houston_signal/integrations/houston_311/functions.py
+  s_a0ae92dff71160::t_17d67e86d1c6c4 123,127
+  s_a0ae92dff71160::t_1c652263350e80 7,37,122,124-126
+libs/prefect_utils/secrets/functions.py
+  s_a0ae92dff71160::t_1c652263350e80 18
+pyproject.toml
+  s_a0ae92dff71160::t_0d36f1e144749d 45-46
+  s_a0ae92dff71160::t_8ebbddcf37fbc2 42
+  s_a0ae92dff71160::t_1c652263350e80 48
+apps/labs/main.py
+  s_a0ae92dff71160::t_fe0ba18ac86855 16,87
+  s_a0ae92dff71160::t_c888ff769e02dc 65
+  s_a0ae92dff71160::t_575947c6e48cc8 63-64
+  s_a0ae92dff71160::t_1c652263350e80 11,77
+.github/workflows/pr-checker.yml
+  s_a0ae92dff71160::t_8ebbddcf37fbc2 44,49
+  s_a0ae92dff71160::t_1c652263350e80 55-57,59
+  s_a0ae92dff71160::t_f516a9ac6d6c0c 21
+libs/document_intelligence/tests/test_functions.py
+  s_a0ae92dff71160::t_3890bed390d384 404-409,439,444-453
+  s_a0ae92dff71160::t_8ce3587e186265 3,398-403,410-438,440-443
+  s_c3d294eed2d585::t_caeedbe886863e 454-461
+apps/labs/tests/test_rate_limiting.py
+  s_a0ae92dff71160::t_8ce3587e186265 42-45
+libs/prefect_utils/tests/test_deployments.py
+  s_a0ae92dff71160::t_bc66bb7334f58b 40,143,158
+  s_a0ae92dff71160::t_17d67e86d1c6c4 41,144
+labs/invoice_parser/README.md
+  s_a0ae92dff71160::t_ee1fde381dc487 18
+  s_a0ae92dff71160::t_fe0ba18ac86855 17
+apps/labs/templates/labs/invoice_parser.html
+  s_a0ae92dff71160::t_021ed9c9996477 81-82
+  s_a0ae92dff71160::t_fe0ba18ac86855 80,311
+apps/labs/security.py
+  s_a0ae92dff71160::t_575947c6e48cc8 83
+  s_a0ae92dff71160::t_519db8a3afee45 84
+  s_a0ae92dff71160::t_1c652263350e80 9,37,43,67
+  s_a0ae92dff71160::t_f516a9ac6d6c0c 140-142
+  s_a0ae92dff71160::t_fe0ba18ac86855 137-138,167-177
+apps/labs/tests/test_invoice_parser.py
+  s_a0ae92dff71160::t_ee1fde381dc487 133
+  s_a0ae92dff71160::t_f516a9ac6d6c0c 288
+  s_a0ae92dff71160::t_8ce3587e186265 10,42-46,52,58-67
+  s_72028331d5d6b8::t_8235cc0ca14f0a 68-69
+docs/operations/development.md
+  s_a0ae92dff71160::t_bc66bb7334f58b 30
+  s_a0ae92dff71160::t_1c652263350e80 31-32
+.github/workflows/release-to-production.yml
+  s_a0ae92dff71160::t_8ebbddcf37fbc2 35,141,153
+apps/labs/routes/invoice_parser.py
+  s_a0ae92dff71160::t_1c652263350e80 115
+labs/houston_signal/integrations/houston_emergency_center/scripts/ingest.py
+  s_a0ae92dff71160::t_1c652263350e80 205,217
+  s_a0ae92dff71160::t_0e4f76f337f6d3 204
+libs/prefect_utils/tests/test_configuration.py
+  s_a0ae92dff71160::t_bc66bb7334f58b 3,8-9,26-30
+labs/houston_signal/integrations/houston_311/tests/test_functions.py
+  s_a0ae92dff71160::t_8ce3587e186265 223-227,229-231
+  s_a0ae92dff71160::t_17d67e86d1c6c4 228
+apps/labs/static/js/invoice-parser.js
+  s_a0ae92dff71160::t_fe0ba18ac86855 103-111,113-117,119
+apps/labs/rate_limiting.py
+  s_a0ae92dff71160::t_1c652263350e80 94
+apps/labs/tests/test_security.py
+  s_a0ae92dff71160::t_17d67e86d1c6c4 186-189,235-238
+  s_a0ae92dff71160::t_f516a9ac6d6c0c 85-92,113-114
+  s_a0ae92dff71160::t_8ce3587e186265 4,152-156,191,205-209,240,257-271
+  s_a0ae92dff71160::t_fe0ba18ac86855 13,15,93-112
+  s_ab5779f6ee2dcd::t_6340c17f681161 272-273
+labs/houston_signal/integrations/houston_emergency_center/tests/test_functions.py
+  s_a0ae92dff71160::t_8ce3587e186265 3,181-186,188-193
+  s_a0ae92dff71160::t_17d67e86d1c6c4 187
+labs/houston_signal/integrations/houston_emergency_center/functions.py
+  s_a0ae92dff71160::t_17d67e86d1c6c4 156,161
+  s_a0ae92dff71160::t_1c652263350e80 5,44,155,157-160,162
+libs/document_intelligence/functions.py
+  s_a0ae92dff71160::t_0e4f76f337f6d3 255
+  s_a0ae92dff71160::t_1c652263350e80 254
+prefect.yaml
+  s_a0ae92dff71160::t_1c652263350e80 24
+libs/prefect_utils/deployments/functions.py
+  s_a0ae92dff71160::t_17d67e86d1c6c4 22
+  s_a0ae92dff71160::t_1c652263350e80 21,23
+labs/houston_signal/integrations/houston_emergency_center/tests/test_database.py
+  s_a0ae92dff71160::t_bc66bb7334f58b 103,108-118,125,127,137-140,146,178,188-197,206-207
+labs/invoice_parser/tests/test_functions.py
+  s_a0ae92dff71160::t_e9d68f694e4171 519,522,533,571,585-602
+  s_a0ae92dff71160::t_9455ec6dcb8614 21,560-561
+  s_a0ae92dff71160::t_f516a9ac6d6c0c 35,430-460,534,536-538,542,544-553,555-558,568-569,572,575,577-578,581-583
+  s_a0ae92dff71160::t_6e69dae1cb41fa 532,565-566
+  s_a0ae92dff71160::t_6026b1f5d934ef 523-524,526,535,539-541,543,562-564,574,576,579,584
+  s_a0ae92dff71160::t_9dfb548803a2b3 567
+apps/labs/errors.py
+  s_a0ae92dff71160::t_fe0ba18ac86855 6,25-29,31-42
+  s_a0ae92dff71160::t_d00b308df460d2 3,30
+libs/blob_storage/functions.py
+  s_a0ae92dff71160::t_0e4f76f337f6d3 97
+  s_a0ae92dff71160::t_1c652263350e80 96
+uv.lock
+  s_a0ae92dff71160::t_79f02856316ffd 12,570,578,580,652,681,683,1044,1049,1051,1149,1151,1153,1230,1237,1794,1796,1798,2105,2144,2147,2149,2599,2601,2603,2617,2622,2624,2629,2631,2633-2640,2930,2942,2944,3000,3008,3010,3398,3404,3406,3670,3675,3677-3686,3735,3741,3743,4597-4614
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "315d64af23b4847fa6662630e2c94c001016c5fb",
+  "prompts": {},
+  "humans": {
+    "h_d74bc51d909986": {
+      "author": "Brian Newman <newman_tech@outlook.com>"
+    }
+  },
+  "sessions": {
+    "s_72028331d5d6b8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0208b-f257-71a0-a5b4-58a8b6bf0362",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_a0ae92dff71160": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a035a5-93bb-7603-b3ba-d6f739c32d08",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_ab5779f6ee2dcd": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a03693-f58e-7313-a33f-197bb9c149c4",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    },
+    "s_c3d294eed2d585": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a035b8-3255-75b0-9ee2-cce9b3d6506c",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
