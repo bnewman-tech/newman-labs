@@ -8,8 +8,8 @@ Department, the Houston Police Department, or OpenStreetMap.
 
 Houston Signal derives analytical records from two public City sources:
 
-- [Houston 311 Recent Service Requests](https://mycity2.houstontx.gov/pubgis01/rest/services/311/Houston311_RecentServiceRequests/FeatureServer)
-- [Houston Emergency Center Active Incidents](https://mycity2.houstontx.gov/pubgis01/rest/services/HEC/HEC_Active_Incidents/MapServer/0), including Fire and Police agency records
+- [Houston 311 Recent Service Requests](https://mycity2.houstontx.gov/gisweb01/rest/services/311/HOUSTON311_RECENT_SR_SNOW/FeatureServer)
+- [Houston Emergency Center Active Incidents](https://mycity2.houstontx.gov/gisweb01/rest/services/HEC/HEC_Active_Incidents/MapServer/0), including Fire and Police agency records
 
 The City Open Data Portal's [Terms of Use](https://data.houstontx.gov/pages/terms-of-use)
 require City of Houston attribution, a data-quality disclaimer, reasonable automated

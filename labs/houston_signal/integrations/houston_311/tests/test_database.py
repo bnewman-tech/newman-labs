@@ -12,7 +12,6 @@ from labs.houston_signal.integrations.houston_311.functions import (
 )
 from labs.houston_signal.integrations.houston_311.schemas import Houston311Record
 from labs.houston_signal.integrations.houston_311.scripts.ingest import (
-    get_houston_311_source_object_id_watermark,
     load_houston_311_snapshot,
 )
 from labs.houston_signal.integrations.houston_311.tests.fixtures import (
@@ -22,14 +21,6 @@ from libs.database.functions import get_database_connection
 from libs.database.schemas import SourceIngestionResult
 
 FIXTURE_CASE_NUMBERS = ("2600000101", "2600000102")
-
-
-@pytest.mark.integration
-async def test_source_object_id_watermark_has_one_numeric_type() -> None:
-    """The cursor and raw-table fallback can be queried on a clean database."""
-    watermark = await get_houston_311_source_object_id_watermark()
-
-    assert watermark is None or isinstance(watermark, int)
 
 
 async def delete_fixture_rows() -> None:
@@ -63,7 +54,13 @@ async def test_load_is_idempotent_and_counts_material_updates() -> None:
 
     await delete_fixture_rows()
     try:
-        first = await load(records)
+        legacy_values = {
+            "case_number_365": "newman-legacy-case",
+            "service_area": "newman-area",
+            "key_map": "newman-map",
+            "state_code_name": "newman-state",
+        }
+        first = await load([records[0].model_copy(update=legacy_values), records[1]])
         second = await load(records)
         changed_records = [
             records[0].model_copy(update={"status": "Service Completed"}),
@@ -100,6 +97,15 @@ async def test_load_is_idempotent_and_counts_material_updates() -> None:
             run_count = await connection.fetchval(
                 "SELECT count(*) FROM orchestration.ingestion_run WHERE source_name = 'houston_311'",
             )
+            retained_legacy = await connection.fetchrow(
+                """
+                SELECT case_number_365, service_area, key_map, state_code_name
+                FROM raw.houston_311_request WHERE case_number = $1
+                """,
+                records[0].case_number,
+            )
+        assert retained_legacy is not None
+        assert dict(retained_legacy) == legacy_values
         assert row_count == 2
         assert run_count == 3
     finally:

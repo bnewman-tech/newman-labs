@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: fact_houston_activity
-    description: One observed Houston 311 request or Houston Emergency Center incident.
+    description: One request in the latest complete Houston 311 snapshot or one retained Houston Emergency Center incident.
     columns:
       - name: activity_id
         description: Source-qualified activity identity.

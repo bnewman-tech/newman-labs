@@ -29,26 +29,16 @@ if TYPE_CHECKING:
 logger = get_logger(__name__)
 
 SOURCE_NAME = "houston_311"
-SOURCE_URL = "https://mycity2.houstontx.gov/pubgis01/rest/services/311/Houston311_RecentServiceRequests/FeatureServer/3"
+SOURCE_URL = "https://mycity2.houstontx.gov/gisweb01/rest/services/311/HOUSTON311_RECENT_SR_SNOW/FeatureServer/0"
 PAGE_SIZE = 2_000
-OBJECT_ID_OVERLAP = 2_000
-MAX_RECORDS = 50_000
+MAX_RECORDS = 100_000
 MAX_RESPONSE_BYTES = 64 * 1024 * 1024
 SOURCE_TIMESTAMP_MAX_FUTURE_SKEW = timedelta(minutes=5)
 
 
-async def get_houston_311_records(
-    *,
-    source_object_id_watermark: int | None = None,
-) -> list[Houston311Record] | None:
-    """Fetch a bootstrap snapshot or an overlapping incremental ObjectID window."""
-    where_clauses = ["1=1"]
-    if source_object_id_watermark is not None:
-        where_clauses = [
-            f"ObjectID > {max(source_object_id_watermark - OBJECT_ID_OVERLAP, 0)}",
-            "1=1",
-        ]
-
+async def get_houston_311_records() -> list[Houston311Record] | None:
+    """Fetch the complete published snapshot, including updates to older cases."""
+    # The city rebuilds OBJECTIDs; they are pagination keys, not durable cursors.
     try:
         async for attempt in AsyncRetrying(
             stop=stop_after_attempt(5),
@@ -60,46 +50,44 @@ async def get_houston_311_records(
             with attempt:
                 async with httpx.AsyncClient(timeout=60) as client:
                     records: list[Houston311Record] = []
-                    for where in where_clauses:
-                        records = []
-                        offset = 0
-                        downloaded_bytes = 0
-                        while True:
-                            async with client.stream(
-                                "GET",
-                                f"{SOURCE_URL}/query",
-                                params={
-                                    "where": where,
-                                    "outFields": "*",
-                                    "orderByFields": "ObjectID ASC",
-                                    "resultOffset": offset,
-                                    "resultRecordCount": PAGE_SIZE,
-                                    "returnGeometry": False,
-                                    "f": "json",
-                                },
-                            ) as response:
-                                response.raise_for_status()
-                                payload, page_bytes = await read_bounded_json_response(
-                                    response=response,
-                                    max_bytes=MAX_RESPONSE_BYTES - downloaded_bytes,
-                                )
-                            downloaded_bytes += page_bytes
-                            if not isinstance(payload, dict):
-                                raise TypeError("ArcGIS returned a non-object query response")
-                            if "error" in payload:
-                                raise RuntimeError(f"ArcGIS returned an error: {payload['error']!r}")
-                            page = Houston311ArcGISQueryResponse.model_validate(payload)
-                            if len(records) + len(page.features) > MAX_RECORDS:
-                                raise ValueError("ArcGIS response exceeds the configured record limit")
-                            records.extend(feature.attributes for feature in page.features)
-                            if not page.exceeded_transfer_limit:
-                                break
-                            if not page.features:
-                                raise RuntimeError("ArcGIS pagination stopped making progress")
-                            offset += len(page.features)
-
-                        if records:
+                    offset = 0
+                    downloaded_bytes = 0
+                    while True:
+                        async with client.stream(
+                            "GET",
+                            f"{SOURCE_URL}/query",
+                            params={
+                                "where": "1=1",
+                                "outFields": ",".join(
+                                    field.alias for field in Houston311Record.model_fields.values() if field.alias
+                                ),
+                                "orderByFields": "OBJECTID ASC",
+                                "resultOffset": offset,
+                                "resultRecordCount": PAGE_SIZE,
+                                "returnGeometry": False,
+                                "f": "json",
+                            },
+                        ) as response:
+                            response.raise_for_status()
+                            payload, page_bytes = await read_bounded_json_response(
+                                response=response,
+                                max_bytes=MAX_RESPONSE_BYTES - downloaded_bytes,
+                            )
+                        downloaded_bytes += page_bytes
+                        if not isinstance(payload, dict):
+                            raise TypeError("ArcGIS returned a non-object query response")
+                        if "error" in payload:
+                            raise RuntimeError(f"ArcGIS returned an error: {payload['error']!r}")
+                        page = Houston311ArcGISQueryResponse.model_validate(payload)
+                        if len(records) + len(page.features) > MAX_RECORDS:
+                            raise ValueError("ArcGIS response exceeds the configured record limit")
+                        records.extend(feature.attributes for feature in page.features)
+                        if not page.exceeded_transfer_limit:
                             break
+                        if not page.features:
+                            raise RuntimeError("ArcGIS pagination stopped making progress")
+                        offset += len(page.features)
+
                     return records
     except httpx.HTTPStatusError as exception:
         logger.exception(
@@ -124,7 +112,7 @@ def prepare_houston_311_snapshot(
         None,
     )
     if future_record is not None:
-        raise ValueError(f"Houston 311 case {future_record.case_number} has a future CreatedDate")
+        raise ValueError(f"Houston 311 case {future_record.case_number} has a future CREATED_ON")
 
     return (
         pl

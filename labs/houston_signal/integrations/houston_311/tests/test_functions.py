@@ -8,7 +8,6 @@ import respx
 
 from labs.houston_signal.integrations.houston_311 import functions
 from labs.houston_signal.integrations.houston_311.functions import (
-    OBJECT_ID_OVERLAP,
     get_houston_311_records,
     prepare_houston_311_snapshot,
 )
@@ -88,75 +87,27 @@ async def test_get_records_retries_a_transient_http_failure(
 
 
 @respx.mock
-async def test_get_records_resumes_from_overlapping_object_id(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    """Incremental pulls overlap the durable ObjectID watermark."""
-    source_url = "https://example.com/houston-311/3"
-    monkeypatch.setattr(functions, "SOURCE_URL", source_url)
-    record = fixture_records()[0]
-    query_route = respx.get(f"{source_url}/query").mock(
+async def test_daily_snapshot_refreshes_changed_cases_after_object_ids_reset() -> None:
+    """Rebuilt IDs must not skip changed old cases or new high-ID cases."""
+    old_case, new_case = fixture_records()
+    changed_case = old_case.model_copy(update={"source_object_id": 1, "status": "Closed"})
+    new_case = new_case.model_copy(update={"source_object_id": 52_387})
+    route = respx.get(f"{functions.SOURCE_URL}/query").mock(
         return_value=httpx.Response(
             200,
             json={
                 "features": [
-                    {
-                        "attributes": record.model_dump(
-                            mode="json",
-                            by_alias=True,
-                        )
-                    }
-                ],
-                "exceededTransferLimit": False,
+                    {"attributes": record.model_dump(mode="json", by_alias=True)} for record in (changed_case, new_case)
+                ]
             },
-        )
+        ),
     )
 
-    result = await get_houston_311_records(source_object_id_watermark=OBJECT_ID_OVERLAP + 90)
-
-    assert result is not None
-    assert query_route.calls[0].request.url.params["where"] == "ObjectID > 90"
-    assert result == [record]
-
-
-@respx.mock
-async def test_get_records_reloads_when_incremental_window_is_empty(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    """A reset source ObjectID sequence falls back to the complete source view."""
-    source_url = "https://example.com/houston-311/3"
-    monkeypatch.setattr(functions, "SOURCE_URL", source_url)
-    record = fixture_records()[0]
-    query_route = respx.get(f"{source_url}/query").mock(
-        side_effect=[
-            httpx.Response(
-                200,
-                json={"features": [], "exceededTransferLimit": False},
-            ),
-            httpx.Response(
-                200,
-                json={
-                    "features": [
-                        {
-                            "attributes": record.model_dump(
-                                mode="json",
-                                by_alias=True,
-                            )
-                        }
-                    ],
-                    "exceededTransferLimit": False,
-                },
-            ),
-        ]
-    )
-
-    result = await get_houston_311_records(source_object_id_watermark=OBJECT_ID_OVERLAP + 90)
-
-    assert result == [record]
-    assert [call.request.url.params["where"] for call in query_route.calls] == [
-        "ObjectID > 90",
-        "1=1",
-    ]
+    assert await get_houston_311_records() == [changed_case, new_case]
+    assert route.calls[0].request.url.params["where"] == "1=1"
+    assert route.calls[0].request.url.params["orderByFields"] == "OBJECTID ASC"
+    assert "CREATED_ON" in route.calls[0].request.url.params["outFields"]
+    assert "CaseNumber365" not in route.calls[0].request.url.params["outFields"]
 
 
 @respx.mock
@@ -227,5 +178,5 @@ def test_prepare_snapshot_rejects_future_created_dates() -> None:
     observed_at = datetime(2026, 7, 21, tzinfo=UTC)
     record = fixture_records()[0].model_copy(update={"created_at": observed_at + timedelta(minutes=6)})
 
-    with pytest.raises(ValueError, match="future CreatedDate"):
+    with pytest.raises(ValueError, match="future CREATED_ON"):
         prepare_houston_311_snapshot(records=[record], observed_at=observed_at)

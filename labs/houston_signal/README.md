@@ -28,8 +28,13 @@ schedules, retries, and runtime logs.
 ## Source limits
 
 Houston 311 publishes open requests and only a recent window of closed requests.
-Bootstrap retains everything the source currently exposes; incremental runs preserve
-new and changed cases after that baseline. Older creation-date counts are therefore
+The ServiceNow feed on the city’s `gisweb01` server is read in full each day.
+Its OBJECTIDs are rebuilt and cannot serve as durable cursors. Full snapshots
+refresh changed older cases while preserving previously observed records in raw
+storage. The dashboard and map use only the latest complete 311 snapshot, so
+requests absent from the current feed are not reported as still open. Legacy
+columns absent from ServiceNow are retained on existing rows and left null on
+new rows. Older creation-date counts are therefore
 not a complete historical ledger.
 
 The Houston Emergency Center source is an active Fire and Police snapshot, not a

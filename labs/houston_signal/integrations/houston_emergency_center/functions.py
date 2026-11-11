@@ -24,7 +24,7 @@ from libs.core.logger import get_logger
 logger = get_logger(__name__)
 
 SOURCE_NAME = "houston_emergency_center"
-SOURCE_URL = "https://mycity2.houstontx.gov/pubgis01/rest/services/HEC/HEC_Active_Incidents/MapServer/0"
+SOURCE_URL = "https://mycity2.houstontx.gov/gisweb01/rest/services/HEC/HEC_Active_Incidents/MapServer/0"
 SOURCE_FIELDS = (
     "UID",
     "Agency",

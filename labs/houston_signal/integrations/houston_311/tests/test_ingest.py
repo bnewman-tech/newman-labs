@@ -37,11 +37,6 @@ async def test_ingest_wrapper_loads_validated_source_records(
         )
     )
     monkeypatch.setattr(ingest, "get_houston_311_records", get_records)
-    monkeypatch.setattr(
-        ingest,
-        "get_houston_311_source_object_id_watermark",
-        AsyncMock(return_value=None),
-    )
     monkeypatch.setattr(ingest, "load_houston_311_snapshot", load_snapshot)
     monkeypatch.setattr(
         ingest,
@@ -51,11 +46,11 @@ async def test_ingest_wrapper_loads_validated_source_records(
 
     result = await ingest.run_houston_311_pipeline.fn(environment=EnvironmentMode.DEV)
 
-    get_records.assert_awaited_once_with(source_object_id_watermark=None)
+    get_records.assert_awaited_once_with()
     load_snapshot.assert_awaited_once()
     load_call = load_snapshot.await_args
     assert load_call is not None
-    assert load_call.kwargs["source_object_id_watermark"] == max(record.source_object_id for record in records)
+    assert load_call.kwargs["dataframe"].height == len(records)
     assert result.inserted_rows == 2
 
 
@@ -69,11 +64,6 @@ async def test_ingest_wrapper_audits_extraction_failure(
         ingest,
         "get_managed_database_url",
         AsyncMock(return_value=database_url),
-    )
-    monkeypatch.setattr(
-        ingest,
-        "get_houston_311_source_object_id_watermark",
-        AsyncMock(return_value=None),
     )
     monkeypatch.setattr(
         ingest,
