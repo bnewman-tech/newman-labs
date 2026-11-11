@@ -30,6 +30,9 @@ with service_requests as (
         last_seen_at,
         ingested_at as source_refreshed_at
     from {{ ref('stg_houston_311__request') }}
+    where last_seen_at = (
+        select max(last_seen_at) from {{ ref('stg_houston_311__request') }}
+    )
 ),
 
 emergency_incidents as (

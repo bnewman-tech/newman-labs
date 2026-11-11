@@ -1,6 +1,6 @@
 """Houston Signal service integration tests."""
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 import pytest
@@ -120,6 +120,31 @@ async def test_services_read_two_ingests_through_one_dbt_fact() -> None:
         assert platform.status == "succeeded"
         assert map_data.matching_request_count == 2
         assert map_data.open_request_count == 1
+
+        refreshed_at = observed_at + timedelta(minutes=1)
+        refreshed = await load_houston_311_snapshot(
+            dataframe=prepare_houston_311_snapshot(records=[records[1]], observed_at=refreshed_at),
+            started_at=refreshed_at,
+            extracted_rows=1,
+            warnings=[],
+        )
+        run_ids.append(refreshed.run_id)
+        session_generator = get_api_session()
+        session = await anext(session_generator)
+        try:
+            overview = await get_houston_signal_overview(session=session)
+            map_data = await get_houston_signal_map_data(session=session, days=365)
+        finally:
+            await session_generator.aclose()
+        assert overview.current_cases == 1
+        assert map_data.matching_request_count == 1
+        assert map_data.open_request_count == 0
+        async with get_database_connection() as connection:
+            retained = await connection.fetchval(
+                "SELECT count(*) FROM raw.houston_311_request WHERE case_number = ANY($1::text[])",
+                CASE_NUMBERS,
+            )
+        assert retained == 2
     finally:
         await delete_fixture_rows(
             incident_id=incident.incident_id,
