@@ -1,0 +1,48 @@
+labs/houston_signal/README.md
+  s_741873827a61aa::t_f059f00751b256 31-32
+  s_741873827a61aa::t_9019d6e06562ea 33-37
+labs/houston_signal/integrations/houston_311/functions.py
+  s_741873827a61aa::t_f059f00751b256 32,34,39-41,53-85,87-90,115
+labs/houston_signal/integrations/houston_311/schemas.py
+  s_741873827a61aa::t_f059f00751b256 13,15-36,39,41
+  s_741873827a61aa::t_66da3ccd6e6238 44,47
+labs/houston_signal/integrations/houston_311/tests/test_ingest.py
+  s_741873827a61aa::t_b150fbaa423717 49,53
+labs/houston_signal/integrations/houston_emergency_center/functions.py
+  s_741873827a61aa::t_f059f00751b256 27
+labs/houston_signal/integrations/houston_311/scripts/ingest.py
+  s_741873827a61aa::t_f059f00751b256 191,213
+  s_741873827a61aa::t_a9115afb243e44 125,129-138
+apps/labs/templates/labs/houston_signal.html
+  s_741873827a61aa::t_f059f00751b256 512,515
+labs/houston_signal/integrations/houston_311/tests/fixtures/houston_311_page.json
+  s_741873827a61aa::t_f059f00751b256 5-24,29-48
+docs/legal/houston-signal-data-attribution.md
+  s_741873827a61aa::t_f059f00751b256 11-12
+analytics/models/marts/houston_signal/fact_houston_activity.sql
+  s_741873827a61aa::t_f1d402c98b49f6 33-35
+analytics/models/marts/houston_signal/fact_houston_activity.yml
+  s_741873827a61aa::t_b7c48fe08cf851 5
+labs/houston_signal/integrations/houston_311/tests/test_database.py
+  s_741873827a61aa::t_2ab42209012157 57-63,100-108
+labs/houston_signal/integrations/houston_311/tests/test_functions.py
+  s_741873827a61aa::t_b58e6286e006d4 90-95,100-101,103,106-110,181
+labs/houston_signal/tests/test_services.py
+  s_741873827a61aa::t_1959d4b061eeb1 3,123-147
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0fa0929db2097010b43079dc2eaf115d8c68d6a7",
+  "prompts": {},
+  "sessions": {
+    "s_741873827a61aa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a7ae-2f02-7832-9e13-aeea237bf172",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
