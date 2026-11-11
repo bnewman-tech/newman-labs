@@ -1,0 +1,25 @@
+docs/operations/deployment.md
+  s_741873827a61aa::t_cee38369b5d95d 79-83
+libs/prefect_utils/deployments/functions.py
+  s_741873827a61aa::t_9c7d8e106cb1bf 21-23
+libs/prefect_utils/tests/test_configuration.py
+  s_741873827a61aa::t_b6e4541e98ac28 26
+prefect.yaml
+  s_741873827a61aa::t_2350862035d73b 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f83616ede52aa05e042b51e69eb23f3ba71ec101",
+  "prompts": {},
+  "sessions": {
+    "s_741873827a61aa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a7ae-2f02-7832-9e13-aeea237bf172",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Brian Newman <60909819+bnewman-tech@users.noreply.github.com>"
+    }
+  }
+}
