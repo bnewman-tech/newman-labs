@@ -76,6 +76,11 @@ corrective merge advances to the next version. The workflow verifies the tag
 still identifies the deployed commit before publishing it. Published tags are
 never moved or reused.
 
+Prefect Managed accepts the official `prefecthq/prefect-client:3-python3.13`
+tag, but rejects digest-qualified image references before a run starts. The
+provider owns the base image; the release commit and locked Python dependencies
+remain pinned through the managed pull steps.
+
 The protected GitHub `prod` environment contains only release control-plane
 credentials. FastAPI Cloud contains `ENVIRONMENT=prod` plus the Prefect bootstrap
 URL and key. Application credentials remain in named Prefect Secret blocks.
