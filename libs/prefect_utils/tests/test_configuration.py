@@ -1,6 +1,5 @@
 """Managed Prefect configuration tests."""
 
-import re
 from pathlib import Path
 
 import yaml
@@ -24,10 +23,7 @@ def test_prod_runtime_uses_versioned_managed_artifacts() -> None:
     deployments = configuration["deployments"]
     images = {deployment["work_pool"]["job_variables"]["image"] for deployment in deployments}
     assert images == {PREFECT_MANAGED_IMAGE}
-    assert re.fullmatch(
-        r"prefecthq/prefect-client:3-python3\.13@sha256:[0-9a-f]{64}",
-        PREFECT_MANAGED_IMAGE,
-    )
+    assert PREFECT_MANAGED_IMAGE == "prefecthq/prefect-client:3-python3.13"
     assert {deployment["version"] for deployment in deployments} == {"{{ $GITHUB_SHA }}"}
     invoice_deployments = [deployment for deployment in deployments if deployment["name"].startswith("invoice-")]
     assert [deployment["name"] for deployment in invoice_deployments] == ["invoice-extraction-prod"]

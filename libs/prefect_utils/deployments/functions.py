@@ -18,9 +18,9 @@ from libs.prefect_utils.deployments.schemas import (
 NEWMAN_LABS_DEPLOYMENT_TAG = "newman-labs"
 PREFECT_CONFIGURATION_PATH = Path("prefect.yaml")
 PREFECT_RELEASE_VERSION = "{{ $GITHUB_SHA }}"
-PREFECT_MANAGED_IMAGE = (
-    "prefecthq/prefect-client:3-python3.13@sha256:7798526b8ba2b492dd7b5a1753e0fa2913e71277d4e9df888618c8e75237cca9"
-)
+# Prefect Managed accepts official tags only, including no digest-qualified variant.
+# Code is pinned by commit SHA and Python packages are installed from uv.lock.
+PREFECT_MANAGED_IMAGE = "prefecthq/prefect-client:3-python3.13"
 
 
 async def load_prefect_configuration(
